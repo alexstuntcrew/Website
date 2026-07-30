@@ -2634,7 +2634,7 @@
 
       </div>
 
-    <//section>
+    </section>
 
     <!-- ====================================
          TIMELINE
@@ -2800,7 +2800,7 @@
 
       </div>
 
-    <//section>
+    </section>
 
     <!-- ====================================
          SAFETY DISCLAIMER
@@ -3566,9 +3566,144 @@
               rightsText:
           "Με επιφύλαξη παντός δικαιώματος."
       }
+      
 
-    };
+    };rightsText:
+          "Με επιφύλαξη παντός δικαιώματος."
+      }          // ← closes the Greek (el) language
 
-    };
+    };           // ← closes the whole translations object (this is your line 3570)
+
+
+    // ========== FROM HERE YOU ADD THE MISSING CODE ==========
+
+    let currentLang = localStorage.getItem('lang') || 'en';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+
+      const flags = { en: '🇬🇧', ru: '🇷🇺', el: '🇬🇷' };
+      const names = { en: 'English', ru: 'Русский', el: 'Ελληνικά' };
+
+      document.getElementById('currentFlag').textContent = flags[lang];
+      document.getElementById('currentLanguage').textContent = names[lang];
+
+      document.querySelectorAll('.language-option').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.language === lang);
+      });
+    }
+
+    // Intro
+    const introScreen = document.getElementById('introScreen');
+    const introVideo = document.getElementById('introVideo');
+
+    function closeIntro() {
+      introScreen.classList.add('hidden');
+      document.body.classList.remove('intro-open');
+      if (introVideo) introVideo.pause();
+    }
+
+    document.getElementById('enterWebsite')?.addEventListener('click', closeIntro);
+    document.getElementById('skipIntro')?.addEventListener('click', closeIntro);
+    if (introVideo) introVideo.addEventListener('ended', closeIntro);
+
+    // Mobile menu
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNavigation');
+
+    menuToggle?.addEventListener('click', () => {
+      const isOpen = mainNav.classList.toggle('open');
+      menuToggle.classList.toggle('active', isOpen);
+      menuToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    mainNav?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('open');
+        menuToggle.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Language switcher
+    const languageButton = document.getElementById('languageButton');
+    const languageMenu = document.getElementById('languageMenu');
+
+    languageButton?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = languageMenu.classList.toggle('open');
+      languageButton.setAttribute('aria-expanded', isOpen);
+    });
+
+    document.querySelectorAll('.language-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        setLanguage(btn.dataset.language);
+        languageMenu.classList.remove('open');
+        languageButton.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', () => {
+      languageMenu?.classList.remove('open');
+      languageButton?.setAttribute('aria-expanded', 'false');
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const src = item.dataset.fullImage || item.querySelector('img')?.src;
+        if (src) {
+          lightboxImage.src = src;
+          lightbox.classList.add('open');
+        }
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightboxImage.src = '';
+    }
+
+    lightboxClose?.addEventListener('click', closeLightbox);
+    lightbox?.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Reveal animations
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Current year
+    const yearEl = document.getElementById('currentYear');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // Start with saved language
+    setLanguage(currentLang);
+
+  </script>
+
+    }
 
           
