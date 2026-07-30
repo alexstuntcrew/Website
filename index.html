@@ -1211,406 +1211,6 @@
 
     .stat-card {
       padding: 36px 25px;
-
-      border: 1px solid var(--border);
-      border-radius: var(--radius-medium);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 31, 31, 0.1),
-          rgba(255, 255, 255, 0.025)
-        );
-
-      text-align: center;
-
-      transition:
-        transform 0.3s ease,
-        border-color 0.3s ease;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--accent);
-    }
-
-    .stat-number {
-      display: block;
-      margin-bottom: 10px;
-
-      color: var(--accent);
-
-      font-size: clamp(40px, 5vw, 62px);
-      line-height: 1;
-    }
-
-    .stat-label {
-      color: #fff;
-
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1.3;
-      text-transform: uppercase;
-    }
-
-    /* ========================================
-       CONTACT SECTION
-    ======================================== */
-
-    .contact-grid {
-      max-width: 1050px;
-      margin: 55px auto 0;
-
-      display: grid;
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-      gap: 28px;
-    }
-
-    .contact-card {
-      min-height: 135px;
-      padding: 28px;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      border: 2px solid rgba(255, 255, 255, 0.06);
-      border-radius: var(--radius-medium);
-
-      background: var(--card-background);
-
-      text-decoration: none;
-
-      transition:
-        transform 0.3s ease,
-        border-color 0.3s ease,
-        background 0.3s ease,
-        box-shadow 0.3s ease;
-    }
-
-    .contact-card:hover {
-      transform: translateY(-7px);
-      border-color: var(--accent);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 31, 31, 0.13),
-          rgba(255, 255, 255, 0.03)
-        );
-
-      box-shadow: var(--shadow);
-    }
-
-    .contact-card h3 {
-      margin-bottom: 8px;
-
-      color: var(--accent);
-
-      font-size: 28px;
-      text-transform: uppercase;
-    }
-
-    .contact-card p {
-      color: var(--muted-text);
-
-      font-size: 20px;
-      font-weight: 600;
-      line-height: 1.45;
-      overflow-wrap: anywhere;
-    }
-
-    /* ========================================
-       DISCLAIMER
-    ======================================== */
-
-    .disclaimer-box {
-      max-width: 1000px;
-      margin: 45px auto 0;
-      padding: 32px;
-
-      border: 2px solid rgba(255, 31, 31, 0.34);
-      border-radius: var(--radius-medium);
-
-      background: rgba(255, 31, 31, 0.07);
-    }
-
-    .disclaimer-box h3 {
-      margin-bottom: 15px;
-
-      color: var(--accent);
-
-      font-size: 30px;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    .disclaimer-box p {
-      color: var(--muted-text);
-
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 1.65;
-      text-align: center;
-    }
-
-    /* ========================================
-       FOOTER
-    ======================================== */
-
-    footer {
-      padding: 45px 8%;
-
-      border-top: 1px solid rgba(255, 31, 31, 0.3);
-
-      background: #020202;
-
-      text-align: center;
-    }
-
-    .footer-logo {
-      width: min(330px, 78vw);
-      margin: 0 auto 22px;
-    }
-
-    footer p {
-      color: var(--faded-text);
-
-      font-size: 17px;
-      font-weight: 500;
-      line-height: 1.6;
-    }
-
-    .footer-red {
-      color: var(--accent);
-    }
-
-    /* ========================================
-       REVEAL ANIMATIONS
-    ======================================== */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(45px);
-
-      transition:
-        opacity 0.75s ease,
-        transform 0.75s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ========================================
-       MOBILE MENU
-    ======================================== */
-
-    .menu-toggle {
-      width: 48px;
-      height: 46px;
-
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      gap: 6px;
-
-      border: 1px solid var(--border);
-      border-radius: var(--radius-small);
-
-      background: rgba(255, 255, 255, 0.06);
-
-      cursor: pointer;
-    }
-
-    .menu-toggle span {
-      width: 24px;
-      height: 2px;
-
-      background: #fff;
-
-      transition:
-        transform 0.25s ease,
-        opacity 0.25s ease;
-    }
-
-    .menu-toggle.active span:nth-child(1) {
-      transform:
-        translateY(8px)
-        rotate(45deg);
-    }
-
-    .menu-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-toggle.active span:nth-child(3) {
-      transform:
-        translateY(-8px)
-        rotate(-45deg);
-    }
-
-    /* ========================================
-       TABLET RESPONSIVE
-    ======================================== */
-
-    @media (max-width: 1100px) {
-      header {
-        padding-left: 4%;
-        padding-right: 4%;
-      }
-
-      .menu-toggle {
-        display: flex;
-      }
-
-      nav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-
-        max-height: 0;
-        padding: 0 25px;
-
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-
-        overflow: hidden;
-
-        background: rgba(3, 3, 3, 0.98);
-
-        border-bottom:
-          1px solid rgba(255, 31, 31, 0.25);
-
-        transition:
-          max-height 0.35s ease,
-          padding 0.35s ease;
-      }
-
-      nav.open {
-        max-height: 550px;
-        padding: 18px 25px 25px;
-      }
-
-      nav a {
-        padding: 14px 5px;
-
-        border-bottom:
-          1px solid rgba(255, 255, 255, 0.07);
-
-        font-size: 17px;
-      }
-
-      nav a::after {
-        display: none;
-      }
-
-      .split-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .split-image {
-        height: 520px;
-      }
-
-      .gallery-grid,
-      .cleanup-grid {
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
-      }
-
-      .gallery-item:nth-child(3),
-      .cleanup-item:nth-child(3) {
-        grid-column: 1 / -1;
-      }
-    }
-
-    /* ========================================
-       MOBILE RESPONSIVE
-    ======================================== */
-
-    @media (max-width: 750px) {
-      html {
-        scroll-padding-top: 90px;
-      }
-
-      header {
-        min-height: 76px;
-        padding: 9px 15px;
-        gap: 10px;
-      }
-
-      .logo-image {
-        height: 48px;
-        max-width: 155px;
-      }
-
-      .header-right {
-        gap: 8px;
-      }
-
-      .language-button {
-        min-width: 52px;
-        min-height: 44px;
-        padding: 8px 10px;
-      }
-
-      .language-name {
-        display: none;
-      }
-
-      .language-menu {
-        right: -54px;
-      }
-
-      .hero {
-        min-height: 100svh;
-        padding:
-          120px
-          20px
-          60px;
-
-        background-attachment: scroll;
-        background-position: center;
-      }
-
-      .hero h1 {
-        font-size: clamp(44px, 14vw, 70px);
-      }
-
-      .hero p {
-        font-size: 20px;
-      }
-
-      .hero-buttons {
-        flex-direction: column;
-      }
-
-      .button {
-        width: 100%;
-        max-width: 360px;
-      }
-
-      section {
-        padding:
-          80px
-          20px;
-      }
-
-      .section-title {
-        font-size: clamp(35px, 11vw, 50px);
-      }
-
-      .section-text {
-        font-size: 18px;
       }
 
       .split-image {
@@ -3571,11 +3171,29 @@
 
     
 
-    let currentLang = localStorage.getItem('lang') || 'en';
+    function getSavedLanguage() {
+      try {
+        return localStorage.getItem('lang') || 'en';
+      } catch (error) {
+        return 'en';
+      }
+    }
+
+    let currentLang = getSavedLanguage();
+
+    if (!translations[currentLang]) {
+      currentLang = 'en';
+    }
 
     function setLanguage(lang) {
+      if (!translations[lang]) lang = 'en';
       currentLang = lang;
-      localStorage.setItem('lang', lang);
+
+      try {
+        localStorage.setItem('lang', lang);
+      } catch (error) {
+        // The site still works when storage is blocked.
+      }
 
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
@@ -3607,7 +3225,13 @@
 
     document.getElementById('enterWebsite')?.addEventListener('click', closeIntro);
     document.getElementById('skipIntro')?.addEventListener('click', closeIntro);
-    if (introVideo) introVideo.addEventListener('ended', closeIntro);
+    if (introVideo) {
+      introVideo.addEventListener('ended', closeIntro);
+      introVideo.addEventListener('error', () => {
+        // Keep the buttons usable even if the intro video file is missing.
+        introVideo.style.display = 'none';
+      });
+    }
 
     // Mobile menu
     const menuToggle = document.getElementById('menuToggle');
@@ -3679,15 +3303,22 @@
     });
 
     // Reveal animations
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.12 });
+    const revealElements = document.querySelectorAll('.reveal');
 
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealElements.forEach(el => revealObserver.observe(el));
+    } else {
+      revealElements.forEach(el => el.classList.add('visible'));
+    }
 
     // Current year
     const yearEl = document.getElementById('currentYear');
@@ -3700,6 +3331,3 @@
 
 </body>
 </html>
-      
-
-          
