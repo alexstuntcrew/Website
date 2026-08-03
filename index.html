@@ -1074,6 +1074,18 @@ section:not(.hero)::after {
   filter: contrast(1.06) saturate(1.06);
 }
 
+.crash-card-text {
+  grid-column: 1 / -1;
+}
+
+.crash-card-text .crash-card-content {
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
 .crash-card-content {
   padding: 30px;
 }
@@ -2342,6 +2354,10 @@ footer p {
 
           </ul>
 
+          <h4 data-i18n="productPrice">
+            20€
+          </h4>
+
           <a
             href="#contact"
             class="button"
@@ -2399,7 +2415,7 @@ footer p {
         class="section-text reveal"
         data-i18n="crashIntro"
       >
-        These bar ends were tested through real riding,
+        These bar ends weere tested through real riding,
         drops and crashes on the Motoalex stunt bike.
       </p>
 
@@ -2452,6 +2468,22 @@ footer p {
 
         </article>
 
+        <article class="crash-card crash-card-text reveal">
+
+          <div class="crash-card-content">
+
+            <h3 data-i18n="crashThreeTitle">
+              After the third crash
+            </h3>
+
+            <p data-i18n="crashThreeText">
+              60kmh crash. The bar ends survived and stayed attached.
+            </p>
+
+          </div>
+
+        </article>
+
       </div>
 
       <div class="cleanup-message reveal">
@@ -2487,6 +2519,25 @@ footer p {
         remove rubbish and leave stunt locations cleaner
         than they were before.
       </p>
+
+      <div class="stats-grid cleanup-stats">
+
+        <div class="stat-card reveal">
+          <span class="stat-number">2</span>
+          <span class="stat-label" data-i18n="cleanupsCompleted">Cleanups</span>
+        </div>
+
+        <div class="stat-card reveal">
+          <span class="stat-number">184kg</span>
+          <span class="stat-label" data-i18n="kilogramsCollected">Collected total</span>
+        </div>
+
+        <div class="stat-card reveal">
+          <span class="stat-number">100+</span>
+          <span class="stat-label" data-i18n="ridersReached">Riders reached</span>
+        </div>
+
+      </div>
 
       <div class="cleanup-container">
 
@@ -2600,6 +2651,74 @@ footer p {
             <img
               src="IMG-20260607-WA0007.jpg"
               alt="Clean riding location after the cleanup"
+              loading="lazy"
+            >
+
+            <span
+              class="image-badge"
+              data-i18n="afterBadge"
+            >
+              After
+            </span>
+
+          </div>
+
+          <div class="cleanup-item cleanup-after reveal">
+
+            <img
+              src="cleanup.jpg"
+              alt="Second AlexStuntCrew cleanup result"
+              loading="lazy"
+            >
+
+            <span
+              class="image-badge"
+              data-i18n="afterBadge"
+            >
+              After
+            </span>
+
+          </div>
+
+          <div class="cleanup-item cleanup-after reveal">
+
+            <img
+              src="carrybags.jpg"
+              alt="Collected rubbish bags being carried after the cleanup"
+              loading="lazy"
+            >
+
+            <span
+              class="image-badge"
+              data-i18n="afterBadge"
+            >
+              After
+            </span>
+
+          </div>
+
+          <div class="cleanup-item cleanup-after reveal">
+
+            <img
+              src="trash.jpg"
+              alt="Rubbish collected during the second cleanup"
+              loading="lazy"
+            >
+
+            <span
+              class="image-badge"
+              data-i18n="afterBadge"
+            >
+              After
+            </span>
+
+          </div>
+
+          <div class="cleanup-item cleanup-after reveal">
+
+            <img
+              src="cleaning.jpg"
+              alt="AlexStuntCrew cleaning the riding spot"
               loading="lazy"
             >
 
@@ -2761,7 +2880,7 @@ footer p {
         >
 
           <img
-            src="tshiboV2.jpg"
+            src="TshiboV3.jpg"
             alt="Tshibo logo"
             loading="lazy"
           >
@@ -3209,6 +3328,9 @@ footer p {
         productFeatureFour:
           "Compact and clean design",
 
+        productPrice:
+          "20€",
+
         productButton:
           "Contact to order",
 
@@ -3233,6 +3355,12 @@ footer p {
         crashTwoText:
           "After another impact, the bar end remained attached and continued protecting the bike.",
 
+        crashThreeTitle:
+          "After the third crash",
+
+        crashThreeText:
+          "60kmh crash. The bar ends survived and stayed attached.",
+
         crashMessage:
           "The scratches show that the bar ends absorbed damage that could otherwise reach more expensive parts of the bike.",
 
@@ -3241,6 +3369,15 @@ footer p {
 
         cleanupIntro:
           "Riding spots deserve respect. AlexStuntCrew helps remove rubbish and leave stunt locations cleaner than they were before.",
+
+        cleanupsCompleted:
+          "Cleanups",
+
+        kilogramsCollected:
+          "Collected total",
+
+        ridersReached:
+          "Riders reached",
 
         beforeTitle:
           "Before cleanup",
@@ -3429,6 +3566,9 @@ footer p {
         productFeatureFour:
           "Компактный дизайн",
 
+        productPrice:
+          "20€",
+
         productButton:
           "Связаться",
 
@@ -3453,6 +3593,12 @@ footer p {
         crashTwoText:
           "После следующего удара баренд остался на месте и продолжил защищать байк.",
 
+        crashThreeTitle:
+          "После третьего падения",
+
+        crashThreeText:
+          "Падение на 60kmh. Баренды выдержали удар и остались на месте.",
+
         crashMessage:
           "Царапины показывают, что удар пришёлся по баренду, а не по дорогим деталям.",
 
@@ -3461,6 +3607,15 @@ footer p {
 
         cleanupIntro:
           "Места для катания заслуживают уважения. AlexStuntCrew помогает делать их чище.",
+
+        cleanupsCompleted:
+          "Уборки",
+
+        kilogramsCollected:
+          "Собрано всего",
+
+        ridersReached:
+          "Охвачено райдеров",
 
         beforeTitle:
           "До уборки",
@@ -3649,6 +3804,9 @@ footer p {
         productFeatureFour:
           "Συμπαγής και καθαρός σχεδιασμός",
 
+        productPrice:
+          "20€",
+
         productButton:
           "Επικοινωνία για παραγγελία",
 
@@ -3673,6 +3831,12 @@ footer p {
         crashTwoText:
           "Μετά από ακόμη μία πρόσκρουση, το αντίβαρο παρέμεινε στη θέση του και συνέχισε να προστατεύει τη μοτοσυκλέτα.",
 
+        crashThreeTitle:
+          "Μετά την τρίτη πτώση",
+
+        crashThreeText:
+          "Πτώση στα 60kmh. Τα αντίβαρα άντεξαν και παρέμειναν στη θέση τους.",
+
         crashMessage:
           "Οι γρατζουνιές δείχνουν ότι τα αντίβαρα απορρόφησαν ζημιά που διαφορετικά θα μπορούσε να φτάσει σε ακριβότερα εξαρτήματα της μοτοσυκλέτας.",
 
@@ -3681,6 +3845,15 @@ footer p {
 
         cleanupIntro:
           "Οι χώροι οδήγησης αξίζουν σεβασμό. Το AlexStuntCrew βοηθά στην απομάκρυνση σκουπιδιών και αφήνει τους χώρους καθαρότερους από πριν.",
+
+        cleanupsCompleted:
+          "Καθαρισμοί",
+
+        kilogramsCollected:
+          "Συνολικά συλλεγμένα",
+
+        ridersReached:
+          "Αναβάτες που προσεγγίστηκαν",
 
         beforeTitle:
           "Πριν τον καθαρισμό",
