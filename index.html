@@ -1224,6 +1224,11 @@ section:not(.hero)::after {
   gap: 22px;
 }
 
+.gallery-item-wide {
+  grid-column: 1 / -1;
+  height: 540px;
+}
+
 .gallery-item {
   overflow: hidden;
   height: 430px;
@@ -1846,7 +1851,8 @@ footer p {
     min-height: 350px;
   }
 
-  .gallery-item {
+  .gallery-item,
+  .gallery-item-wide {
     height: 390px;
   }
 
@@ -2318,7 +2324,7 @@ footer p {
         <article class="card wide-card reveal">
 
           <img
-            src="Barendichki.jpg"
+            src="barendiki.jpg"
             alt="AlexStuntCrew stunt bar ends"
             class="card-image"
             loading="lazy"
@@ -2415,7 +2421,7 @@ footer p {
         class="section-text reveal"
         data-i18n="crashIntro"
       >
-        These bar ends weere tested through real riding,
+        These bar ends were tested through real riding,
         drops and crashes on the Motoalex stunt bike.
       </p>
 
@@ -2448,7 +2454,7 @@ footer p {
         <article class="crash-card reveal">
 
           <img
-            src="crash2barend.jpg"
+            src="crash2barendiki.jpg"
             alt="AlexStuntCrew bar end after two crashes"
             loading="lazy"
           >
@@ -2469,6 +2475,12 @@ footer p {
         </article>
 
         <article class="crash-card crash-card-text reveal">
+
+          <img
+            src="crash3barend.jpg"
+            alt="AlexStuntCrew bar end after the third crash"
+            loading="lazy"
+          >
 
           <div class="crash-card-content">
 
@@ -2772,6 +2784,29 @@ footer p {
       </p>
 
       <div class="gallery-grid">
+
+        <div
+          class="gallery-item gallery-item-wide reveal"
+          data-full-image="groupbikes.jpg"
+          tabindex="0"
+          role="button"
+          aria-label="Open AlexStuntCrew group photo"
+        >
+
+          <img
+            src="groupbikes.jpg"
+            alt="AlexStuntCrew group photo with bikes"
+            loading="lazy"
+          >
+
+          <div
+            class="gallery-caption"
+            data-i18n="galleryGroup"
+          >
+            AlexStuntCrew group
+          </div>
+
+        </div>
 
         <div
           class="gallery-item reveal"
@@ -3400,6 +3435,9 @@ footer p {
         galleryIntro:
           "Stunt riding, knee-down action and moments from the Motoalex and AlexStuntCrew journey.",
 
+        galleryGroup:
+          "AlexStuntCrew group",
+
         galleryOne:
           "Crew moments",
 
@@ -3638,6 +3676,9 @@ footer p {
         galleryIntro:
           "Стантрайдинг, колено в повороте и лучшие моменты Motoalex.",
 
+        galleryGroup:
+          "Группа AlexStuntCrew",
+
         galleryOne:
           "Моменты команды",
 
@@ -3645,7 +3686,9 @@ footer p {
           "Колено",
 
         galleryThree:
-          "Продолжай прогрессировать",        partnersTitle:
+          "Продолжай прогрессировать",
+
+        partnersTitle:
           "Спонсоры и коллаборации",
 
         partnersIntro:
@@ -3875,6 +3918,9 @@ footer p {
 
         galleryIntro:
           "Stunt riding, οδήγηση με γόνατο στην άσφαλτο και στιγμές από την πορεία του Motoalex και του AlexStuntCrew.",
+
+        galleryGroup:
+          "Η ομάδα AlexStuntCrew",
 
         galleryOne:
           "Στιγμές της ομάδας",
