@@ -1953,7 +1953,390 @@ footer p {
   outline-offset: 4px;
 }
 
+
+/* HEADER TOOLS: SEARCH + THEME */
+.header-icon-button {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(255, 30, 30, 0.1), rgba(40, 0, 0, 0.34));
+  color: var(--accent-bright);
+  font-family: "Racing Sans One", sans-serif;
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+}
+
+.header-icon-button:hover,
+.header-icon-button:focus-visible,
+.header-icon-button.active {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: rgba(255, 31, 31, 0.15);
+  box-shadow: 0 0 18px rgba(255, 0, 0, 0.18);
+}
+
+.search-widget {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.search-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 5200;
+  width: min(390px, calc(100vw - 28px));
+  padding: 18px;
+  display: none;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(10, 0, 0, 0.98);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.72), 0 0 28px rgba(255, 0, 0, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.search-panel.open {
+  display: block;
+  animation: menuDrop 0.2s ease both;
+}
+
+.search-panel-title {
+  display: block;
+  margin-bottom: 11px;
+  color: var(--accent-bright);
+  font-family: "Racing Sans One", sans-serif;
+  font-size: 19px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.site-search-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 11px 14px;
+  border: 1px solid rgba(255, 35, 35, 0.44);
+  border-radius: 11px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--faded-text);
+  font-size: 17px;
+  font-weight: 700;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.site-search-input::placeholder {
+  color: rgba(255, 145, 145, 0.62);
+}
+
+.site-search-input:focus {
+  border-color: var(--accent-bright);
+  background: rgba(255, 20, 20, 0.075);
+  box-shadow: 0 0 0 3px rgba(255, 23, 23, 0.12), 0 0 18px rgba(255, 0, 0, 0.13);
+}
+
+.search-results {
+  max-height: 350px;
+  margin-top: 12px;
+  display: grid;
+  gap: 7px;
+  overflow-y: auto;
+}
+
+.search-result-button {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid rgba(255, 35, 35, 0.2);
+  border-radius: 10px;
+  background: rgba(255, 25, 25, 0.055);
+  color: var(--muted-text);
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.search-result-button:hover,
+.search-result-button:focus-visible {
+  transform: translateX(3px);
+  border-color: var(--accent-bright);
+  background: rgba(255, 25, 25, 0.13);
+  color: var(--accent-bright);
+}
+
+.search-result-arrow {
+  color: var(--accent-bright);
+  font-size: 21px;
+}
+
+.search-no-results {
+  padding: 14px;
+  border: 1px dashed rgba(255, 35, 35, 0.33);
+  border-radius: 10px;
+  color: var(--muted-text);
+  text-align: center;
+}
+
+/* PRODUCT BADGES + WISHLIST */
+.product-card {
+  padding-top: 82px;
+}
+
+.best-seller-badge {
+  position: absolute;
+  top: 25px;
+  left: 28px;
+  z-index: 4;
+  padding: 9px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff3333, #9c0000);
+  color: #fff;
+  font-family: "Racing Sans One", sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 9px 22px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 0, 0, 0.25);
+}
+
+.wishlist-button {
+  position: absolute;
+  top: 22px;
+  right: 27px;
+  z-index: 4;
+  min-width: 52px;
+  height: 48px;
+  padding: 6px 12px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid rgba(255, 50, 50, 0.45);
+  border-radius: 13px;
+  background: rgba(12, 0, 0, 0.86);
+  color: var(--accent-bright);
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.42);
+  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+}
+
+.wishlist-button:hover,
+.wishlist-button:focus-visible {
+  transform: translateY(-3px) scale(1.04);
+  border-color: var(--accent-bright);
+  box-shadow: 0 13px 28px rgba(0, 0, 0, 0.48), 0 0 18px rgba(255, 0, 0, 0.22);
+}
+
+.wishlist-button.active {
+  background: linear-gradient(135deg, #ff2929, #a30000);
+  color: #fff;
+}
+
+.wishlist-button.pulse {
+  animation: wishlistPulse 0.38s ease;
+}
+
+.wishlist-heart {
+  font-family: Arial, sans-serif;
+  font-size: 29px;
+  line-height: 1;
+}
+
+.wishlist-count {
+  min-width: 10px;
+  font-family: "Racing Sans One", sans-serif;
+  font-size: 15px;
+}
+
+@keyframes wishlistPulse {
+  50% { transform: scale(1.18); }
+}
+
+/* LIGHT THEME */
+html.light-theme {
+  color-scheme: light;
+  background: #f4f0f0;
+}
+
+html.light-theme body {
+  --background: #f6f2f2;
+  --background-red: #fff5f5;
+  --panel: rgba(255, 255, 255, 0.96);
+  --panel-strong: #fff;
+  --panel-light: #fff1f1;
+  --text: #a00000;
+  --muted-text: #671b1b;
+  --faded-text: #4b1717;
+  --header-background: rgba(255, 250, 250, 0.92);
+  --border: rgba(175, 0, 0, 0.24);
+  --border-strong: rgba(175, 0, 0, 0.52);
+  --shadow: 0 18px 50px rgba(65, 0, 0, 0.12), 0 0 24px rgba(255, 20, 20, 0.08);
+  --strong-shadow: 0 22px 60px rgba(65, 0, 0, 0.16), 0 0 30px rgba(255, 20, 20, 0.15);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255, 0, 0, 0.08), transparent 30%),
+    radial-gradient(circle at 88% 42%, rgba(180, 0, 0, 0.07), transparent 32%),
+    linear-gradient(135deg, #fffafa 0%, #f7eeee 48%, #fff 100%);
+}
+
+html.light-theme body::before {
+  opacity: 0.1;
+}
+
+html.light-theme body::after {
+  opacity: 0.025;
+}
+
+html.light-theme header,
+html.light-theme header.scrolled {
+  background: rgba(255, 250, 250, 0.96);
+  box-shadow: 0 10px 34px rgba(70, 0, 0, 0.13);
+}
+
+html.light-theme nav,
+html.light-theme .language-menu,
+html.light-theme .search-panel {
+  background: rgba(255, 250, 250, 0.99);
+  box-shadow: 0 20px 50px rgba(70, 0, 0, 0.18);
+}
+
+html.light-theme section:not(.hero),
+html.light-theme footer {
+  background:
+    radial-gradient(circle at 3% 5%, rgba(255, 0, 0, 0.075), transparent 24%),
+    radial-gradient(circle at 97% 95%, rgba(130, 0, 0, 0.07), transparent 28%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(251, 241, 241, 0.98)) !important;
+}
+
+html.light-theme .card,
+html.light-theme .crash-card,
+html.light-theme .sponsor-card,
+html.light-theme .stat-card,
+html.light-theme .contact-card,
+html.light-theme .split-content {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.99), rgba(255, 241, 241, 0.98));
+}
+
+html.light-theme .section-text,
+html.light-theme .cleanup-message,
+html.light-theme .disclaimer-box,
+html.light-theme .sponsor-card-content,
+html.light-theme .card li,
+html.light-theme .search-result-button {
+  background: rgba(255, 30, 30, 0.055);
+}
+
+html.light-theme .site-search-input {
+  background: rgba(255, 255, 255, 0.92);
+  color: #4b1717;
+}
+
+html.light-theme .site-search-input::placeholder {
+  color: rgba(90, 25, 25, 0.62);
+}
+
+html.light-theme .wishlist-button {
+  background: rgba(255, 255, 255, 0.94);
+}
+
+html.light-theme .wishlist-button.active {
+  background: linear-gradient(135deg, #ff2929, #a30000);
+}
+
+html.light-theme ::-webkit-scrollbar-track {
+  background: #f6eeee;
+}
+
+html.light-theme ::-webkit-scrollbar-thumb {
+  border-color: #f6eeee;
+}
+
+@media (max-width: 1020px) {
+  .search-panel {
+    position: fixed;
+    top: 82px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+  }
+}
+
+@media (max-width: 430px) {
+  .header-icon-button {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+    font-size: 22px;
+  }
+
+  .product-card {
+    padding-top: 78px;
+  }
+
+  .best-seller-badge {
+    top: 23px;
+    left: 22px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .wishlist-button {
+    top: 20px;
+    right: 21px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 380px) {
+  header {
+    gap: 6px;
+    padding-inline: 10px;
+  }
+
+  .logo-image {
+    max-width: 84px;
+  }
+
+  .header-right {
+    gap: 4px;
+  }
+
+  .header-icon-button,
+  .menu-toggle {
+    width: 39px;
+    height: 39px;
+    flex-basis: 39px;
+  }
+
+  .language-button {
+    width: 42px;
+    min-width: 42px;
+    min-height: 39px;
+  }
+}
+
   </style>
+
+  <script>
+    try {
+      if (localStorage.getItem('ascTheme') === 'light') {
+        document.documentElement.classList.add('light-theme');
+      }
+    } catch (error) {
+      // Keep the default dark theme when storage is unavailable.
+    }
+  </script>
+
 </head>
 
 <body class="intro-open">
@@ -2105,6 +2488,65 @@ footer p {
 
       </nav>
 
+      <div class="search-widget">
+
+        <button
+          id="searchButton"
+          class="header-icon-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="searchPanel"
+          aria-label="Search website"
+          title="Search website"
+        >
+          <span aria-hidden="true">⌕</span>
+        </button>
+
+        <div
+          id="searchPanel"
+          class="search-panel"
+          role="dialog"
+          aria-modal="false"
+          aria-labelledby="searchPanelTitle"
+        >
+          <label
+            id="searchPanelTitle"
+            class="search-panel-title"
+            for="siteSearch"
+            data-i18n="searchTitle"
+          >
+            Search the website
+          </label>
+
+          <input
+            id="siteSearch"
+            class="site-search-input"
+            type="search"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Search bar ends, cleanup, sponsors..."
+          >
+
+          <div
+            id="searchResults"
+            class="search-results"
+            aria-live="polite"
+          ></div>
+        </div>
+
+      </div>
+
+      <button
+        id="themeToggle"
+        class="header-icon-button"
+        type="button"
+        aria-pressed="false"
+        aria-label="Switch to light mode"
+        title="Switch to light mode"
+      >
+        <span id="themeIcon" aria-hidden="true">☀</span>
+      </button>
+
       <div class="language-switcher">
 
         <button
@@ -2157,6 +2599,22 @@ footer p {
             data-language="el"
           >
             🇬🇷 Ελληνικά
+          </button>
+
+          <button
+            class="language-option"
+            type="button"
+            data-language="ja"
+          >
+            🇯🇵 日本語
+          </button>
+
+          <button
+            class="language-option"
+            type="button"
+            data-language="zh"
+          >
+            🇨🇳 简体中文
           </button>
 
         </div>
@@ -2321,7 +2779,26 @@ footer p {
 
       <div class="products">
 
-        <article class="card wide-card reveal">
+        <article class="card wide-card reveal product-card">
+
+          <span
+            class="best-seller-badge"
+            data-i18n="bestSeller"
+          >
+            Best seller
+          </span>
+
+          <button
+            id="wishlistButton"
+            class="wishlist-button"
+            type="button"
+            aria-pressed="false"
+            aria-label="Add bar ends to wishlist"
+            title="Add bar ends to wishlist"
+          >
+            <span id="wishlistHeart" class="wishlist-heart" aria-hidden="true">♡</span>
+            <span id="wishlistCount" class="wishlist-count" aria-hidden="true"></span>
+          </button>
 
           <img
             src="barendiki.jpg"
@@ -2392,7 +2869,7 @@ footer p {
           preload="metadata"
         >
           <source
-            src="barendpreview.mp4"
+            src="preview.mp4"
             type="video/mp4"
           >
 
@@ -3009,7 +3486,7 @@ footer p {
          TIMELINE
     ===================================== -->
 
-    <section class="section-dark">
+    <section id="timeline" class="section-dark">
 
       <h2
         class="section-title reveal"
@@ -4003,7 +4480,264 @@ footer p {
 
     };
 
-    
+    const UI_EN = {
+        "bestSeller": "Best seller",
+        "searchButton": "Search website",
+        "searchTitle": "Search the website",
+        "searchPlaceholder": "Search bar ends, cleanup, sponsors...",
+        "searchNoResults": "No results found.",
+        "searchIntro": "Intro",
+        "searchProduct": "Bar ends",
+        "searchCleanup": "Cleanup",
+        "searchSponsors": "Sponsors",
+        "searchTimeline": "Timeline",
+        "searchGallery": "Gallery",
+        "wishlistAdd": "Add bar ends to wishlist",
+        "wishlistRemove": "Remove bar ends from wishlist",
+        "lightMode": "Switch to light mode",
+        "darkMode": "Switch to dark mode"
+};
+    const UI_RU = {
+        "bestSeller": "Хит продаж",
+        "searchButton": "Поиск по сайту",
+        "searchTitle": "Поиск по сайту",
+        "searchPlaceholder": "Баренды, уборка, спонсоры...",
+        "searchNoResults": "Ничего не найдено.",
+        "searchIntro": "Интро",
+        "searchProduct": "Баренды",
+        "searchCleanup": "Уборка",
+        "searchSponsors": "Спонсоры",
+        "searchTimeline": "Таймлайн",
+        "searchGallery": "Галерея",
+        "wishlistAdd": "Добавить баренды в избранное",
+        "wishlistRemove": "Удалить баренды из избранного",
+        "lightMode": "Включить светлую тему",
+        "darkMode": "Включить тёмную тему"
+};
+    const UI_EL = {
+        "bestSeller": "Δημοφιλέστερο",
+        "searchButton": "Αναζήτηση ιστοσελίδας",
+        "searchTitle": "Αναζήτηση στην ιστοσελίδα",
+        "searchPlaceholder": "Αντίβαρα, καθαρισμός, χορηγοί...",
+        "searchNoResults": "Δεν βρέθηκαν αποτελέσματα.",
+        "searchIntro": "Εισαγωγή",
+        "searchProduct": "Αντίβαρα",
+        "searchCleanup": "Καθαρισμός",
+        "searchSponsors": "Χορηγοί",
+        "searchTimeline": "Χρονολόγιο",
+        "searchGallery": "Συλλογή",
+        "wishlistAdd": "Προσθήκη αντίβαρων στα αγαπημένα",
+        "wishlistRemove": "Αφαίρεση αντίβαρων από τα αγαπημένα",
+        "lightMode": "Μετάβαση σε φωτεινό θέμα",
+        "darkMode": "Μετάβαση σε σκοτεινό θέμα"
+};
+    const UI_JA = {
+        "bestSeller": "ベストセラー",
+        "searchButton": "サイトを検索",
+        "searchTitle": "サイト内検索",
+        "searchPlaceholder": "バーエンド、清掃、スポンサー…",
+        "searchNoResults": "結果が見つかりません。",
+        "searchIntro": "イントロ",
+        "searchProduct": "バーエンド",
+        "searchCleanup": "清掃活動",
+        "searchSponsors": "スポンサー",
+        "searchTimeline": "タイムライン",
+        "searchGallery": "ギャラリー",
+        "wishlistAdd": "バーエンドをお気に入りに追加",
+        "wishlistRemove": "バーエンドをお気に入りから削除",
+        "lightMode": "ライトモードに切り替える",
+        "darkMode": "ダークモードに切り替える"
+};
+    const UI_ZH = {
+        "bestSeller": "畅销产品",
+        "searchButton": "搜索网站",
+        "searchTitle": "站内搜索",
+        "searchPlaceholder": "搜索车把端塞、清洁、赞助商…",
+        "searchNoResults": "未找到结果。",
+        "searchIntro": "片头",
+        "searchProduct": "车把端塞",
+        "searchCleanup": "清洁行动",
+        "searchSponsors": "赞助商",
+        "searchTimeline": "时间线",
+        "searchGallery": "图库",
+        "wishlistAdd": "将车把端塞加入收藏",
+        "wishlistRemove": "从收藏中移除车把端塞",
+        "lightMode": "切换到浅色模式",
+        "darkMode": "切换到深色模式"
+};
+    const JA_TRANSLATIONS = {
+        "introTitle": "全力で走る。すべてのライダーを尊重する。",
+        "enterWebsite": "サイトに入る",
+        "skipIntro": "イントロをスキップ",
+        "navHome": "ホーム",
+        "navAbout": "紹介",
+        "navProduct": "バーエンド",
+        "navCrash": "クラッシュテスト",
+        "navCleanup": "清掃活動",
+        "navGallery": "ギャラリー",
+        "navSponsors": "パートナー",
+        "navContact": "お問い合わせ",
+        "heroTitle": "AlexStuntCrew",
+        "heroText": "スタントライディング、実走テスト、地域活動、そしてすべてのライダーへのリスペクト。",
+        "heroProductButton": "バーエンドを見る",
+        "heroCleanupButton": "清掃プロジェクト",
+        "aboutTitle": "AlexStuntCrewについて",
+        "aboutIntro": "AlexStuntCrewは、スタントライディング、成長、コミュニティ、そしてより尊重し合えるライディング文化を大切にしています。",
+        "aboutHeading": "ウィリーだけではない",
+        "aboutParagraphOne": "目標はライダーとして上達することだけではありません。コンテンツを作り、製品を正直にテストし、活動を通じて前向きなプロジェクトを支えます。",
+        "aboutParagraphTwo": "クラッシュ、修理、清掃、すべての練習がストーリーの一部になります。",
+        "aboutButton": "ライディングを見る",
+        "productTitle": "スタント用バーエンド",
+        "productIntro": "転倒、スライド、実際のスタント走行でハンドルを守るために設計されています。",
+        "productName": "AlexStuntCrew バーエンド",
+        "productDescription": "飾りとして箱に入れて守るのではなく、実際のスタントバイクでテストしています。",
+        "productFeatureOne": "スタント走行の転倒を想定",
+        "productFeatureTwo": "グリップとハンドルの保護をサポート",
+        "productFeatureThree": "実際のクラッシュテスト結果",
+        "productFeatureFour": "コンパクトでクリーンなデザイン",
+        "productPrice": "20€",
+        "productButton": "注文について連絡する",
+        "previewTitle": "製品プレビュー",
+        "crashTitle": "実際のクラッシュテスト",
+        "crashIntro": "このバーエンドは、Motoalexのスタントバイクで実際の走行、転倒、クラッシュを通してテストされました。",
+        "crashOneTitle": "1回目のクラッシュ後",
+        "crashOneText": "バーエンドが衝撃を受け止め、グリップとハンドルの保護に役立ちました。",
+        "crashTwoTitle": "2回のクラッシュ後",
+        "crashTwoText": "次の衝撃後もバーエンドは外れず、バイクを守り続けました。",
+        "crashThreeTitle": "3回目のクラッシュ後",
+        "crashThreeText": "時速60kmのクラッシュでも、バーエンドは耐えて外れませんでした。",
+        "crashMessage": "傷は、より高価なパーツに届くはずだったダメージをバーエンドが受け止めた証拠です。",
+        "cleanupTitle": "スタントスポット清掃",
+        "cleanupIntro": "ライディングスポットには敬意が必要です。AlexStuntCrewはゴミを回収し、来た時よりきれいな状態にする活動を行っています。",
+        "cleanupsCompleted": "清掃回数",
+        "kilogramsCollected": "回収量合計",
+        "ridersReached": "参加・到達ライダー",
+        "beforeTitle": "清掃前",
+        "afterTitle": "清掃後",
+        "beforeBadge": "清掃前",
+        "afterBadge": "清掃後",
+        "cleanupMessage": "スポットと地域住民を尊重し、ゴミは必ず持ち帰りましょう。ライダーが残すべきものは良い印象であり、ゴミの山ではありません。",
+        "galleryTitle": "ライディングギャラリー",
+        "galleryIntro": "スタント、膝擦り、MotoalexとAlexStuntCrewの歩みを切り取った瞬間。",
+        "galleryGroup": "AlexStuntCrew グループ",
+        "galleryOne": "クルーの瞬間",
+        "galleryTwo": "膝擦り",
+        "galleryThree": "進化を続ける",
+        "partnersTitle": "スポンサーとコラボレーション",
+        "partnersIntro": "Motoalexのページが成長する中で、その歩みの一部となったブランドと企業。",
+        "sponsorBadge": "スポンサー",
+        "collaborationBadge": "コラボレーション",
+        "tshiboTitle": "Tshibo",
+        "tshiboText": "ページが523フォロワーに到達した2026年初頭、TshiboはMotoalexをスポンサーしました。",
+        "doenerTitle": "My German Döner",
+        "doenerText": "ページが583フォロワーに到達した時、My German DönerはMotoalexとコラボレーションしました。",
+        "redBullTitle": "Red Bull SPECT Eyewearに感謝",
+        "redBullText": "607フォロワー到達時、Red Bull SPECT EyewearからMotoalexへEvan MXゴーグルが贈られました。ギフトとサポートに感謝します。これはスポンサー契約ではなくギフトです。",
+        "timelineTitle": "Motoalex タイムライン",
+        "timelineIntro": "Motoalexのページが成長する中で起きた重要な出来事。",
+        "timelineTshibo": "Tshibo スポンサー",
+        "timelineDoener": "My German Döner コラボ",
+        "timelineRedBull": "Evan MX ゴーグルのギフト",
+        "contactTitle": "Motoalexへのお問い合わせ",
+        "contactIntro": "バーエンドの注文、コラボ、スポンサー、イベント、ライディング企画についてMotoalexへご連絡ください。",
+        "emailTitle": "メール",
+        "disclaimerTitle": "安全に関する注意",
+        "warningTitle": "責任を持って走行してください",
+        "disclaimerText": "スタントライディングは危険であり、重大なけが、物的損害、死亡につながる可能性があります。このサイトの内容はスタントを真似するための指示ではありません。適切な保護装備を着用し、現地の法律を守り、安全かつ許可された場所だけで走行してください。製品の結果はバイク、取り付け、衝撃、走行条件によって異なります。",
+        "footerText": "AlexStuntCrew — ライディング、リスペクト、成長。",
+        "rightsText": "無断転載を禁じます。"
+};
+    const ZH_TRANSLATIONS = {
+        "introTitle": "尽情骑行，尊重每一位骑手。",
+        "enterWebsite": "进入网站",
+        "skipIntro": "跳过片头",
+        "navHome": "首页",
+        "navAbout": "关于",
+        "navProduct": "车把端塞",
+        "navCrash": "碰撞测试",
+        "navCleanup": "清洁行动",
+        "navGallery": "图库",
+        "navSponsors": "合作伙伴",
+        "navContact": "联系",
+        "heroTitle": "AlexStuntCrew",
+        "heroText": "特技骑行、真实产品测试、社区项目，以及对每一位骑手的尊重。",
+        "heroProductButton": "查看车把端塞",
+        "heroCleanupButton": "清洁项目",
+        "aboutTitle": "关于 AlexStuntCrew",
+        "aboutIntro": "AlexStuntCrew 专注于特技骑行、持续进步、社区建设，以及让骑行文化更加友善和互相尊重。",
+        "aboutHeading": "不只是翘头",
+        "aboutParagraphOne": "目标不只是提升骑行技术，也包括创作内容、诚实测试产品，并利用平台支持积极的社区项目。",
+        "aboutParagraphTwo": "每次摔车、维修、清洁行动和训练，都会成为故事的一部分。",
+        "aboutButton": "查看骑行内容",
+        "productTitle": "特技车把端塞",
+        "productIntro": "专为摔车、滑行以及真实特技骑行中的车把保护而设计。",
+        "productName": "AlexStuntCrew 车把端塞",
+        "productDescription": "它们在真正的特技车上接受测试，而不是像装饰品一样一直躺在展示盒里。",
+        "productFeatureOne": "为特技摔车而打造",
+        "productFeatureTwo": "帮助保护握把和车把",
+        "productFeatureThree": "真实碰撞测试结果",
+        "productFeatureFour": "紧凑简洁的设计",
+        "productPrice": "20€",
+        "productButton": "联系订购",
+        "previewTitle": "产品预览",
+        "crashTitle": "真实碰撞测试",
+        "crashIntro": "这些车把端塞在 Motoalex 的特技车上经历了真实骑行、摔车和碰撞测试。",
+        "crashOneTitle": "第一次摔车后",
+        "crashOneText": "端塞吸收了冲击，并帮助保护握把和车把。",
+        "crashTwoTitle": "两次摔车后",
+        "crashTwoText": "再次受到冲击后，端塞仍牢固安装并继续保护车辆。",
+        "crashThreeTitle": "第三次摔车后",
+        "crashThreeText": "时速60公里摔车后，端塞依然承受住冲击并保持固定。",
+        "crashMessage": "这些划痕说明端塞吸收了原本可能损伤更昂贵零件的冲击。",
+        "cleanupTitle": "特技场地清洁",
+        "cleanupIntro": "骑行场地值得被尊重。AlexStuntCrew 会清理垃圾，让场地比到达时更加干净。",
+        "cleanupsCompleted": "清洁次数",
+        "kilogramsCollected": "累计清理",
+        "ridersReached": "影响骑手人数",
+        "beforeTitle": "清洁前",
+        "afterTitle": "清洁后",
+        "beforeBadge": "之前",
+        "afterBadge": "之后",
+        "cleanupMessage": "尊重场地、尊重附近居民，并把自己的垃圾带走。骑手应留下积极的印象，而不是一堆垃圾。",
+        "galleryTitle": "骑行图库",
+        "galleryIntro": "特技骑行、压弯磨膝，以及 Motoalex 和 AlexStuntCrew 旅程中的精彩瞬间。",
+        "galleryGroup": "AlexStuntCrew 团队",
+        "galleryOne": "团队时刻",
+        "galleryTwo": "磨膝过弯",
+        "galleryThree": "持续进步",
+        "partnersTitle": "赞助与合作",
+        "partnersIntro": "随着 Motoalex 页面不断成长，这些品牌和商家成为旅程的一部分。",
+        "sponsorBadge": "赞助商",
+        "collaborationBadge": "合作",
+        "tshiboTitle": "Tshibo",
+        "tshiboText": "2026年初，当页面达到523名粉丝时，Tshibo 开始赞助 Motoalex。",
+        "doenerTitle": "My German Döner",
+        "doenerText": "当页面达到583名粉丝时，My German Döner 与 Motoalex 展开合作。",
+        "redBullTitle": "感谢 Red Bull SPECT Eyewear",
+        "redBullText": "当页面达到607名粉丝时，Red Bull SPECT Eyewear 向 Motoalex 赠送了一副 Evan MX 护目镜。感谢这份礼物与支持。这是赠礼，并非赞助合作。",
+        "timelineTitle": "Motoalex 时间线",
+        "timelineIntro": "Motoalex 页面持续成长过程中发生的重要时刻。",
+        "timelineTshibo": "Tshibo 赞助",
+        "timelineDoener": "My German Döner 合作",
+        "timelineRedBull": "Evan MX 护目镜赠礼",
+        "contactTitle": "联系 Motoalex",
+        "contactIntro": "如需订购车把端塞、合作、赞助、活动或骑行项目，请联系 Motoalex。",
+        "emailTitle": "电子邮件",
+        "disclaimerTitle": "安全免责声明",
+        "warningTitle": "请负责任地骑行",
+        "disclaimerText": "特技骑行具有危险性，可能导致严重受伤、财产损失或死亡。本网站展示的内容并不是模仿任何特技动作的教学。请始终佩戴合适的防护装备，遵守当地法律，并只在安全且允许的场地骑行。产品效果可能因车辆、安装方式、冲击和骑行条件而不同。",
+        "footerText": "AlexStuntCrew — 骑行、尊重与进步。",
+        "rightsText": "保留所有权利。"
+};
+
+
+    // Extra interface strings and additional languages.
+    Object.assign(translations.en, UI_EN);
+    Object.assign(translations.ru, UI_RU);
+    Object.assign(translations.el, UI_EL);
+    translations.ja = Object.assign(JA_TRANSLATIONS, UI_JA);
+    translations.zh = Object.assign(ZH_TRANSLATIONS, UI_ZH);
+
 
     function getSavedLanguage() {
       try {
@@ -4036,8 +4770,10 @@ footer p {
         }
       });
 
-      const flags = { en: '🇬🇧', ru: '🇷🇺', el: '🇬🇷' };
-      const names = { en: 'English', ru: 'Русский', el: 'Ελληνικά' };
+      const flags = { en: '🇬🇧', ru: '🇷🇺', el: '🇬🇷', ja: '🇯🇵', zh: '🇨🇳' };
+      const names = { en: 'English', ru: 'Русский', el: 'Ελληνικά', ja: '日本語', zh: '简体中文' };
+      const htmlLangs = { en: 'en', ru: 'ru', el: 'el', ja: 'ja', zh: 'zh-CN' };
+      document.documentElement.lang = htmlLangs[lang] || 'en';
 
       document.getElementById('currentFlag').textContent = flags[lang];
       document.getElementById('currentLanguage').textContent = names[lang];
@@ -4045,6 +4781,9 @@ footer p {
       document.querySelectorAll('.language-option').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.language === lang);
       });
+
+      updateTranslatedControls();
+      renderSearchResults(document.getElementById('siteSearch')?.value || '');
     }
 
     // Intro
@@ -4055,6 +4794,18 @@ footer p {
       introScreen.classList.add('hidden');
       document.body.classList.remove('intro-open');
       if (introVideo) introVideo.pause();
+    }
+
+    function reopenIntro() {
+      introScreen.classList.remove('hidden');
+      document.body.classList.add('intro-open');
+      if (introVideo) {
+        introVideo.style.display = '';
+        introVideo.currentTime = 0;
+        introVideo.play().catch(() => {
+          // The intro remains visible with manual controls if autoplay is blocked.
+        });
+      }
     }
 
     document.getElementById('enterWebsite')?.addEventListener('click', closeIntro);
@@ -4106,6 +4857,204 @@ footer p {
     document.addEventListener('click', () => {
       languageMenu?.classList.remove('open');
       languageButton?.setAttribute('aria-expanded', 'false');
+      closeSearchPanel();
+    });
+
+
+    // Search: intentionally limited to six website destinations.
+    const searchButton = document.getElementById('searchButton');
+    const searchPanel = document.getElementById('searchPanel');
+    const siteSearch = document.getElementById('siteSearch');
+    const searchResults = document.getElementById('searchResults');
+
+    const searchableDestinations = [
+      {
+        labelKey: 'searchIntro',
+        action: 'intro',
+        keywords: ['intro', 'opening', 'video', 'интро', 'вступление', 'εισαγωγή', 'イントロ', '片头', '开场']
+      },
+      {
+        labelKey: 'searchProduct',
+        target: '#product',
+        keywords: ['bar ends', 'barends', 'bar end', 'barend', 'product', 'баренды', 'αντίβαρα', 'バーエンド', '车把端塞', '端塞']
+      },
+      {
+        labelKey: 'searchCleanup',
+        target: '#cleanup',
+        keywords: ['cleanup', 'clean up', 'trash', 'rubbish', 'уборка', 'мусор', 'καθαρισμός', '清掃', '清洁', '垃圾']
+      },
+      {
+        labelKey: 'searchSponsors',
+        target: '#sponsors',
+        keywords: ['sponsors', 'sponsor', 'partners', 'collaboration', 'спонсоры', 'партнёры', 'χορηγοί', 'スポンサー', '赞助商', '合作伙伴']
+      },
+      {
+        labelKey: 'searchTimeline',
+        target: '#timeline',
+        keywords: ['timeline', 'milestones', 'history', 'таймлайн', 'история', 'χρονολόγιο', 'タイムライン', '时间线', '历程']
+      },
+      {
+        labelKey: 'searchGallery',
+        target: '#gallery',
+        keywords: ['gallery', 'photos', 'pictures', 'галерея', 'фото', 'συλλογή', 'ギャラリー', '图库', '照片']
+      }
+    ];
+
+    function translated(key) {
+      return translations[currentLang]?.[key] || translations.en[key] || key;
+    }
+
+    function updateTranslatedControls() {
+      const searchLabel = translated('searchButton');
+      if (searchButton) {
+        searchButton.setAttribute('aria-label', searchLabel);
+        searchButton.title = searchLabel;
+      }
+
+      if (siteSearch) {
+        siteSearch.placeholder = translated('searchPlaceholder');
+      }
+
+      updateThemeButton();
+      updateWishlistButton();
+    }
+
+    function renderSearchResults(query = '') {
+      if (!searchResults) return;
+
+      const normalizedQuery = query.trim().toLocaleLowerCase();
+      const filtered = searchableDestinations.filter(item => {
+        if (!normalizedQuery) return true;
+        const translatedLabel = translated(item.labelKey).toLocaleLowerCase();
+        return translatedLabel.includes(normalizedQuery) ||
+          item.keywords.some(keyword => keyword.toLocaleLowerCase().includes(normalizedQuery));
+      });
+
+      searchResults.replaceChildren();
+
+      if (!filtered.length) {
+        const empty = document.createElement('div');
+        empty.className = 'search-no-results';
+        empty.textContent = translated('searchNoResults');
+        searchResults.appendChild(empty);
+        return;
+      }
+
+      filtered.forEach(item => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'search-result-button';
+
+        const label = document.createElement('span');
+        label.textContent = translated(item.labelKey);
+
+        const arrow = document.createElement('span');
+        arrow.className = 'search-result-arrow';
+        arrow.setAttribute('aria-hidden', 'true');
+        arrow.textContent = '→';
+
+        button.append(label, arrow);
+        button.addEventListener('click', () => {
+          closeSearchPanel();
+
+          if (item.action === 'intro') {
+            reopenIntro();
+            return;
+          }
+
+          document.querySelector(item.target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        searchResults.appendChild(button);
+      });
+    }
+
+    function openSearchPanel() {
+      searchPanel?.classList.add('open');
+      searchButton?.classList.add('active');
+      searchButton?.setAttribute('aria-expanded', 'true');
+      renderSearchResults(siteSearch?.value || '');
+      window.setTimeout(() => siteSearch?.focus(), 30);
+    }
+
+    function closeSearchPanel() {
+      searchPanel?.classList.remove('open');
+      searchButton?.classList.remove('active');
+      searchButton?.setAttribute('aria-expanded', 'false');
+    }
+
+    searchButton?.addEventListener('click', event => {
+      event.stopPropagation();
+      if (searchPanel?.classList.contains('open')) closeSearchPanel();
+      else openSearchPanel();
+    });
+
+    searchPanel?.addEventListener('click', event => event.stopPropagation());
+    siteSearch?.addEventListener('input', event => renderSearchResults(event.target.value));
+
+    // Saved light/dark appearance.
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+
+    function updateThemeButton() {
+      if (!themeToggle || !themeIcon) return;
+      const isLight = document.documentElement.classList.contains('light-theme');
+      const label = translated(isLight ? 'darkMode' : 'lightMode');
+      themeIcon.textContent = isLight ? '☾' : '☀';
+      themeToggle.setAttribute('aria-pressed', String(isLight));
+      themeToggle.setAttribute('aria-label', label);
+      themeToggle.title = label;
+    }
+
+    themeToggle?.addEventListener('click', () => {
+      const isLight = document.documentElement.classList.toggle('light-theme');
+      try {
+        localStorage.setItem('ascTheme', isLight ? 'light' : 'dark');
+      } catch (error) {
+        // Theme still changes for this visit if storage is blocked.
+      }
+      updateThemeButton();
+    });
+
+    // One-item local wishlist for the bar-end listing.
+    const wishlistButton = document.getElementById('wishlistButton');
+    const wishlistHeart = document.getElementById('wishlistHeart');
+    const wishlistCount = document.getElementById('wishlistCount');
+
+    function isBarEndWishlisted() {
+      try {
+        return localStorage.getItem('ascWishlistBarEnds') === 'true';
+      } catch (error) {
+        return wishlistButton?.classList.contains('active') || false;
+      }
+    }
+
+    function updateWishlistButton() {
+      if (!wishlistButton || !wishlistHeart || !wishlistCount) return;
+      const active = isBarEndWishlisted();
+      const label = translated(active ? 'wishlistRemove' : 'wishlistAdd');
+
+      wishlistButton.classList.toggle('active', active);
+      wishlistButton.setAttribute('aria-pressed', String(active));
+      wishlistButton.setAttribute('aria-label', label);
+      wishlistButton.title = label;
+      wishlistHeart.textContent = active ? '♥' : '♡';
+      wishlistCount.textContent = active ? '1' : '';
+    }
+
+    wishlistButton?.addEventListener('click', () => {
+      const nextState = !isBarEndWishlisted();
+      try {
+        localStorage.setItem('ascWishlistBarEnds', String(nextState));
+      } catch (error) {
+        wishlistButton.classList.toggle('active', nextState);
+      }
+
+      updateWishlistButton();
+      wishlistButton.classList.remove('pulse');
+      void wishlistButton.offsetWidth;
+      wishlistButton.classList.add('pulse');
+      window.setTimeout(() => wishlistButton.classList.remove('pulse'), 420);
     });
 
     // Lightbox
@@ -4133,7 +5082,12 @@ footer p {
       if (e.target === lightbox) closeLightbox();
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'Escape') {
+        closeLightbox();
+        closeSearchPanel();
+        languageMenu?.classList.remove('open');
+        languageButton?.setAttribute('aria-expanded', 'false');
+      }
     });
 
     // Reveal animations
@@ -4158,8 +5112,11 @@ footer p {
     const yearEl = document.getElementById('currentYear');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // Start with saved language
+    // Start with saved language and saved interface state.
     setLanguage(currentLang);
+    updateThemeButton();
+    updateWishlistButton();
+    renderSearchResults();
 
 
     // Enhanced visual controls
