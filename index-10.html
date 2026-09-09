@@ -1,0 +1,2297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Stunt riding, real-world product testing, community projects and respect for every rider.">
+    <meta name="theme-color" content="#dbff00">
+    <meta name="color-scheme" content="dark light">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+<title>AlexStuntCrew · EbikeStr / Acidwave</title>
+    <link rel="icon" href="ascv2.png" type="image/png">
+    <style>
+/* ALEXSTUNTCREW / ACIDWAVE
+   Self-contained: no font servers, frameworks or tracking scripts. */
+:root {
+  color-scheme: dark;
+  --bg: #101013;
+  --surface: #19191f;
+  --raised: #25252e;
+  --text: #f3f1e9;
+  --muted: #babac6;
+  --line: #44444e;
+  --red: #dbff00;
+  --acid: #dbff00;
+  --violet: #a78bff;
+  --pink: #ff80d7;
+  --ink: #101013;
+  --onred: #101013;
+  --max: 1480px;
+  --space: clamp(22px, 5vw, 88px);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f2f0e9;
+  --surface: #e4e1da;
+  --raised: #fffef9;
+  --text: #17151e;
+  --muted: #52505b;
+  --line: #a09ba9;
+  --red: #5532aa;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 110px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.65 Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+body:has(dialog[open]) { overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+button, input, select { font: inherit; }
+button, a, input, select { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; color: inherit; border: 0; background: none; }
+img { display: block; max-width: 100%; height: auto; }
+video { display: block; width: 100%; max-height: 75vh; background: #090909; }
+svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+p, h1, h2, h3, figure { margin: 0; }
+p, h1, h2, h3, li, a, summary { overflow-wrap: anywhere; }
+h1, h2, h3 { font-weight: 900; line-height: 1.03; letter-spacing: -.055em; }
+h2 { font-size: clamp(40px, 6.1vw, 90px); max-width: 16ch; text-transform: uppercase; }
+h3 { font-size: clamp(26px, 3vw, 42px); }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--red); outline-offset: 5px;
+}
+::selection { background: var(--violet); color: #101013; }
+[hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; clip: rect(0,0,0,0); overflow: hidden; white-space: nowrap; border: 0; }
+.skip-link { position: fixed; top: -100px; left: 20px; z-index: 100; background: var(--acid); color: #101013; padding: 12px 20px; }
+.skip-link:focus { top: 12px; }
+.wrap { width: min(var(--max), calc(100% - var(--space) * 2)); margin-inline: auto; }
+.section { padding-block: clamp(70px, 8vw, 132px); scroll-margin-top: 88px; border-bottom: 1px solid var(--line); position: relative; }
+.section-head { display: grid; grid-template-columns: 1.25fr .75fr; align-items: end; gap: 8%; margin-bottom: 60px; }
+.section-intro { max-width: 45ch; color: var(--muted); font-size: 18px; }
+.eyebrow { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; font: 700 14px/1.4 'Courier New', monospace; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 24px; }
+.eyebrow > span:first-child { color: var(--red); }
+.eyebrow > span:first-child:not(:only-child) { border: 1px solid currentColor; border-radius: 50%; padding: 9px 12px; }
+.tiny-label { font: 700 14px/1.4 'Courier New', monospace; text-transform: uppercase; letter-spacing: .055em; }
+.fine-print { font-size: 14px; line-height: 1.65; color: var(--muted); }
+.actions { display: flex; flex-wrap: wrap; gap: 14px; }
+.button { min-height: 54px; display: inline-flex; align-items: center; justify-content: space-between; gap: 26px; padding: 15px 24px; font-size: 15px; font-weight: 800; border: 1px solid var(--line); border-radius: 40px; transition: transform .35s var(--ease), box-shadow .35s, background .25s; }
+.button.primary { background: var(--acid); color: #101013; border-color: #101013; box-shadow: 4px 4px 0 var(--violet); }
+.button.ghost { color: #f3f1e9; border-color: #b7b6c5; }
+.button:hover { transform: translate(-2px,-3px); box-shadow: 6px 7px 0 var(--violet); }
+.button > span:last-child { transition: transform .35s; }
+.button:hover > span:last-child { transform: rotate(45deg); }
+.text-link { display: inline-flex; align-items: center; gap: 25px; font-size: 15px; font-weight: 700; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.text-link:hover { color: var(--red); border-color: var(--red); }
+.text-button { min-height: 44px; padding: 10px 0; font-weight: 700; text-decoration: underline; text-underline-offset: 5px; }
+.icon-button { display: grid; place-items: center; min-width: 44px; min-height: 44px; font-size: 25px; line-height: 1; border-radius: 50%; }
+.icon-button:hover { background: var(--raised); }
+/* Header: the full supplied logo stays visible at every breakpoint. */
+.site-header { position: sticky; top: 0; z-index: 30; background: var(--bg); border-bottom: 1px solid var(--line); }
+.header-inner { width: calc(100% - 48px); max-width: 1700px; min-height: 92px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+.brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.brand-symbol { display: grid; place-items: center; width: 64px; height: 76px; flex: 0 0 64px; background: #101013; border-radius: 8px; }
+.brand-symbol img { width: 100%; height: 100%; object-fit: contain; }
+.brand-name { font-size: 18px; line-height: 1.1; letter-spacing: -.06em; font-weight: 900; }
+.brand-name > span, .footer-brand > span { color: var(--red); }
+.brand-name small { display: block; font: 12px/1.2 'Courier New', monospace; letter-spacing: .2em; margin-top: 7px; color: var(--muted); }
+.desktop-nav { display: flex; gap: 24px; }
+.desktop-nav a { font-size: 14px; border: 0; }
+.desktop-nav a > span:last-child { display: none; }
+.desktop-nav a[aria-current="location"] { color: var(--red); }
+.header-tools { display: flex; align-items: center; gap: 4px; }
+.header-tools select { background: var(--bg); color: var(--text); border: 0; width: 66px; min-height: 44px; font-size: 14px; cursor: pointer; }
+.menu-button { min-height: 44px; padding: 10px 8px 10px 18px; display: flex; align-items: center; gap: 14px; border-left: 1px solid var(--line); margin-left: 6px; font-size: 14px; }
+.menu-lines { width: 23px; height: 11px; border-top: 2px solid currentColor; border-bottom: 2px solid currentColor; position: relative; transition: transform .3s; }
+.menu-button[aria-expanded="true"] .menu-lines { transform: rotate(-45deg); height: 2px; border-bottom: 0; }
+.menu-button[aria-expanded="true"] .menu-lines:after { content: ''; position: absolute; left: 0; top: -2px; width: 23px; border-top: 2px solid currentColor; transform: rotate(90deg); }
+.full-nav { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0 40px; max-height: 75dvh; overflow: auto; padding: 24px var(--space) 36px; background: var(--acid); color: #101013; border-top: 1px solid; }
+.full-nav:not([hidden]) { animation: menu-in .45s var(--ease) both; }
+.full-nav a { padding: 18px 0; font-size: clamp(20px,2.5vw,34px); line-height: 1.2; font-weight: 900; letter-spacing: -.04em; border-bottom: 1px solid #10101360; }
+.full-nav a:hover { padding-left: 8px; }
+#scrollProgress { height: 3px; background: var(--violet); position: absolute; bottom: -1px; left: 0; width: 0; pointer-events: none; }
+/* The opening is a layered rave poster, not a full-screen loading gate. */
+.hero { position: relative; isolation: isolate; overflow: hidden; min-height: 760px; background: #101013; color: #f3f1e9; }
+.hero-inner { position: relative; width: min(var(--max),calc(100% - var(--space)*2)); margin: auto; min-height: min(870px,calc(100svh - 92px)); padding: 44px 0 38px; display: grid; grid-template-columns: 1.13fr 1fr; grid-template-rows: auto 1fr auto; gap: 28px 30px; z-index: 2; }
+.hero-brand { grid-column: 1/-1; margin: 0; font-size: 14px; color: #d5d4df; }
+.hero-brand > span { border: 0 !important; padding: 0 !important; color: var(--acid) !important; }
+.hero h1 { grid-column: 1; align-self: center; font-family: 'Arial Black',Arial,Helvetica,sans-serif; font-size: clamp(76px,8.1vw,130px); line-height: .98; max-width: 9.6ch; text-transform: uppercase; letter-spacing: -.075em; color: var(--acid); position: relative; z-index: 3; padding-block: 10px; }
+.hero h1 .headline-row { display: block; }
+.hero h1 .headline-row:nth-child(2) { color: var(--pink); font-style: italic; }
+.hero h1 .headline-row:nth-child(3) { color: #f3f1e9; }
+.hero h1 .headline-row:nth-child(4) { color: var(--violet); font-size: .82em; letter-spacing: -.075em; }
+.hero-copy { grid-row: 3; grid-column: 1; max-width: 500px; }
+.hero-copy p { max-width: 43ch; font-size: 16px; color: #c8c6d0; margin-bottom: 24px; }
+.hero-photo { position: absolute; z-index: 1; width: 41%; height: 70%; right: 5.5%; top: 17%; padding: 12px 12px 44px; border: 2px solid #101013; background: var(--violet); transform: rotate(6deg); box-shadow: 18px 18px 0 #dbff00; }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; filter: saturate(1.1) contrast(1.05); }
+.photo-index { position: absolute; bottom: 10px; left: 15px; color: #101013; font: 700 14px/1.3 'Courier New',monospace; }
+.film-link { grid-column: 2; grid-row: 3; align-self: end; justify-self: end; display: flex; align-items: center; gap: 16px; background: #101013; color: #f3f1e9; border: 1px solid var(--violet); border-radius: 60px; padding: 12px 18px 12px 12px; width: min(330px,100%); font-size: 15px; text-align: left; transform: rotate(-4deg); transition: transform .35s; }
+.film-link:hover { transform: rotate(0); }
+.play-circle { width: 44px; height: 44px; border-radius: 50%; background: var(--acid); color: #101013; display: grid; place-items: center; font-size: 14px; flex-shrink: 0; padding-left: 3px; }
+.film-rule { flex: 1; height: 1px; background: #7f7c91; }
+.acid-field { position: absolute; pointer-events: none; z-index: 0; width: 80%; height: 150%; left: 38%; top: -24%; opacity: .58; background: repeating-radial-gradient(ellipse at 54% 48%, transparent 0 21px, #a78bff 22px 24px, transparent 25px 39px); transform: rotate(-20deg); border-radius: 50%; animation: field-drift 20s ease-in-out infinite alternate; }
+.acid-seal { position: absolute; z-index: 4; top: -50px; right: -20px; width: 124px; height: 124px; border: 2px solid #101013; border-radius: 50%; background: var(--acid); color: #101013; display: grid; place-content: center; text-align: center; transform: rotate(12deg); box-shadow: 5px 5px 0 #101013; }
+.acid-seal strong { font: 900 36px/1 Arial,sans-serif; letter-spacing: -.08em; }
+.acid-seal span { font: 700 12px/1.3 'Courier New',monospace; margin-top: 7px; }
+.acid-cross { position: absolute; z-index: 3; right: 44%; top: 15%; color: var(--pink); font-size: 100px; line-height: 1; animation: orbit 28s linear infinite; pointer-events: none; }
+.ticker { overflow: hidden; padding: 19px 0; background: var(--acid); color: #101013; border-block: 2px solid #101013; }
+.ticker-track { display: flex; width: max-content; animation: ticker 28s linear infinite; }
+.ticker-track > div { display: flex; align-items: center; gap: 36px; padding-right: 36px; flex-shrink: 0; }
+.ticker strong { font-size: clamp(22px,3vw,42px); line-height: 1; letter-spacing: -.05em; white-space: nowrap; }
+.ticker b { font-size: 36px; line-height: 1; font-weight: 400; }
+.motion-button { position: fixed; right: 22px; bottom: 22px; z-index: 22; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 30px; width: 46px; height: 46px; font-size: 19px; }
+/* Mixed poster compositions, with photographs left in their original colors. */
+.about-layout { display: grid; grid-template-columns: .95fr 1fr; gap: 10%; align-items: center; }
+.about-photo { padding: 14px 14px 40px; background: var(--pink); transform: rotate(-3deg); box-shadow: 12px 12px 0 var(--violet); }
+.about-photo .photo-button { height: 560px; }
+.about-photo img { object-position: 50% 35%; }
+.about-copy h3 { font-size: clamp(36px,4.5vw,68px); max-width: 11ch; margin-bottom: 28px; }
+.about-copy > p { color: var(--muted); margin-bottom: 20px; max-width: 49ch; }
+.mission-note { display: grid; gap: 12px; border-left: 4px solid var(--red); padding-left: 24px; margin-top: 34px; }
+.mission-note .tiny-label { color: var(--red); }
+.mission-note p { font-size: 15px; max-width: 48ch; }
+.photo { min-width: 0; }
+.photo-button { padding: 0; position: relative; width: 100%; display: block; overflow: hidden; background: #24242d; text-align: left; }
+.photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
+.photo-button:hover img { transform: scale(1.045); }
+.expand-mark { position: absolute; bottom: 12px; right: 12px; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: #101013; background: var(--acid); font-size: 24px; line-height: 1; transition: transform .35s; }
+.photo-button:hover .expand-mark { transform: rotate(90deg); }
+.photo figcaption { padding-block: 14px; font: 700 14px/1.4 'Courier New',monospace; }
+.product { background: var(--violet); --text: #101013; --muted: #312543; --line: #7058a0; --red: #101013; color: var(--text); }
+.product-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 8%; align-items: center; }
+.product-visual { position: relative; transform: rotate(-3deg); margin: 8px 12px 20px 0; box-shadow: 12px 12px 0 #101013; border: 2px solid #101013; background: #101013; }
+.product-photo .photo-button { aspect-ratio: 1/1; }
+.product-photo img { object-fit: contain; background: #101013; }
+.badge { position: absolute; left: -15px; top: 20px; z-index: 2; display: block; padding: 12px 22px; background: var(--acid); color: #101013; font: 700 14px/1.4 'Courier New',monospace; text-transform: uppercase; transform: rotate(-8deg); border: 1px solid; }
+.product-dimensions { display: block; padding: 15px 20px; background: #101013; color: #f3f1e9; font: 15px/1.4 monospace; }
+.product-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.product-title-row h3 { max-width: 13ch; font-size: clamp(32px,3.3vw,48px); }
+.save-button { min-width: 48px; min-height: 48px; border: 1px solid; border-radius: 50%; display: grid; place-items: center; font-size: 27px; }
+.save-button[aria-pressed="true"] { background: var(--acid); }
+.product-copy > p { color: var(--muted); margin-top: 20px; }
+.spec-list { list-style: none; margin: 26px 0; padding: 0; }
+.spec-list li { border-top: 1px solid var(--line); padding: 11px 0 11px 25px; position: relative; font-size: 15px; }
+.spec-list li:before { content: '+'; position: absolute; left: 0; font-weight: bold; }
+.purchase-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.purchase-row .price { font-size: 68px; line-height: 1; font-weight: 900; letter-spacing: -.08em; }
+.product .button.primary { box-shadow: 4px 4px 0 #101013; }
+.product-copy .fine-print { margin: 20px 0 5px; }
+.video-details { margin-top: 40px; border-block: 1px solid var(--line); }
+summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 22px; min-height: 66px; padding: 20px 0; line-height: 1.4; font-weight: 700; }
+summary::-webkit-details-marker { display: none; }
+summary > span:last-child { font-size: 26px; font-weight: 400; flex-shrink: 0; transition: transform .35s; }
+details[open] > summary > span:last-child { transform: rotate(45deg); }
+details[open] > :not(summary) { animation: details-in .5s var(--ease); }
+.product-video-wrap { max-width: 850px; margin: 0 auto 28px; }
+.product-video-wrap video { max-height: 600px; }
+.product-video-wrap a { display: inline-block; margin-top: 12px; text-decoration: underline; }
+.extra-product-media { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; padding-block: 12px 30px; }
+.extra-product-media .photo-button { aspect-ratio: 4/3; }
+.extra-product-media img { object-fit: contain; }
+.extra-product-media .product-video-wrap { width: 100%; margin: 0; }
+.crash-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 32px; }
+.crash-entry { min-width: 0; }
+.crash-entry:nth-child(2) { padding-top: 65px; }
+.crash-entry:nth-child(3) { padding-top: 130px; }
+.crash-entry .photo { padding: 8px; background: var(--acid); }
+.crash-entry:nth-child(2) .photo { background: var(--pink); }
+.crash-entry:nth-child(3) .photo { background: var(--violet); }
+.crash-entry .photo-button { aspect-ratio: 4/3; }
+.entry-number { font: italic 900 70px/1 Arial,sans-serif; color: var(--red); margin-top: 24px; letter-spacing: -.07em; }
+.crash-entry h3 { font-size: 26px; margin-top: 16px; }
+.crash-entry p { margin-top: 16px; color: var(--muted); }
+.crash-note { display: grid; grid-template-columns: 1fr 1fr; gap: 8%; padding-top: 30px; margin-top: 40px; border-top: 1px solid var(--line); }
+.crash-note > p:first-child { font-size: 20px; }
+.crash-extra { margin-top: 32px; border-top: 1px solid var(--line); }
+.crash-extra .photo { max-width: 520px; margin-bottom: 24px; }
+.crash-extra .photo-button { aspect-ratio: 4/3; }
+.crash-extra img { object-fit: contain; }
+.cleanup { background: var(--acid); --text: #101013; --muted: #384000; --line: #809400; --red: #101013; color: var(--text); }
+.cleanup h2 { max-width: 12ch; }
+.stats-row { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; margin: 12px 0 48px; border-block: 2px solid #101013; padding: 32px 0; }
+.stats-row > div { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.stats-row > div + div { border-left: 1px solid var(--line); padding-left: 30px; }
+.stats-row strong { font-size: clamp(58px,8vw,120px); line-height: 1; letter-spacing: -.085em; font-weight: 900; }
+.stats-row strong span { font-size: .42em; margin-left: 5px; letter-spacing: -.03em; }
+.stats-row > div > span { font: 700 14px/1.4 'Courier New',monospace; text-transform: uppercase; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.comparison .photo { background: #101013; color: #f3f1e9; padding: 10px 10px 0; }
+.comparison .photo:first-child { transform: rotate(-2deg); }
+.comparison .photo:last-child { transform: rotate(2deg); }
+.comparison .photo-button { aspect-ratio: 4/5; }
+.comparison img { object-fit: contain; background: #101013; }
+.comparison figcaption { padding: 16px 8px; text-transform: uppercase; }
+.cleanup-archive { border-block: 1px solid var(--line); margin-top: 44px; }
+.archive-content { padding-bottom: 32px; }
+.archive-content h3 { font-size: 26px; margin: 24px 0; }
+.archive-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 20px; }
+.archive-grid .photo-button { aspect-ratio: 1/1; border: 5px solid #101013; }
+.archive-grid img { object-fit: contain; background: #101013; }
+.archive-grid figcaption { font-size: 14px; padding-block: 8px; }
+.cleanup-statement { font-size: clamp(24px,3vw,42px); font-weight: 800; line-height: 1.25; max-width: 1000px; margin-top: 40px; letter-spacing: -.04em; }
+.gallery { overflow: clip; }
+.gallery-grid { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 35px; align-items: start; }
+.gallery-grid .photo { background: var(--violet); color: #101013; padding: 10px 10px 0; grid-column: span 5; transform: rotate(2deg); }
+.gallery-grid .photo:nth-child(1) { grid-column: span 7; transform: rotate(-3deg); }
+.gallery-grid .photo:nth-child(2) { margin-top: 100px; background: var(--pink); }
+.gallery-grid .photo:nth-child(3) { grid-column: 2/span 4; transform: rotate(-4deg); margin-top: -30px; background: var(--acid); }
+.gallery-grid .photo:nth-child(4) { grid-column: 7/span 6; margin-top: 80px; }
+.gallery-grid .photo-button { aspect-ratio: 4/5; }
+.gallery-grid .photo:nth-child(3) .photo-button { aspect-ratio: 3/5; }
+.gallery-grid figcaption { padding: 18px 8px; }
+.partners { background: var(--surface); }
+.partner-list { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.partner-row { display: grid; grid-template-columns: 112px 1fr; align-items: start; gap: 25px; padding: 30px; border: 1px solid var(--line); position: relative; transition: transform .4s var(--ease), border-color .4s; }
+.partner-row:hover { transform: translateY(-6px); border-color: var(--red); }
+.partner-logo { padding: 10px; background: white; aspect-ratio: 1; display: grid; place-items: center; }
+.partner-logo img { width: 100%; height: 100%; object-fit: contain; }
+.partner-row .tiny-label { color: var(--red); }
+.partner-row h3 { margin: 12px 0 18px; font-size: 32px; }
+.partner-row p { max-width: 50ch; color: var(--muted); font-size: 16px; }
+.partner-arrow { grid-column: 2; font-size: 30px; }
+.gift-note { display: grid; grid-template-columns: 1fr 1.2fr; gap: 8%; padding-top: 35px; margin-top: 35px; border-top: 1px solid var(--line); }
+.gift-note h3 { font-size: 28px; }
+.gift-note p { color: var(--muted); }
+.partner-archive { margin-top: 30px; border-top: 1px solid var(--line); }
+.partner-archive img { width: 120px; height: 120px; object-fit: contain; background: white; padding: 8px; margin-bottom: 24px; }
+.milestones { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+.milestones li { padding: 30px; border: 1px solid var(--line); border-top: 7px solid var(--red); }
+.milestones li:nth-child(2) { border-top-color: var(--pink); }
+.milestones li:nth-child(3) { border-top-color: var(--violet); }
+.milestones li > div { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+.milestones strong { font-size: clamp(52px,7vw,100px); line-height: 1; letter-spacing: -.08em; }
+.milestones span { font: 14px/1.4 monospace; color: var(--muted); }
+.milestones h3 { font-size: 23px; line-height: 1.25; letter-spacing: -.03em; }
+.contact { background: var(--pink); --text: #101013; --muted: #4e1e40; --line: #ad4b8e; --red: #101013; color: var(--text); }
+.contact h2 { font-size: clamp(50px,7vw,108px); }
+.contact-links { border-top: 2px solid #101013; }
+.contact-links a { display: grid; grid-template-columns: .5fr 1fr 50px; align-items: center; gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--line); transition: padding .35s var(--ease), background .35s; }
+.contact-links a > span:first-child { font: 700 14px/1.4 monospace; text-transform: uppercase; }
+.contact-links strong { font-size: clamp(25px,4vw,60px); line-height: 1.2; letter-spacing: -.055em; }
+.contact-links a > span:last-child { font-size: 40px; }
+.contact-links a:hover { padding-inline: 15px; background: #ffffff25; }
+.faq { display: grid; grid-template-columns: .7fr 1fr; gap: 8%; margin-top: 55px; }
+.faq h3 { font-size: 32px; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq details:first-child { border-top: 1px solid var(--line); }
+.faq details p { padding-bottom: 25px; color: var(--muted); }
+.safety h2 { max-width: 22ch; font-size: clamp(32px,4vw,56px); }
+.safety-intro { display: grid; grid-template-columns: .65fr 1fr; gap: 9%; margin: 35px 0; }
+.safety-intro h3 { font-size: 27px; }
+.safety-intro p { color: var(--muted); }
+.legal-details { border-top: 1px solid var(--line); }
+.legal-details details { border-bottom: 1px solid var(--line); }
+.legal-details details > p { max-width: 90ch; font-size: 16px; color: var(--muted); padding-bottom: 26px; }
+.legal-details .text-link { margin: 0 28px 20px 0; }
+.footer { padding-block: 50px 30px; overflow: hidden; }
+.footer-main { display: flex; align-items: center; justify-content: space-between; gap: 28px; margin-bottom: 35px; }
+.footer-brand { font-weight: 900; font-size: clamp(24px,4.7vw,74px); letter-spacing: -.075em; line-height: 1; }
+.footer-logo { width: 90px; max-height: 110px; object-fit: contain; background: #101013; padding: 6px; }
+.footer-main p { max-width: 32ch; font-size: 14px; color: var(--muted); }
+.footer-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; border-top: 1px solid var(--line); padding-top: 25px; padding-right: 60px; font-size: 14px; color: var(--muted); }
+.footer-bottom p { margin-right: auto; }
+.back-top { position: fixed; bottom: 80px; right: 22px; z-index: 21; background: var(--acid); color: #101013; border: 1px solid #101013; width: 46px; height: 46px; }
+/* All existing utilities: search, saved product, films and photo lightbox. */
+dialog { padding: 28px; background: var(--bg); color: var(--text); border: 2px solid var(--violet); max-height: 90dvh; width: min(850px,calc(100% - 32px)); overflow: auto; box-shadow: 9px 9px 0 #a78bff40; }
+dialog[open] { animation: dialog-in .35s var(--ease); }
+dialog::backdrop { background: #080611dd; backdrop-filter: blur(8px); }
+.dialog-heading { display: flex; gap: 20px; align-items: start; justify-content: space-between; margin-bottom: 22px; }
+.dialog-heading h2 { font-size: 28px; line-height: 1.2; max-width: none; }
+.search-dialog { margin-top: 12svh; width: min(650px,calc(100% - 32px)); }
+.search-dialog input { width: 100%; border: 1px solid var(--line); background: var(--surface); color: var(--text); padding: 16px; font-size: 17px; border-radius: 0; }
+.search-results { margin-top: 16px; max-height: 55dvh; overflow: auto; }
+.search-results a { display: block; padding: 16px 4px; border-bottom: 1px solid var(--line); }
+.search-results a:hover { color: var(--red); }
+.search-results p { padding: 16px 0; color: var(--muted); }
+.film-dialog { width: min(960px,calc(100% - 32px)); }
+.film-dialog video { max-height: 62dvh; }
+.intro-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 25px; margin-top: 20px; }
+.film-dialog > a { display: inline-block; margin-top: 15px; text-decoration: underline; }
+.lightbox { width: min(1400px,calc(100% - 24px)); background: #101013; color: #f3f1e9; }
+.lightbox-toolbar { display: flex; justify-content: space-between; gap: 20px; align-items: center; margin-bottom: 15px; }
+.lightbox-stage { display: grid; grid-template-columns: 44px minmax(0,1fr) 44px; align-items: center; gap: 12px; }
+.lightbox-stage img { max-height: 72dvh; object-fit: contain; width: 100%; height: 72dvh; }
+.lightbox #imageStatus { font-size: 14px; margin-top: 12px; }
+.noscript-message { padding: 20px; text-align: center; background: var(--surface); }
+/* Reveal elements stay readable when scripts or observers are unavailable. */
+.motion-ready .reveal { transition: opacity .8s var(--ease), translate .8s var(--ease); }
+.motion-ready .reveal:not(.is-visible) { opacity: 0; translate: 0 40px; }
+.motion-ready .reveal.is-visible { opacity: 1; translate: 0 0; }
+.hero h1 .headline-row { animation: headline-in 1s var(--ease) both; }
+.hero h1 .headline-row:nth-child(2) { animation-delay: .1s; }
+.hero h1 .headline-row:nth-child(3) { animation-delay: .2s; }
+.hero h1 .headline-row:nth-child(4) { animation-delay: .3s; }
+@keyframes headline-in { from { opacity: 0; transform: translateY(35px) rotate(3deg); } to { opacity: 1; transform: translateY(0) rotate(0); } }
+@keyframes field-drift { from { transform: rotate(-20deg) scale(1); } to { transform: rotate(6deg) scale(1.12); } }
+@keyframes ticker { to { transform: translateX(-50%); } }
+@keyframes orbit { to { transform: rotate(360deg); } }
+@keyframes menu-in { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes details-in { from { opacity: .25; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes dialog-in { from { opacity: 0; transform: translateY(20px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+html[lang="ru"] .hero h1, html[lang="el"] .hero h1 { font-size: clamp(58px,6.5vw,104px); line-height: 1.04; max-width: 11ch; }
+html[lang="ja"] .hero h1, html[lang="zh-CN"] .hero h1 { font-size: clamp(50px,6.2vw,98px); max-width: 9ch; line-height: 1.2; letter-spacing: -.03em; }
+html[lang="ja"] h2, html[lang="zh-CN"] h2 { line-height: 1.2; letter-spacing: -.025em; }
+@media (min-width: 1600px) {
+  .hero { min-height: 900px; }
+  .hero-inner { min-height: 900px; }
+  .hero h1 { font-size: 142px; }
+  .hero-photo { right: 8%; width: 39%; }
+}
+@media (max-width: 1200px) {
+  .desktop-nav { display: none; }
+  .hero h1 { font-size: clamp(74px,9vw,106px); }
+  .hero-photo { top: 20%; height: 61%; }
+  .hero-inner { min-height: 790px; }
+  .partner-list { grid-template-columns: 1fr; }
+  .partner-row { grid-template-columns: 120px 1fr 35px; }
+  .partner-arrow { grid-column: 3; }
+  .footer-main { flex-wrap: wrap; }
+}
+@media (max-width: 800px) {
+  :root { --space: 26px; }
+  .header-inner { min-height: 80px; width: calc(100% - 28px); gap: 10px; }
+  .brand-symbol { width: 52px; height: 66px; flex-basis: 52px; }
+  .brand-name { font-size: 15px; }
+  .menu-button > span:first-child { display: none; }
+  .hero { min-height: 0; }
+  .hero-inner { min-height: 1020px; padding-top: 28px; grid-template-columns: 1fr; grid-template-rows: auto auto 310px auto auto; gap: 22px; }
+  .hero h1 { grid-row: 2; font-size: clamp(65px,10.5vw,85px); max-width: 12ch; align-self: start; }
+  .hero h1 .headline-row { display: inline; }
+  .hero h1 .headline-row::after { content: ' '; }
+  .hero h1 .headline-row:nth-child(4) { font-size: .92em; }
+  .hero-copy { grid-row: 4; max-width: 560px; }
+  .hero-copy p { max-width: 48ch; }
+  .hero-photo { position: relative; grid-column: 1; grid-row: 3; inset: auto; justify-self: center; width: 82%; height: 300px; transform: rotate(4deg); box-shadow: 10px 10px 0 var(--acid); }
+  .hero-photo img { object-position: 50% 40%; }
+  .film-link { grid-column: 1; grid-row: 5; justify-self: start; transform: none; }
+  .acid-field { width: 140%; left: 3%; top: 0; height: 85%; opacity: .33; }
+  .acid-seal { top: -30px; right: -15px; width: 95px; height: 95px; }
+  .acid-seal strong { font-size: 29px; }
+  .acid-cross { top: 460px; left: 4%; right: auto; font-size: 70px; }
+  .section-head { grid-template-columns: 1fr; gap: 25px; margin-bottom: 40px; }
+  .section-intro { max-width: 60ch; font-size: 17px; }
+  .about-layout { grid-template-columns: 1fr 1fr; gap: 7%; }
+  .about-photo .photo-button { height: 440px; }
+  .about-copy h3 { font-size: 38px; }
+  .product-layout { grid-template-columns: 1fr; gap: 30px; }
+  .product-visual { width: calc(100% - 24px); max-width: 560px; margin-inline: auto; }
+  .product-photo .photo-button { aspect-ratio: 4/3; }
+  .product-copy { max-width: 680px; }
+  .crash-grid { gap: 20px; }
+  .crash-entry:nth-child(2) { padding-top: 35px; }
+  .crash-entry:nth-child(3) { padding-top: 70px; }
+  .crash-entry h3 { font-size: 23px; }
+  .crash-note { grid-template-columns: 1fr; gap: 20px; }
+  .archive-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .gallery-grid { gap: 24px; }
+  .gallery-grid .photo:nth-child(2) { margin-top: 60px; }
+  .gallery-grid .photo:nth-child(3) { grid-column: 1/span 5; margin-top: 0; }
+  .gallery-grid .photo:nth-child(4) { grid-column: 6/span 7; margin-top: 45px; }
+  .milestones li { padding: 22px 18px; }
+  .milestones h3 { font-size: 21px; }
+  .gift-note, .faq, .safety-intro { grid-template-columns: 1fr; gap: 25px; }
+  .full-nav { grid-template-columns: 1fr 1fr; }
+  html[lang="ru"] .hero h1, html[lang="el"] .hero h1 { font-size: clamp(48px,8.8vw,70px); max-width: 15ch; }
+  html[lang="ja"] .hero h1, html[lang="zh-CN"] .hero h1 { font-size: 60px; max-width: 10ch; }
+}
+@media (max-width: 520px) {
+  :root { --space: 20px; }
+  html { scroll-padding-top: 85px; }
+  .header-inner { width: calc(100% - 20px); min-height: 76px; gap: 4px; }
+  .brand { gap: 6px; }
+  .brand-symbol { width: 42px; height: 61px; flex-basis: 42px; }
+  .brand-name { font-size: 12px; }
+  .brand-name small { font-size: 10px; letter-spacing: .1em; }
+  .header-tools { gap: 0; }
+  .header-tools .icon-button { min-width: 34px; width: 34px; min-height: 44px; font-size: 21px; }
+  .header-tools svg { width: 19px; }
+  .header-tools select { width: 47px; font-size: 13px; }
+  .menu-button { padding: 8px; margin-left: 1px; min-width: 36px; }
+  .menu-lines { width: 20px; }
+  .hero-inner { min-height: 0; padding: 26px 0 35px; grid-template-rows: auto auto 290px auto auto; gap: 20px; }
+  .hero-brand { font-size: 12px; gap: 10px; }
+  .hero h1 { font-size: clamp(53px,13.5vw,70px); line-height: 1.02; max-width: 11ch; letter-spacing: -.065em; padding: 0; }
+  .hero-photo { inset: auto; width: 88%; height: 268px; margin-top: 10px; padding: 8px 8px 34px; }
+  .photo-index { font-size: 12px; bottom: 9px; }
+  .acid-seal { top: -22px; right: -12px; width: 79px; height: 79px; }
+  .acid-seal strong { font-size: 26px; }
+  .acid-seal span { font-size: 12px; margin-top: 3px; }
+  .acid-cross { top: 450px; left: -4px; font-size: 62px; }
+  .hero-copy p { font-size: 16px; margin-bottom: 21px; }
+  .hero .actions { gap: 10px; }
+  .hero .button { font-size: 14px; padding: 13px 17px; gap: 12px; min-height: 50px; }
+  .film-link { width: 100%; max-width: 330px; }
+  .ticker { padding-block: 16px; }
+  .ticker strong { font-size: 25px; }
+  .ticker-track > div { gap: 25px; padding-right: 25px; }
+  .section { padding-block: 65px; }
+  .section-head { margin-bottom: 32px; }
+  .section-head h2 { font-size: clamp(37px,10vw,50px); }
+  .eyebrow { font-size: 13px; margin-bottom: 20px; }
+  .about-layout { grid-template-columns: 1fr; gap: 42px; }
+  .about-photo { width: calc(100% - 16px); margin-inline: auto; padding: 9px 9px 27px; box-shadow: 8px 8px 0 var(--violet); }
+  .about-photo .photo-button { height: auto; aspect-ratio: 4/5; }
+  .about-copy h3 { font-size: 43px; max-width: 13ch; }
+  .product-title-row h3 { font-size: 34px; }
+  .badge { left: -8px; top: 16px; padding: 8px 14px; font-size: 13px; }
+  .purchase-row .price { font-size: 56px; }
+  .purchase-row .button { padding: 13px 18px; gap: 16px; }
+  .extra-product-media { grid-template-columns: 1fr; }
+  .crash-grid { grid-template-columns: 1fr; gap: 35px; }
+  .crash-entry, .crash-entry:nth-child(2), .crash-entry:nth-child(3) { padding-top: 0; display: grid; grid-template-columns: 70px 1fr; gap: 0 18px; }
+  .crash-entry .photo { grid-column: 1/-1; }
+  .entry-number { grid-column: 1; font-size: 54px; margin-top: 20px; }
+  .crash-entry h3 { grid-column: 2; font-size: 27px; margin-top: 24px; }
+  .crash-entry > p { grid-column: 2; margin-top: 12px; }
+  .stats-row { gap: 10px; padding-block: 24px; margin-bottom: 35px; }
+  .stats-row > div + div { padding-left: 10px; }
+  .stats-row strong { font-size: clamp(35px,10.9vw,55px); }
+  .stats-row > div > span { font-size: 12px; line-height: 1.5; }
+  .comparison { gap: 14px; }
+  .comparison .photo { padding: 5px 5px 0; }
+  .comparison .photo-button { aspect-ratio: 3/5; }
+  .comparison figcaption { font-size: 12px; padding: 12px 4px; }
+  .archive-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .archive-grid figcaption { font-size: 13px; }
+  .cleanup-statement { font-size: 26px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 30px 18px; }
+  .gallery-grid .photo { padding: 6px 6px 0; }
+  .gallery-grid .photo:nth-child(1) { grid-column: 1/-1; margin: 0 6px; }
+  .gallery-grid .photo:nth-child(2) { grid-column: 1; margin-top: 0; }
+  .gallery-grid .photo:nth-child(3) { grid-column: 2; margin-top: 20px; }
+  .gallery-grid .photo:nth-child(4) { grid-column: 1/-1; margin: 5px 6px 0; }
+  .gallery-grid .photo:nth-child(1) .photo-button, .gallery-grid .photo:nth-child(4) .photo-button { aspect-ratio: 4/3; }
+  .gallery-grid figcaption { font-size: 13px; padding: 14px 5px; }
+  .partner-row { grid-template-columns: 72px 1fr; gap: 18px; padding: 22px 16px; }
+  .partner-row h3 { font-size: 27px; }
+  .partner-row .tiny-label { font-size: 12px; }
+  .partner-row p { font-size: 15px; }
+  .partner-arrow { display: none; }
+  .partner-logo { padding: 6px; }
+  .milestones { grid-template-columns: 1fr; gap: 16px; }
+  .milestones li { display: grid; grid-template-columns: 100px 1fr; gap: 20px; align-items: center; border-top-width: 4px; }
+  .milestones li > div { margin: 0; gap: 6px; }
+  .milestones strong { font-size: 52px; }
+  .contact-links a { grid-template-columns: 1fr 30px; gap: 8px; padding: 24px 0; }
+  .contact-links a > span:first-child, .contact-links strong { grid-column: 1; }
+  .contact-links strong { font-size: clamp(25px,7.6vw,38px); }
+  .contact-links a > span:last-child { grid-column: 2; grid-row: 1/3; font-size: 30px; }
+  .faq h3 { font-size: 29px; }
+  .footer-main { gap: 20px; }
+  .footer-logo { width: 58px; }
+  .footer-brand { font-size: clamp(22px,6.4vw,31px); }
+  .footer-main p { width: 100%; max-width: none; }
+  .footer-bottom { gap: 18px; }
+  .footer-bottom p { width: 100%; }
+  .motion-button, .back-top { right: 14px; }
+  dialog { padding: 18px; }
+  .dialog-heading h2 { font-size: 24px; }
+  .lightbox-stage { grid-template-columns: 36px minmax(0,1fr) 36px; gap: 4px; }
+  .lightbox-stage .icon-button { min-width: 36px; }
+  .lightbox-stage img { height: 62dvh; }
+  html[lang="ru"] .hero h1, html[lang="el"] .hero h1 { font-size: clamp(43px,10.5vw,56px); max-width: 13ch; }
+  html[lang="ja"] .hero h1, html[lang="zh-CN"] .hero h1 { font-size: clamp(41px,10.5vw,55px); max-width: 9ch; }
+}
+@media (max-width: 359px) {
+  .brand-name { font-size: 10px; }
+  .brand-symbol { width: 36px; flex-basis: 36px; }
+  .brand { gap: 4px; }
+  .header-tools .icon-button { min-width: 31px; width: 31px; }
+  .header-tools select { width: 43px; }
+  .menu-button { min-width: 32px; padding: 6px; }
+}
+html[data-motion="paused"] *, html[data-motion="paused"] *::before, html[data-motion="paused"] *::after {
+  animation: none !important; transition-duration: 0s !important;
+}
+html[data-motion="paused"] .reveal, html[data-motion="paused"] .headline-row { opacity: 1 !important; translate: none !important; transform: none !important; }
+html[data-motion="paused"] { scroll-behavior: auto; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .motion-ready .reveal:not(.is-visible) { opacity: 1; translate: none; }
+}
+@media print {
+  .site-header, .ticker, .motion-button, .back-top, .acid-field, .acid-cross, .acid-seal, dialog { display: none !important; }
+  body, .section { background: white !important; color: black !important; --muted: #333; --text: #111; }
+  .hero { background: white; color: black; }
+  .hero h1, .hero h1 .headline-row { color: black !important; }
+  .hero-inner { min-height: 0; display: block; }
+  .hero-photo { display: none; }
+  .hero-copy p { color: #333; }
+  .section { padding-block: 30px; }
+  .wrap { width: 100%; }
+  .reveal { opacity: 1 !important; translate: none !important; }
+  details > * { display: block !important; }
+}
+
+    </style>
+    <script>
+      try {
+          if (localStorage.getItem('ascTheme') === 'light')
+              document.documentElement.dataset.theme = 'light';
+      }
+      catch (e) { }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main" data-i18n="skipContent">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+<a class="brand" href="#home" aria-label="AlexStuntCrew">
+<span class="brand-symbol">
+<img src="ascv2.png" alt="AlexStuntCrew logo" data-i18n-alt="logoAlt" width="1024" height="1536" class="" loading="eager" decoding="async">
+</span>
+<span class="brand-name">ALEX<span>STUNT</span>CREW<small>EBIKESTR</small>
+</span>
+</a>
+      <nav class="desktop-nav" aria-label="AlexStuntCrew">
+<a class="text-link" href="#product">
+<span data-i18n="navProduct">Bar ends</span>
+<span aria-hidden="true">↗</span>
+</a>
+<a class="text-link" href="#cleanup">
+<span data-i18n="navCleanup">Cleanup</span>
+<span aria-hidden="true">↗</span>
+</a>
+<a class="text-link" href="#gallery">
+<span data-i18n="navGallery">Gallery</span>
+<span aria-hidden="true">↗</span>
+</a>
+<a class="text-link" href="#contact">
+<span data-i18n="navContact">Contact</span>
+<span aria-hidden="true">↗</span>
+</a>
+</nav>
+      <div class="header-tools">
+<button id="searchButton" type="button" class="icon-button" data-i18n-aria="searchButton" aria-label="Search website">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<circle cx="10.5" cy="10.5" r="6.5"/>
+<path d="m16 16 5 5"/>
+</svg>
+</button>
+<button id="themeToggle" class="icon-button" type="button" aria-label="Switch to light mode" aria-pressed="false">
+<span id="themeIcon" aria-hidden="true">☀</span>
+</button>
+<label class="sr-only" for="languageSelect" data-i18n="language">Language</label>
+<select id="languageSelect">
+<option value="en" lang="en">EN · English</option>
+<option value="ru" lang="ru">RU · Русский</option>
+<option value="el" lang="el">EL · Ελληνικά</option>
+<option value="zh" lang="zh">ZH · 简体中文</option>
+<option value="ja" lang="ja">JA · 日本語</option>
+</select>
+<button id="menuToggle" data-i18n-aria="menu" aria-label="Menu" class="menu-button" type="button" aria-controls="mainNavigation" aria-expanded="false">
+<span data-i18n="menu">Menu</span>
+<span class="menu-lines" aria-hidden="true">
+</span>
+</button>
+</div>
+    </div>
+    <nav id="mainNavigation" class="full-nav" aria-label="AlexStuntCrew" hidden>
+<a href="#home" data-i18n="navHome">Home</a>
+<a href="#about" data-i18n="navAbout">About</a>
+<a href="#product" data-i18n="navProduct">Bar ends</a>
+<a href="#crash-tests" data-i18n="navCrash">Crash tests</a>
+<a href="#cleanup" data-i18n="navCleanup">Cleanup</a>
+<a href="#gallery" data-i18n="navGallery">Gallery</a>
+<a href="#sponsors" data-i18n="navSponsors">Partners</a>
+<a href="#timeline" data-i18n="timelineTitle">EbikeStr timeline</a>
+<a href="#contact" data-i18n="navContact">Contact</a>
+</nav>
+    <div id="scrollProgress" aria-hidden="true">
+</div>
+  </header>
+  <main id="main">
+    <section id="home" class="hero">
+      <div class="acid-field" aria-hidden="true">
+</div>
+      <span class="acid-cross" aria-hidden="true">✳</span>
+
+      <div class="hero-inner">
+<div class="hero-photo">
+<img src="Hero.jpg" alt="EbikeStr performing a wheelie on the stunt bike" data-i18n-alt="heroAlt" width="1080" height="1203" class="" loading="eager" decoding="async" fetchpriority="high">
+<div class="acid-seal" aria-hidden="true">
+<strong>ASC</strong>
+<span>EBIKESTR</span>
+</div>
+<span class="photo-index" aria-hidden="true">ASC / 001</span>
+</div>
+        <p class="eyebrow hero-brand">ALEXSTUNTCREW <span aria-hidden="true">/</span> EBIKESTR</p>
+        <h1 data-i18n="introTitle">Ride hard. Respect everyone.</h1>
+        <div class="hero-copy">
+          <p data-i18n="heroText">Stunt riding, real-world product testing, community projects and respect for every rider.</p>
+          <div class="actions">
+<a class="button primary" href="#product">
+<span data-i18n="heroProductButton">View bar ends</span>
+<span aria-hidden="true">↗</span>
+</a>
+<a class="button ghost" href="#cleanup">
+<span data-i18n="heroCleanupButton">Cleanup project</span>
+<span aria-hidden="true">↗</span>
+</a>
+</div>
+        </div>
+        <button type="button" class="film-link" id="watchIntro">
+<span class="play-circle" aria-hidden="true">▶</span>
+<span data-i18n="watchIntro">Watch the film</span>
+<span class="film-rule" aria-hidden="true">
+</span>
+<span aria-hidden="true">01</span>
+</button>
+</div>
+      </section>
+      
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <div>
+<strong>ALEXSTUNTCREW</strong>
+<b>✳</b>
+<strong>EBIKESTR</strong>
+<b>✳</b>
+<strong>ALEXSTUNTCREW</strong>
+<b>✳</b>
+<strong>EBIKESTR</strong>
+<b>✳</b>
+</div>
+          <div>
+<strong>ALEXSTUNTCREW</strong>
+<b>✳</b>
+<strong>EBIKESTR</strong>
+<b>✳</b>
+<strong>ALEXSTUNTCREW</strong>
+<b>✳</b>
+<strong>EBIKESTR</strong>
+<b>✳</b>
+</div>
+        </div>
+      </div>
+<section id="about" class="section about">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">
+<span>01</span>
+<span data-i18n="communityLabel">The community</span>
+</p>
+              <h2 data-i18n="aboutTitle">About AlexStuntCrew</h2>
+            </div>
+            <p data-i18n="aboutIntro" class="section-intro">AlexStuntCrew is built around stunt riding, progression, community and making riding culture more respectful and welcoming.</p>
+          </div>
+          <div class="about-layout">
+            <figure class="photo about-photo">
+<button class="photo-button" type="button" data-photo="mefalling.webp" data-caption="heroAlt" aria-label="EbikeStr performing a wheelie on the stunt bike" data-i18n-aria="heroAlt">
+<img src="mefalling.webp" alt="EbikeStr performing a wheelie on the stunt bike" data-i18n-alt="heroAlt" width="1202" height="1440" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+</figure>
+            <div class="about-copy">
+              <h3 data-i18n="aboutHeading">More than wheelies</h3>
+              <p data-i18n="aboutParagraphOne">The goal is not only to improve as a rider. It is also to create content, test products honestly and use the platform to support positive projects.</p>
+              <p data-i18n="aboutParagraphTwo">Every crash, repair, cleanup and riding session becomes part of the story.</p>
+              <a class="text-link" href="#gallery">
+<span data-i18n="aboutButton">See the riding</span>
+<span aria-hidden="true">↗</span>
+</a>
+              <div class="mission-note">
+<span class="tiny-label">ALEXSTUNTCREW</span>
+              <p data-i18n="cleanupMessage">Respect the spot, respect local residents and take your rubbish with you. Riders should leave a positive mark, not a pile of trash.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="product" class="section product">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">
+<span>02</span>
+<span data-i18n="productLabel">Made for the ride</span>
+</p>
+            <h2 data-i18n="productTitle">Stunt bar ends</h2>
+          </div>
+          <p data-i18n="productIntro" class="section-intro">Designed to protect the handlebars during drops, slides and real stunt-riding use.</p>
+        </div>
+        <div class="product-layout">
+          <div class="product-visual">
+<span class="badge" data-i18n="bestSeller">Best seller</span>
+          <figure class="photo product-photo">
+<button class="photo-button" type="button" data-photo="barendiki.jpg" data-caption="productAlt" aria-label="AlexStuntCrew bar end with AS and Cyprus logo" data-i18n-aria="productAlt">
+<img src="barendiki.jpg" alt="AlexStuntCrew bar end with AS and Cyprus logo" data-i18n-alt="productAlt" width="1080" height="948" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+</figure>
+          <span class="product-dimensions">32 × 28 × 28 mm</span>
+</div>
+          <div class="product-copy">
+            <div class="product-title-row">
+              <h3 data-i18n="productName">AlexStuntCrew bar ends</h3>
+              <button id="wishlistButton" type="button" class="save-button" aria-pressed="false" aria-label="Add bar ends to wishlist">
+<span id="wishlistHeart" aria-hidden="true">♡</span>
+</button>
+</div>
+              <p data-i18n="productDescription">Tested on the actual EbikeStr stunt bike, through real riding and drops.</p>
+              <ul class="spec-list">
+                <li data-i18n="productFeatureOne">Built for stunt-riding drops</li>
+                <li data-i18n="productFeatureTwo">Helps protect grips and handlebars</li>
+                <li data-i18n="productFeatureThree">Dimensions: 32 × 28 × 28 mm</li>
+                <li data-i18n="productFeatureFour">Universal fit with a smooth flat base for adhesive mounting</li>
+                <li data-i18n="productFeatureFive">Real crash-test results</li>
+                <li data-i18n="productFeatureSix">Bolt-on version coming soon</li>
+              </ul>
+              <div class="purchase-row">
+                <p data-i18n="productPrice" class="price">20€</p>
+                <a class="button primary" href="#contact">
+<span data-i18n="productButton">Contact to order</span>
+<span aria-hidden="true">↗</span>
+</a>
+</div>
+                <p data-i18n="fitNote" class="fine-print">Check fit and installation before ordering.</p>
+                <a class="text-link" href="#safety">
+<span data-i18n="viewSafety">Safety &amp; product information</span>
+<span aria-hidden="true">↗</span>
+</a>
+</div>
+              </div>
+              <details class="video-details">
+                <summary>
+<span data-i18n="previewTitle">Product preview</span>
+<span aria-hidden="true">＋</span>
+</summary>
+                <div class="product-video-wrap">
+<video id="productVideo" controls playsinline preload="none" poster="barendiki.jpg" aria-label="Product preview" data-i18n-aria="previewTitle">
+<source src="preview.mp4" type="video/mp4">
+</video>
+<a href="preview.mp4" data-i18n="videoFallback" class="fine-print">Open the video file.</a>
+</div>
+              </details>
+            <details class="video-details">
+  <summary>
+<span data-i18n="moreProductMedia">More product photos &amp; video</span>
+<span aria-hidden="true">＋</span>
+</summary>
+  <div class="extra-product-media">
+<figure class="photo">
+  <button class="photo-button" type="button" data-photo="barendichki.jpg" data-caption="productAlt" aria-label="AlexStuntCrew bar ends" data-i18n-aria="productAlt">
+    <img src="barendichki.jpg" alt="AlexStuntCrew bar ends" data-i18n-alt="productAlt" loading="lazy" decoding="async">
+    <span class="expand-mark" aria-hidden="true">＋</span>
+  </button>
+  <figcaption data-i18n="productAlt">AlexStuntCrew bar ends</figcaption>
+</figure>
+    <div class="product-video-wrap">
+      <video controls playsinline preload="none" poster="barendichki.jpg" data-i18n-aria="previewTitle" aria-label="Product preview">
+        <source src="barendpreview.mp4" type="video/mp4">
+      </video>
+      <a href="barendpreview.mp4" data-i18n="videoFallback" class="fine-print">Open the video file.</a>
+    </div>
+  </div>
+</details>
+</div>
+          </section>
+          <section id="crash-tests" class="section crash">
+            <div class="wrap">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">
+<span>03</span>
+<span data-i18n="journalLabel">From the riding sessions</span>
+</p>
+                  <h2 data-i18n="crashTitle">Real crash tests</h2>
+                </div>
+                <p data-i18n="crashIntro" class="section-intro">These bar ends were tested through real riding, drops and crashes on the EbikeStr stunt bike.</p>
+              </div>
+              <div class="crash-grid">
+                <article class="crash-entry">
+                  <figure class="photo ">
+<button class="photo-button" type="button" data-photo="crash1barend.jpg" data-caption="crashOneTitle" aria-label="After the first crash" data-i18n-aria="crashOneTitle">
+<img src="crash1barend.jpg" alt="After the first crash" data-i18n-alt="crashOneTitle" width="3072" height="4096" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+</figure>
+                  <div class="entry-number" aria-hidden="true">01</div>
+                  <h3 data-i18n="crashOneTitle">After the first crash</h3>
+                  <p data-i18n="crashOneText">The bar end absorbed the impact and helped protect the grip and handlebar during the first real crash.</p>
+                </article>
+                <article class="crash-entry">
+                  <figure class="photo ">
+<button class="photo-button" type="button" data-photo="crash2barendiki.jpg" data-caption="crashTwoTitle" aria-label="After two crashes" data-i18n-aria="crashTwoTitle">
+<img src="crash2barendiki.jpg" alt="After two crashes" data-i18n-alt="crashTwoTitle" width="1080" height="958" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+</figure>
+                  <div class="entry-number" aria-hidden="true">02</div>
+                  <h3 data-i18n="crashTwoTitle">After two crashes</h3>
+                  <p data-i18n="crashTwoText">After another impact, the bar end remained attached and continued protecting the bike.</p>
+                </article>
+                <article class="crash-entry">
+                  <figure class="photo ">
+<button class="photo-button" type="button" data-photo="crash3barend.jpg" data-caption="crashThreeTitle" aria-label="After the third crash" data-i18n-aria="crashThreeTitle">
+<img src="crash3barend.jpg" alt="After the third crash" data-i18n-alt="crashThreeTitle" width="868" height="920" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+</figure>
+                  <div class="entry-number" aria-hidden="true">03</div>
+                  <h3 data-i18n="crashThreeTitle">After the third crash</h3>
+                  <p data-i18n="crashThreeText">60kmh crash. The bar ends survived and stayed attached.</p>
+                </article>
+              </div>
+              <div class="crash-note">
+                <p data-i18n="crashMessage">The scratches show that the bar ends absorbed damage that could otherwise reach more expensive parts of the bike.</p>
+                <p data-i18n="crashContext" class="fine-print">These are EbikeStr’s reports of individual riding incidents, not controlled laboratory tests, independent certification or a guarantee of future performance. Do not recreate the crashes.</p>
+              </div>
+            <details class="crash-extra">
+  <summary>
+<span data-i18n="moreCrashPhotos">More crash photos</span>
+<span aria-hidden="true">＋</span>
+</summary>
+<figure class="photo">
+  <button class="photo-button" type="button" data-photo="Crash2barend.jpg" data-caption="crashTitle" aria-label="Real crash tests" data-i18n-aria="crashTitle">
+    <img src="Crash2barend.jpg" alt="Real crash tests" data-i18n-alt="crashTitle" loading="lazy" decoding="async">
+    <span class="expand-mark" aria-hidden="true">＋</span>
+  </button>
+  <figcaption data-i18n="crashTitle">Real crash tests</figcaption>
+</figure>
+</details>
+</div>
+          </section>
+          <section id="cleanup" class="section cleanup">
+            <div class="wrap">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">
+<span>04</span>
+<span data-i18n="impactLabel">A positive mark</span>
+</p>
+                  <h2 data-i18n="cleanupTitle">Stunt spot cleanup</h2>
+                </div>
+                <p data-i18n="cleanupIntro" class="section-intro">Riding spots deserve respect. AlexStuntCrew helps remove rubbish and leave stunt locations cleaner than they were before.</p>
+              </div>
+              <div class="stats-row">
+                <div>
+<strong>3</strong>
+<span data-i18n="cleanupsCompleted">Cleanups</span>
+</div>
+                <div>
+<strong>244<span>kg</span>
+</strong>
+<span data-i18n="kilogramsCollected">Collected total</span>
+</div>
+                <div>
+<strong>136<span>+</span>
+</strong>
+<span data-i18n="ridersReached">Riders reached</span>
+</div>
+              </div>
+              <div class="comparison">
+                <figure class="photo ">
+<button class="photo-button" type="button" data-photo="beforesum.jpg" data-caption="beforeTitle" aria-label="Rubbish at the riding spot before cleanup" data-i18n-aria="cleanupBeforeAlt">
+<img src="beforesum.jpg" alt="Rubbish at the riding spot before cleanup" data-i18n-alt="cleanupBeforeAlt" width="1080" height="1691" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+                <figcaption data-i18n="beforeTitle">Before cleanup</figcaption>
+              </figure>
+              <figure class="photo ">
+<button class="photo-button" type="button" data-photo="aftersum.jpg" data-caption="afterTitle" aria-label="Riding spot and rubbish collected during the cleanup" data-i18n-aria="cleanupAfterAlt">
+<img src="aftersum.jpg" alt="Riding spot and rubbish collected during the cleanup" data-i18n-alt="cleanupAfterAlt" width="1080" height="1706" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+              <figcaption data-i18n="afterTitle">After cleanup</figcaption>
+            </figure>
+          </div>
+          <details class="cleanup-archive" open>
+            <summary>
+<span data-i18n="browsePhotos">Browse all cleanup photos</span>
+<span aria-hidden="true">＋</span>
+</summary>
+            <div class="archive-content">
+              <h3 data-i18n="beforeTitle">Before cleanup</h3>
+              <div class="archive-grid">
+<figure class="photo">
+  <button class="photo-button" type="button" data-photo="NewBefore1.jpg" data-caption="beforeBadge" aria-label="Before" data-i18n-aria="cleanupBeforeAlt">
+    <img src="NewBefore1.jpg" alt="Before" data-i18n-alt="cleanupBeforeAlt" loading="lazy" decoding="async">
+    <span class="expand-mark" aria-hidden="true">＋</span>
+  </button>
+  <figcaption data-i18n="beforeBadge">Before</figcaption>
+</figure>
+<figure class="photo">
+  <button class="photo-button" type="button" data-photo="NewBefore2.jpg" data-caption="beforeBadge" aria-label="Before" data-i18n-aria="cleanupBeforeAlt">
+    <img src="NewBefore2.jpg" alt="Before" data-i18n-alt="cleanupBeforeAlt" loading="lazy" decoding="async">
+    <span class="expand-mark" aria-hidden="true">＋</span>
+  </button>
+  <figcaption data-i18n="beforeBadge">Before</figcaption>
+</figure>
+<figure class="photo">
+  <button class="photo-button" type="button" data-photo="NewBefore3.jpg" data-caption="beforeBadge" aria-label="Before" data-i18n-aria="cleanupBeforeAlt">
+    <img src="NewBefore3.jpg" alt="Before" data-i18n-alt="cleanupBeforeAlt" loading="lazy" decoding="async">
+    <span class="expand-mark" aria-hidden="true">＋</span>
+  </button>
+  <figcaption data-i18n="beforeBadge">Before</figcaption>
+</figure>
+                <figure class="photo ">
+<button class="photo-button" type="button" data-photo="before.jpg" data-caption="beforeBadge" aria-label="Rubbish at the riding spot before cleanup" data-i18n-aria="cleanupBeforeAlt">
+<img src="before.jpg" alt="Rubbish at the riding spot before cleanup" data-i18n-alt="cleanupBeforeAlt" width="2448" height="3264" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+                <figcaption data-i18n="beforeBadge">Before</figcaption>
+              </figure>
+              <figure class="photo ">
+<button class="photo-button" type="button" data-photo="Before1.jpg" data-caption="beforeBadge" aria-label="Rubbish at the riding spot before cleanup" data-i18n-aria="cleanupBeforeAlt">
+<img src="Before1.jpg" alt="Rubbish at the riding spot before cleanup" data-i18n-alt="cleanupBeforeAlt" width="3264" height="2448" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+              <figcaption data-i18n="beforeBadge">Before</figcaption>
+            </figure>
+            <figure class="photo ">
+<button class="photo-button" type="button" data-photo="Before2.jpg" data-caption="beforeBadge" aria-label="Rubbish at the riding spot before cleanup" data-i18n-aria="cleanupBeforeAlt">
+<img src="Before2.jpg" alt="Rubbish at the riding spot before cleanup" data-i18n-alt="cleanupBeforeAlt" width="3264" height="2448" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+            <figcaption data-i18n="beforeBadge">Before</figcaption>
+          </figure>
+        </div>
+        <h3 data-i18n="afterTitle">After cleanup</h3>
+        <div class="archive-grid">
+          <figure class="photo ">
+<button class="photo-button" type="button" data-photo="cleanuptri.jpg" data-caption="afterBadge" aria-label="AlexStuntCrew members with collected rubbish" data-i18n-aria="cleanupCrewAlt">
+<img src="cleanuptri.jpg" alt="AlexStuntCrew members with collected rubbish" data-i18n-alt="cleanupCrewAlt" width="3072" height="4096" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+          <figcaption data-i18n="afterBadge">After</figcaption>
+        </figure>
+        <figure class="photo ">
+<button class="photo-button" type="button" data-photo="IMG-20260607-WA0011.jpg" data-caption="afterBadge" aria-label="Riding spot and rubbish collected during the cleanup" data-i18n-aria="cleanupAfterAlt">
+<img src="IMG-20260607-WA0011.jpg" alt="Riding spot and rubbish collected during the cleanup" data-i18n-alt="cleanupAfterAlt" width="3060" height="4080" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+        <figcaption data-i18n="afterBadge">After</figcaption>
+      </figure>
+      <figure class="photo ">
+<button class="photo-button" type="button" data-photo="IMG-20260607-WA0009.jpg" data-caption="afterBadge" aria-label="Riding spot and rubbish collected during the cleanup" data-i18n-aria="cleanupAfterAlt">
+<img src="IMG-20260607-WA0009.jpg" alt="Riding spot and rubbish collected during the cleanup" data-i18n-alt="cleanupAfterAlt" width="3060" height="4080" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+      <figcaption data-i18n="afterBadge">After</figcaption>
+    </figure>
+    <figure class="photo ">
+<button class="photo-button" type="button" data-photo="IMG-20260607-WA0007.jpg" data-caption="afterBadge" aria-label="Riding spot and rubbish collected during the cleanup" data-i18n-aria="cleanupAfterAlt">
+<img src="IMG-20260607-WA0007.jpg" alt="Riding spot and rubbish collected during the cleanup" data-i18n-alt="cleanupAfterAlt" width="3060" height="4080" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+    <figcaption data-i18n="afterBadge">After</figcaption>
+  </figure>
+  <figure class="photo ">
+<button class="photo-button" type="button" data-photo="cleanup.jpg" data-caption="afterBadge" aria-label="Riding spot and rubbish collected during the cleanup" data-i18n-aria="cleanupAfterAlt">
+<img src="cleanup.jpg" alt="Riding spot and rubbish collected during the cleanup" data-i18n-alt="cleanupAfterAlt" width="3072" height="4096" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+  <figcaption data-i18n="afterBadge">After</figcaption>
+</figure>
+<figure class="photo ">
+<button class="photo-button" type="button" data-photo="carrybags.jpg" data-caption="afterBadge" aria-label="AlexStuntCrew members with collected rubbish" data-i18n-aria="cleanupCrewAlt">
+<img src="carrybags.jpg" alt="AlexStuntCrew members with collected rubbish" data-i18n-alt="cleanupCrewAlt" width="3072" height="4096" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+<figcaption data-i18n="afterBadge">After</figcaption>
+</figure>
+<figure class="photo ">
+<button class="photo-button" type="button" data-photo="trash.jpg" data-caption="afterBadge" aria-label="Riding spot and rubbish collected during the cleanup" data-i18n-aria="cleanupAfterAlt">
+<img src="trash.jpg" alt="Riding spot and rubbish collected during the cleanup" data-i18n-alt="cleanupAfterAlt" width="3072" height="4096" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+<figcaption data-i18n="afterBadge">After</figcaption>
+</figure>
+<figure class="photo ">
+<button class="photo-button" type="button" data-photo="cleaning.jpg" data-caption="afterBadge" aria-label="AlexStuntCrew members with collected rubbish" data-i18n-aria="cleanupCrewAlt">
+<img src="cleaning.jpg" alt="AlexStuntCrew members with collected rubbish" data-i18n-alt="cleanupCrewAlt" width="1200" height="1600" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+<figcaption data-i18n="afterBadge">After</figcaption>
+</figure>
+</div>
+</div>
+</details>
+<p data-i18n="cleanupMessage" class="cleanup-statement">Respect the spot, respect local residents and take your rubbish with you. Riders should leave a positive mark, not a pile of trash.</p>
+</div>
+</section>
+<section id="gallery" class="section gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">
+<span>05</span>
+<span data-i18n="journalLabel">From the riding sessions</span>
+</p>
+        <h2 data-i18n="galleryTitle">Riding gallery</h2>
+      </div>
+      <p data-i18n="galleryIntro" class="section-intro">Stunt riding, knee-down action and moments from the EbikeStr and AlexStuntCrew journey.</p>
+    </div>
+    <div class="gallery-grid">
+      <figure class="photo ">
+<button class="photo-button" type="button" data-photo="groupbikes.jpg" data-caption="galleryGroup" aria-label="AlexStuntCrew group" data-i18n-aria="galleryGroup">
+<img src="groupbikes.jpg" alt="AlexStuntCrew group" data-i18n-alt="galleryGroup" width="1200" height="1600" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+      <figcaption data-i18n="galleryGroup">AlexStuntCrew group</figcaption>
+    </figure>
+    <figure class="photo ">
+<button class="photo-button" type="button" data-photo="funnyscooters.jpg" data-caption="galleryOne" aria-label="Crew moments" data-i18n-aria="galleryOne">
+<img src="funnyscooters.jpg" alt="Crew moments" data-i18n-alt="galleryOne" width="2448" height="3264" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+    <figcaption data-i18n="galleryOne">Crew moments</figcaption>
+  </figure>
+  <figure class="photo ">
+<button class="photo-button" type="button" data-photo="Dragknee.jpg" data-caption="galleryTwo" aria-label="Knee down" data-i18n-aria="galleryTwo">
+<img src="Dragknee.jpg" alt="Knee down" data-i18n-alt="galleryTwo" width="340" height="755" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+  <figcaption data-i18n="galleryTwo">Knee down</figcaption>
+</figure>
+<figure class="photo ">
+<button class="photo-button" type="button" data-photo="riding.jpg" data-caption="galleryThree" aria-label="Keep progressing" data-i18n-aria="galleryThree">
+<img src="riding.jpg" alt="Keep progressing" data-i18n-alt="galleryThree" width="2448" height="3264" class="" loading="lazy" decoding="async">
+<span class="expand-mark" aria-hidden="true">＋</span>
+</button>
+<figcaption data-i18n="galleryThree">Keep progressing</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="sponsors" class="section partners">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">
+<span>06</span>
+<span data-i18n="peopleLabel">People behind the journey</span>
+</p>
+        <h2 data-i18n="partnersTitle">Sponsors and collaborations</h2>
+      </div>
+      <p data-i18n="partnersIntro" class="section-intro">Brands and businesses that became part of the EbikeStr journey as the page continued to grow.</p>
+    </div>
+    <div class="partner-list">
+<a class="partner-row" href="https://tshiboebike.com" target="_blank" rel="noopener noreferrer">
+    <div class="partner-logo">
+<img src="TshiboV3.jpg" alt="Tshibo" data-i18n-alt="tshiboTitle" width="243" height="231" class="" loading="lazy" decoding="async">
+</div>
+    <div>
+<span data-i18n="sponsorBadge" class="tiny-label">Sponsor</span>
+    <h3 data-i18n="tshiboTitle">Tshibo</h3>
+    <p data-i18n="tshiboText">Tshibo sponsored EbikeStr in early 2026 when the page reached 523 followers.</p>
+  </div>
+  <span class="partner-arrow" aria-hidden="true">↗</span>
+</a>
+<a class="partner-row" href="https://www.instagram.com/my.german.doener/" target="_blank" rel="noopener noreferrer">
+  <div class="partner-logo">
+<img src="mygermandoener.jpg" alt="My German Döner" data-i18n-alt="doenerTitle" width="552" height="530" class="" loading="lazy" decoding="async">
+</div>
+  <div>
+<span data-i18n="collaborationBadge" class="tiny-label">Collaboration</span>
+  <h3 data-i18n="doenerTitle">My German Döner</h3>
+  <p data-i18n="doenerText">My German Döner collaborated with EbikeStr when the page reached 583 followers.</p>
+</div>
+<span class="partner-arrow" aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="gift-note">
+  <h3 data-i18n="redBullTitle">Thank you, Red Bull SPECT Eyewear</h3>
+  <p data-i18n="redBullText">At 607 followers, Red Bull SPECT Eyewear gifted EbikeStr a pair of Evan MX goggles. Thank you for the gift and support. This was a gift, not a sponsorship.</p>
+</div>
+<details class="partner-archive">
+  <summary>
+<span data-i18n="earlierTshibo">Earlier Tshibo logo</span>
+<span aria-hidden="true">＋</span>
+</summary>
+  <img src="TshiboV2.jpg" loading="lazy" decoding="async" alt="Tshibo" data-i18n-alt="tshiboTitle">
+</details>
+</div>
+</section>
+<section id="timeline" class="section timeline">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">
+<span>07</span>
+<span data-i18n="peopleLabel">People behind the journey</span>
+</p>
+        <h2 data-i18n="timelineTitle">EbikeStr timeline</h2>
+      </div>
+      <p data-i18n="timelineIntro" class="section-intro">Important moments that happened while the EbikeStr page continued growing.</p>
+    </div>
+    <ol class="milestones">
+      <li>
+        <div>
+<strong>523</strong>
+<span data-i18n="followers">followers</span>
+</div>
+        <h3 data-i18n="timelineTshibo">Tshibo sponsorship</h3>
+      </li>
+      <li>
+        <div>
+<strong>583</strong>
+<span data-i18n="followers">followers</span>
+</div>
+        <h3 data-i18n="timelineDoener">My German Döner collaboration</h3>
+      </li>
+      <li>
+        <div>
+<strong>607</strong>
+<span data-i18n="followers">followers</span>
+</div>
+        <h3 data-i18n="timelineRedBull">Evan MX goggles gift</h3>
+      </li>
+    </ol>
+  </div>
+</section>
+<section id="contact" class="section contact">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">
+<span>08</span>
+<span data-i18n="communityLabel">The community</span>
+</p>
+        <h2 data-i18n="contactTitle">Contact EbikeStr</h2>
+      </div>
+      <p data-i18n="contactIntro" class="section-intro">Contact EbikeStr for bar-end orders, collaborations, sponsorships, events and riding projects.</p>
+    </div>
+    <div class="contact-links">
+<a href="https://www.instagram.com/ebikestr/" target="_blank" rel="noopener noreferrer">
+<span>Instagram</span>
+<strong>@ebikestr</strong>
+<span aria-hidden="true">↗</span>
+</a>
+<a href="https://www.tiktok.com/@ebikest" target="_blank" rel="noopener noreferrer">
+<span>TikTok</span>
+<strong>@ebikest</strong>
+<span aria-hidden="true">↗</span>
+</a>
+<a href="https://www.youtube.com/@ebikest" target="_blank" rel="noopener noreferrer">
+<span>YouTube</span>
+<strong>@ebikest</strong>
+<span aria-hidden="true">↗</span>
+</a>
+<a href="mailto:ebikest@mail.ru">
+<span data-i18n="emailTitle">Email</span>
+<strong>ebikest@mail.ru</strong>
+<span aria-hidden="true">↗</span>
+</a>
+</div>
+    <div class="faq">
+      <h3 data-i18n="faqTitle">Before you get in touch</h3>
+      <div>
+        <details>
+          <summary>
+<span data-i18n="faqOrder">How do I order bar ends?</span>
+<span aria-hidden="true">＋</span>
+</summary>
+          <p data-i18n="faqOrderAnswer">Contact EbikeStr using the email or social links below. Confirm availability, fit, the final total and delivery or collection arrangements before purchasing.</p>
+        </details>
+        <details>
+          <summary>
+<span data-i18n="faqJoin">Can I help with a cleanup or project?</span>
+<span aria-hidden="true">＋</span>
+</summary>
+          <p data-i18n="faqJoinAnswer">Contact EbikeStr to discuss a community project, collaboration or event. The photos document past activities; they are not a current event schedule.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="safety" class="section safety">
+  <div class="wrap">
+    <p class="eyebrow">
+<span data-i18n="disclaimerTitle">Safety disclaimer</span>
+</p>
+    <h2 data-i18n="legalTitle">Good riding. Clear information.</h2>
+    <div class="safety-intro">
+      <h3 data-i18n="warningTitle">Ride responsibly</h3>
+      <p data-i18n="disclaimerText">Stunt riding is dangerous and may result in serious injury, property damage or death. Content shown on this website is not an instruction to copy any stunt. Always wear suitable protective equipment, follow local laws and ride only in safe and permitted areas. Product results may vary depending on the bike, installation, impact and riding conditions.</p>
+    </div>
+    <div class="legal-details">
+      <details id="productSafety">
+        <summary>
+<span data-i18n="productSafetyTitle">Fit, installation &amp; product limitations</span>
+<span aria-hidden="true">＋</span>
+</summary>
+        <p data-i18n="productSafety">Confirm compatibility before ordering. The listed product has an adhesive-mounting base; a universal-fit description is not a guarantee that it fits every handlebar. Obtain suitable installation guidance, check that the throttle, grips and controls move freely, and inspect attachment before each ride and after any impact. Stop using a loose or damaged part. Bar ends cannot prevent every injury or every instance of bike damage.</p>
+      </details>
+      <details id="ordersText">
+        <summary>
+<span data-i18n="ordersTitle">Orders &amp; consumer rights</span>
+<span aria-hidden="true">＋</span>
+</summary>
+        <p data-i18n="ordersText">Orders are arranged through the listed contact channels; this website has no checkout. Before agreeing to a purchase, request the seller’s identity, product and manufacturer details, compatibility, total price including any delivery charges, payment and delivery arrangements, and applicable cancellation, return and legal-guarantee information. Nothing on this website excludes mandatory consumer rights or liability that cannot lawfully be excluded.</p>
+      </details>
+      <details id="communitySafety">
+        <summary>
+<span data-i18n="communitySafetyTitle">Community, locations &amp; media</span>
+<span aria-hidden="true">＋</span>
+</summary>
+        <p data-i18n="communitySafety">A location appearing in a photo is not permission to ride there or an invitation to an organised event. Obtain the landowner’s permission and follow local rules. Respect neighbours and other riders. Do not handle needles, chemicals or other hazardous waste during cleanups; contact the relevant local service. Brand names and logos belong to their respective owners. Sponsorships, collaborations and gifts are identified separately. For an image, credit or privacy concern, contact EbikeStr by email.</p>
+      </details>
+      <details id="privacy">
+        <summary>
+<span data-i18n="privacyTitle">Privacy &amp; saved preferences</span>
+<span aria-hidden="true">＋</span>
+</summary>
+        <p data-i18n="privacyText">This page does not run analytics, advertising trackers or embedded social feeds. Your chosen language, theme and saved-product preference are stored locally in your browser. Use “Reset saved preferences” to clear them. GitHub Pages hosting may process connection information such as IP addresses under GitHub’s privacy statement. External websites and email providers apply their own privacy policies. Contact EbikeStr at ebikest@mail.ru about privacy or content concerns.</p>
+        <a class="text-link" href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">
+<span data-i18n="githubPrivacy">GitHub privacy statement</span>
+<span aria-hidden="true">↗</span>
+</a>
+<button class="text-button" id="resetPreferences" type="button">
+<span data-i18n="resetPreferences">Reset saved preferences</span>
+</button>
+        <p class="fine-print" id="preferencesStatus" role="status">
+</p>
+      </details>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-main">
+<img class="footer-logo" src="AlexStuntCrew.png" loading="lazy" decoding="async" alt="AlexStuntCrew logo" data-i18n-alt="logoAlt">
+      <div class="footer-brand">ALEX<span>STUNT</span>CREW</div>
+      <p data-i18n="footerText">AlexStuntCrew — riding, respect and progression.</p>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="currentYear">2026</span> AlexStuntCrew. <span data-i18n="rightsText">All rights reserved.</span>
+</p>
+      <a href="#safety" data-i18n="legalNav">Safety & privacy</a>
+<a href="#home" data-i18n="backTop">Back to top</a>
+</div>
+    </div>
+  </footer>
+  <button id="motionToggle" class="motion-button" type="button" aria-label="Pause animations" aria-pressed="false">
+<span aria-hidden="true">Ⅱ</span>
+</button>
+<button class="back-top icon-button" id="backToTop" type="button" data-i18n-aria="backTop" aria-label="Back to top" hidden>↑</button>
+  <dialog id="searchDialog" class="search-dialog" aria-labelledby="searchTitle">
+    <div class="dialog-heading">
+      <h2 id="searchTitle" data-i18n="searchTitle">Search the website</h2>
+      <button type="button" class="icon-button" data-close-dialog data-i18n-aria="close" aria-label="Close">×</button>
+</div>
+      <label class="sr-only" for="siteSearch" data-i18n="searchButton">Search website</label>
+<input id="siteSearch" type="search" autocomplete="off" placeholder="Search bar ends, cleanup, sponsors..." data-i18n-placeholder="searchPlaceholder">
+      <div id="searchResults" class="search-results" aria-live="polite">
+</div>
+    </dialog>
+    <dialog id="introScreen" class="film-dialog" aria-label="Intro" data-i18n-aria="searchIntro">
+      <div class="dialog-heading">
+        <h2 data-i18n="introTitle">Ride hard. Respect everyone.</h2>
+        <button class="icon-button" type="button" data-close-dialog data-i18n-aria="close" aria-label="Close">×</button>
+</div>
+        <video id="introVideo" controls playsinline preload="none" poster="Hero.jpg" data-i18n-aria="searchIntro" aria-label="Intro">
+<source src="VN999999999.mp4" type="video/mp4">
+</video>
+        <div class="intro-actions">
+<button id="enterWebsite" data-close-dialog class="button primary" type="button" data-i18n="enterWebsite">Enter website</button>
+<button id="skipIntro" data-close-dialog class="text-button" type="button" data-i18n="skipIntro">Skip intro</button>
+</div>
+        <a class="fine-print" href="VN999999999.mp4" data-i18n="videoFallback">Open the video file.</a>
+</dialog>
+        <dialog id="lightbox" class="lightbox" aria-label="Image preview" data-i18n-aria="imagePreview">
+          <div class="lightbox-toolbar">
+            <p id="lightboxCaption">
+</p>
+            <button type="button" class="icon-button" data-close-dialog data-i18n-aria="close" aria-label="Close">×</button>
+</div>
+            <div class="lightbox-stage">
+<button id="previousImage" type="button" class="icon-button" data-i18n-aria="previousImage" aria-label="Previous image">←</button>
+<img id="lightboxImage" alt="">
+<button id="nextImage" type="button" class="icon-button" data-i18n-aria="nextImage" aria-label="Next image">→</button>
+</div>
+            <p id="imageStatus" role="status">
+</p>
+          </dialog>
+          <noscript>
+            <p class="noscript-message">English content is available without JavaScript. Videos: <a href="VN999999999.mp4">Introduction</a> · <a href="preview.mp4">Product preview</a>.</p>
+          </noscript>
+          <script>
+            const translations = {
+  "en": {
+    "introTitle": "Ride hard. Respect everyone.",
+    "enterWebsite": "Enter website",
+    "skipIntro": "Skip intro",
+    "navHome": "Home",
+    "navAbout": "About",
+    "navProduct": "Bar ends",
+    "navCrash": "Crash tests",
+    "navCleanup": "Cleanup",
+    "navGallery": "Gallery",
+    "navSponsors": "Partners",
+    "navContact": "Contact",
+    "heroTitle": "AlexStuntCrew",
+    "heroText": "Stunt riding, real-world product testing, community projects and respect for every rider.",
+    "heroProductButton": "View bar ends",
+    "heroCleanupButton": "Cleanup project",
+    "aboutTitle": "About AlexStuntCrew",
+    "aboutIntro": "AlexStuntCrew is built around stunt riding, progression, community and making riding culture more respectful and welcoming.",
+    "aboutHeading": "More than wheelies",
+    "aboutParagraphOne": "The goal is not only to improve as a rider. It is also to create content, test products honestly and use the platform to support positive projects.",
+    "aboutParagraphTwo": "Every crash, repair, cleanup and riding session becomes part of the story.",
+    "aboutButton": "See the riding",
+    "productTitle": "Stunt bar ends",
+    "productIntro": "Designed to protect the handlebars during drops, slides and real stunt-riding use.",
+    "productName": "AlexStuntCrew bar ends",
+    "productDescription": "Tested on the actual EbikeStr stunt bike, through real riding and drops.",
+    "productFeatureOne": "Built for stunt-riding drops",
+    "productFeatureTwo": "Helps protect grips and handlebars",
+    "productFeatureThree": "Dimensions: 32 × 28 × 28 mm",
+    "productFeatureFour": "Universal fit with a smooth flat base for adhesive mounting",
+    "productFeatureFive": "Real crash-test results",
+    "productFeatureSix": "Bolt-on version coming soon",
+    "productPrice": "20€",
+    "productButton": "Contact to order",
+    "previewTitle": "Product preview",
+    "crashTitle": "Real crash tests",
+    "crashIntro": "These bar ends were tested through real riding, drops and crashes on the EbikeStr stunt bike.",
+    "crashOneTitle": "After the first crash",
+    "crashOneText": "The bar end absorbed the impact and helped protect the grip and handlebar during the first real crash.",
+    "crashTwoTitle": "After two crashes",
+    "crashTwoText": "After another impact, the bar end remained attached and continued protecting the bike.",
+    "crashThreeTitle": "After the third crash",
+    "crashThreeText": "60kmh crash. The bar ends survived and stayed attached.",
+    "crashMessage": "The scratches show that the bar ends absorbed damage that could otherwise reach more expensive parts of the bike.",
+    "cleanupTitle": "Stunt spot cleanup",
+    "cleanupIntro": "Riding spots deserve respect. AlexStuntCrew helps remove rubbish and leave stunt locations cleaner than they were before.",
+    "cleanupsCompleted": "Cleanups",
+    "kilogramsCollected": "Collected total",
+    "ridersReached": "Riders reached",
+    "beforeTitle": "Before cleanup",
+    "afterTitle": "After cleanup",
+    "beforeBadge": "Before",
+    "afterBadge": "After",
+    "cleanupMessage": "Respect the spot, respect local residents and take your rubbish with you. Riders should leave a positive mark, not a pile of trash.",
+    "galleryTitle": "Riding gallery",
+    "galleryIntro": "Stunt riding, knee-down action and moments from the EbikeStr and AlexStuntCrew journey.",
+    "galleryGroup": "AlexStuntCrew group",
+    "galleryOne": "Crew moments",
+    "galleryTwo": "Knee down",
+    "galleryThree": "Keep progressing",
+    "partnersTitle": "Sponsors and collaborations",
+    "partnersIntro": "Brands and businesses that became part of the EbikeStr journey as the page continued to grow.",
+    "sponsorBadge": "Sponsor",
+    "collaborationBadge": "Collaboration",
+    "tshiboTitle": "Tshibo",
+    "tshiboText": "Tshibo sponsored EbikeStr in early 2026 when the page reached 523 followers.",
+    "doenerTitle": "My German Döner",
+    "doenerText": "My German Döner collaborated with EbikeStr when the page reached 583 followers.",
+    "redBullTitle": "Thank you, Red Bull SPECT Eyewear",
+    "redBullText": "At 607 followers, Red Bull SPECT Eyewear gifted EbikeStr a pair of Evan MX goggles. Thank you for the gift and support. This was a gift, not a sponsorship.",
+    "timelineTitle": "EbikeStr timeline",
+    "timelineIntro": "Important moments that happened while the EbikeStr page continued growing.",
+    "timelineTshibo": "Tshibo sponsorship",
+    "timelineDoener": "My German Döner collaboration",
+    "timelineRedBull": "Evan MX goggles gift",
+    "contactTitle": "Contact EbikeStr",
+    "contactIntro": "Contact EbikeStr for bar-end orders, collaborations, sponsorships, events and riding projects.",
+    "emailTitle": "Email",
+    "disclaimerTitle": "Safety disclaimer",
+    "warningTitle": "Ride responsibly",
+    "disclaimerText": "Stunt riding is dangerous and may result in serious injury, property damage or death. Content shown on this website is not an instruction to copy any stunt. Always wear suitable protective equipment, follow local laws and ride only in safe and permitted areas. Product results may vary depending on the bike, installation, impact and riding conditions.",
+    "footerText": "AlexStuntCrew — riding, respect and progression.",
+    "rightsText": "All rights reserved.",
+    "bestSeller": "Best seller",
+    "searchButton": "Search website",
+    "searchTitle": "Search the website",
+    "searchPlaceholder": "Search bar ends, cleanup, sponsors...",
+    "searchNoResults": "No results found.",
+    "searchIntro": "Intro",
+    "searchProduct": "Bar ends",
+    "searchCleanup": "Cleanup",
+    "searchSponsors": "Sponsors",
+    "searchTimeline": "Timeline",
+    "searchGallery": "Gallery",
+    "wishlistAdd": "Add bar ends to wishlist",
+    "wishlistRemove": "Remove bar ends from wishlist",
+    "lightMode": "Switch to light mode",
+    "darkMode": "Switch to dark mode",
+    "skipContent": "Skip to content",
+    "menu": "Menu",
+    "close": "Close",
+    "language": "Language",
+    "watchIntro": "Watch the film",
+    "playVideo": "Play video",
+    "videoFallback": "Open the video file.",
+    "backTop": "Back to top",
+    "openImage": "Open image",
+    "nextImage": "Next image",
+    "previousImage": "Previous image",
+    "imagePreview": "Image preview",
+    "imageUnavailable": "Image unavailable",
+    "browsePhotos": "Browse all cleanup photos",
+    "communityLabel": "The community",
+    "productLabel": "Made for the ride",
+    "journalLabel": "From the riding sessions",
+    "impactLabel": "A positive mark",
+    "peopleLabel": "People behind the journey",
+    "followers": "followers",
+    "viewSafety": "Safety & product information",
+    "legalTitle": "Good riding. Clear information.",
+    "legalNav": "Safety & privacy",
+    "productSafetyTitle": "Fit, installation & product limitations",
+    "productSafety": "Confirm compatibility before ordering. The listed product has an adhesive-mounting base; a universal-fit description is not a guarantee that it fits every handlebar. Obtain suitable installation guidance, check that the throttle, grips and controls move freely, and inspect attachment before each ride and after any impact. Stop using a loose or damaged part. Bar ends cannot prevent every injury or every instance of bike damage.",
+    "crashContext": "These are EbikeStr’s reports of individual riding incidents, not controlled laboratory tests, independent certification or a guarantee of future performance. Do not recreate the crashes.",
+    "ordersTitle": "Orders & consumer rights",
+    "ordersText": "Orders are arranged through the listed contact channels; this website has no checkout. Before agreeing to a purchase, request the seller’s identity, product and manufacturer details, compatibility, total price including any delivery charges, payment and delivery arrangements, and applicable cancellation, return and legal-guarantee information. Nothing on this website excludes mandatory consumer rights or liability that cannot lawfully be excluded.",
+    "communitySafetyTitle": "Community, locations & media",
+    "communitySafety": "A location appearing in a photo is not permission to ride there or an invitation to an organised event. Obtain the landowner’s permission and follow local rules. Respect neighbours and other riders. Do not handle needles, chemicals or other hazardous waste during cleanups; contact the relevant local service. Brand names and logos belong to their respective owners. Sponsorships, collaborations and gifts are identified separately. For an image, credit or privacy concern, contact EbikeStr by email.",
+    "privacyTitle": "Privacy & saved preferences",
+    "privacyText": "This page does not run analytics, advertising trackers or embedded social feeds. Your chosen language, theme and saved-product preference are stored locally in your browser. Use “Reset saved preferences” to clear them. GitHub Pages hosting may process connection information such as IP addresses under GitHub’s privacy statement. External websites and email providers apply their own privacy policies. Contact EbikeStr at ebikest@mail.ru about privacy or content concerns.",
+    "resetPreferences": "Reset saved preferences",
+    "resetDone": "Saved preferences cleared.",
+    "githubPrivacy": "GitHub privacy statement",
+    "fitNote": "Check fit and installation before ordering.",
+    "faqTitle": "Before you get in touch",
+    "faqOrder": "How do I order bar ends?",
+    "faqOrderAnswer": "Contact EbikeStr using the email or social links below. Confirm availability, fit, the final total and delivery or collection arrangements before purchasing.",
+    "faqJoin": "Can I help with a cleanup or project?",
+    "faqJoinAnswer": "Contact EbikeStr to discuss a community project, collaboration or event. The photos document past activities; they are not a current event schedule.",
+    "heroAlt": "EbikeStr performing a wheelie on the stunt bike",
+    "productAlt": "AlexStuntCrew bar end with AS and Cyprus logo",
+    "cleanupBeforeAlt": "Rubbish at the riding spot before cleanup",
+    "cleanupAfterAlt": "Riding spot and rubbish collected during the cleanup",
+    "cleanupCrewAlt": "AlexStuntCrew members with collected rubbish",
+    "logoAlt": "AlexStuntCrew logo",
+    "pauseMotion": "Pause animations",
+    "resumeMotion": "Resume animations",
+    "moreProductMedia": "More product photos & video",
+    "moreCrashPhotos": "More crash photos",
+    "earlierTshibo": "Earlier Tshibo logo"
+  },
+  "ru": {
+    "introTitle": "Катай жёстко. Уважай каждого.",
+    "enterWebsite": "Открыть сайт",
+    "skipIntro": "Пропустить",
+    "navHome": "Главная",
+    "navAbout": "О проекте",
+    "navProduct": "Баренды",
+    "navCrash": "Краш-тесты",
+    "navCleanup": "Уборка",
+    "navGallery": "Галерея",
+    "navSponsors": "Партнёры",
+    "navContact": "Контакты",
+    "heroTitle": "AlexStuntCrew",
+    "heroText": "Стантрайдинг, реальные испытания продукции, общественные проекты и уважение к каждому райдеру.",
+    "heroProductButton": "Баренды",
+    "heroCleanupButton": "Уборка",
+    "aboutTitle": "О AlexStuntCrew",
+    "aboutIntro": "AlexStuntCrew объединяет стантрайдинг, развитие, сообщество и уважение к каждому райдеру.",
+    "aboutHeading": "Больше чем вилли",
+    "aboutParagraphOne": "Цель проекта — не только прогрессировать как райдер, но и честно тестировать продукцию, создавать качественный контент и делать мотосообщество дружелюбнее.",
+    "aboutParagraphTwo": "Каждое падение, ремонт, уборка и тренировка становятся частью истории.",
+    "aboutButton": "Смотреть",
+    "productTitle": "Стант-баренды",
+    "productIntro": "Созданы для защиты руля при падениях, скольжениях и настоящем использовании в стантрайдинге.",
+    "productName": "Баренды AlexStuntCrew",
+    "productDescription": "Проверены на настоящем стант-байке EbikeStr во время катания и падений.",
+    "productFeatureOne": "Для стант-падений",
+    "productFeatureTwo": "Помогают защитить руль и грипсы",
+    "productFeatureThree": "Размеры: 32 × 28 × 28 мм",
+    "productFeatureFour": "Универсальная установка: гладкое плоское основание для крепления на клей",
+    "productFeatureFive": "Проверены реальными краш-тестами",
+    "productFeatureSix": "Версия с болтовым креплением — скоро",
+    "productPrice": "20€",
+    "productButton": "Связаться",
+    "previewTitle": "Видео барендов",
+    "crashTitle": "Настоящие краш-тесты",
+    "crashIntro": "Эти баренды испытаны реальными падениями и тренировками на байке EbikeStr.",
+    "crashOneTitle": "После первого падения",
+    "crashOneText": "Баренд принял удар на себя и помог защитить руль и грипсу.",
+    "crashTwoTitle": "После двух падений",
+    "crashTwoText": "После следующего удара баренд остался на месте и продолжил защищать байк.",
+    "crashThreeTitle": "После третьего падения",
+    "crashThreeText": "Падение на 60kmh. Баренды выдержали удар и остались на месте.",
+    "crashMessage": "Царапины показывают, что удар пришёлся по баренду, а не по дорогим деталям.",
+    "cleanupTitle": "Уборка спота",
+    "cleanupIntro": "Места для катания заслуживают уважения. AlexStuntCrew помогает делать их чище.",
+    "cleanupsCompleted": "Уборки",
+    "kilogramsCollected": "Собрано всего",
+    "ridersReached": "Охвачено райдеров",
+    "beforeTitle": "До уборки",
+    "afterTitle": "После уборки",
+    "beforeBadge": "До",
+    "afterBadge": "После",
+    "cleanupMessage": "Уважайте место катания, местных жителей и всегда забирайте мусор с собой.",
+    "galleryTitle": "Галерея",
+    "galleryIntro": "Стантрайдинг, колено в повороте и лучшие моменты EbikeStr.",
+    "galleryGroup": "Группа AlexStuntCrew",
+    "galleryOne": "Моменты команды",
+    "galleryTwo": "Колено",
+    "galleryThree": "Продолжай прогрессировать",
+    "partnersTitle": "Спонсоры и коллаборации",
+    "partnersIntro": "Бренды и компании, которые стали частью истории EbikeStr по мере роста страницы.",
+    "sponsorBadge": "Спонсор",
+    "collaborationBadge": "Коллаборация",
+    "tshiboTitle": "Tshibo",
+    "tshiboText": "Tshibo стал спонсором EbikeStr в начале 2026 года, когда страница достигла 523 подписчиков.",
+    "doenerTitle": "My German Döner",
+    "doenerText": "My German Döner провёл коллаборацию с EbikeStr, когда страница достигла 583 подписчиков.",
+    "redBullTitle": "Спасибо, Red Bull SPECT Eyewear",
+    "redBullText": "На отметке 607 подписчиков Red Bull SPECT Eyewear подарил EbikeStr мотокроссовые очки Evan MX. Спасибо за подарок и поддержку. Это был подарок, а не спонсорство.",
+    "timelineTitle": "История EbikeStr",
+    "timelineIntro": "Важные моменты, произошедшие во время роста страницы EbikeStr.",
+    "timelineTshibo": "Спонсорство Tshibo",
+    "timelineDoener": "Коллаборация с My German Döner",
+    "timelineRedBull": "Подарок Evan MX",
+    "contactTitle": "Связаться с EbikeStr",
+    "contactIntro": "Свяжитесь с EbikeStr по вопросам заказа барендов, коллабораций, спонсорства, мероприятий и райдерских проектов.",
+    "emailTitle": "Электронная почта",
+    "disclaimerTitle": "Предупреждение о безопасности",
+    "warningTitle": "Катайтесь ответственно",
+    "disclaimerText": "Стантрайдинг опасен и может привести к серьёзным травмам, повреждению имущества или смерти. Материалы на этом сайте не являются инструкцией к повторению трюков. Всегда используйте подходящую защитную экипировку, соблюдайте местные законы и катайтесь только в безопасных и разрешённых местах. Результаты использования продукции могут отличаться в зависимости от байка, установки, силы удара и условий катания.",
+    "footerText": "AlexStuntCrew — катание, уважение и прогресс.",
+    "rightsText": "Все права защищены.",
+    "bestSeller": "Хит продаж",
+    "searchButton": "Поиск по сайту",
+    "searchTitle": "Поиск по сайту",
+    "searchPlaceholder": "Баренды, уборка, спонсоры...",
+    "searchNoResults": "Ничего не найдено.",
+    "searchIntro": "Интро",
+    "searchProduct": "Баренды",
+    "searchCleanup": "Уборка",
+    "searchSponsors": "Спонсоры",
+    "searchTimeline": "Таймлайн",
+    "searchGallery": "Галерея",
+    "wishlistAdd": "Добавить баренды в избранное",
+    "wishlistRemove": "Удалить баренды из избранного",
+    "lightMode": "Включить светлую тему",
+    "darkMode": "Включить тёмную тему",
+    "skipContent": "К содержимому",
+    "menu": "Меню",
+    "close": "Закрыть",
+    "language": "Язык",
+    "watchIntro": "Смотреть видео",
+    "playVideo": "Воспроизвести видео",
+    "videoFallback": "Открыть видеофайл.",
+    "backTop": "Наверх",
+    "openImage": "Открыть изображение",
+    "nextImage": "Следующее фото",
+    "previousImage": "Предыдущее фото",
+    "imagePreview": "Просмотр фото",
+    "imageUnavailable": "Фото недоступно",
+    "browsePhotos": "Все фотографии уборок",
+    "communityLabel": "Сообщество",
+    "productLabel": "Для катания",
+    "journalLabel": "Из наших выездов",
+    "impactLabel": "Позитивный след",
+    "peopleLabel": "Люди на нашем пути",
+    "followers": "подписчиков",
+    "viewSafety": "Безопасность и информация о товаре",
+    "legalTitle": "Ответственное катание. Честная информация.",
+    "legalNav": "Безопасность и конфиденциальность",
+    "productSafetyTitle": "Совместимость, установка и ограничения",
+    "productSafety": "Перед заказом уточните совместимость. У указанного товара основание для клеевого крепления; описание «универсальный» не гарантирует совместимость с каждым рулём. Получите подходящие инструкции по установке, проверьте свободный ход газа, грипс и органов управления. Проверяйте крепление перед каждой поездкой и после удара. Не используйте повреждённую или плохо закреплённую деталь. Баренды не могут предотвратить все травмы и повреждения велосипеда.",
+    "crashContext": "Это отчёты EbikeStr об отдельных происшествиях при катании, а не лабораторные испытания, независимая сертификация или гарантия будущих результатов. Не повторяйте эти падения.",
+    "ordersTitle": "Заказы и права покупателей",
+    "ordersText": "Заказы оформляются через указанные контакты; оплаты на сайте нет. До покупки запросите сведения о продавце, товаре и производителе, совместимости, полной цене с доставкой, оплате и сроках доставки, а также об отмене заказа, возврате и законных гарантиях. Информация на сайте не отменяет обязательные права покупателей и ответственность, которую нельзя исключить по закону.",
+    "communitySafetyTitle": "Сообщество, места катания и материалы",
+    "communitySafety": "Фото места не означает разрешения кататься там или приглашения на организованное мероприятие. Получите разрешение владельца территории и соблюдайте местные правила. Уважайте соседей и других райдеров. Не трогайте иглы, химикаты и другие опасные отходы во время уборок — обратитесь в соответствующую местную службу. Названия и логотипы принадлежат их владельцам. Спонсорство, сотрудничество и подарки обозначены отдельно. По вопросам изображений, авторства или конфиденциальности напишите EbikeStr.",
+    "privacyTitle": "Конфиденциальность и настройки",
+    "privacyText": "Эта страница не использует аналитику, рекламные трекеры и встроенные социальные ленты. Выбранные язык, тема и избранный товар сохраняются локально в браузере. Кнопка «Сбросить настройки» удаляет их. Хостинг GitHub Pages может обрабатывать данные соединения, включая IP-адреса, согласно политике GitHub. У внешних сайтов и почтовых сервисов свои правила конфиденциальности. По вопросам данных и контента пишите EbikeStr: ebikest@mail.ru.",
+    "resetPreferences": "Сбросить настройки",
+    "resetDone": "Сохранённые настройки удалены.",
+    "githubPrivacy": "Политика конфиденциальности GitHub",
+    "fitNote": "Перед заказом уточните совместимость и установку.",
+    "faqTitle": "Перед обращением",
+    "faqOrder": "Как заказать баренды?",
+    "faqOrderAnswer": "Напишите EbikeStr по почте или в соцсетях ниже. Перед покупкой уточните наличие, совместимость, итоговую цену и условия доставки или получения.",
+    "faqJoin": "Можно помочь с уборкой или проектом?",
+    "faqJoinAnswer": "Свяжитесь с EbikeStr, чтобы обсудить общественный проект, сотрудничество или мероприятие. Фотографии показывают прошедшие события, а не текущее расписание.",
+    "heroAlt": "EbikeStr выполняет вилли на стант-байке",
+    "productAlt": "Баренд AlexStuntCrew с логотипом AS и Кипром",
+    "cleanupBeforeAlt": "Мусор на площадке до уборки",
+    "cleanupAfterAlt": "Площадка и мусор, собранный во время уборки",
+    "cleanupCrewAlt": "Участники AlexStuntCrew с собранным мусором",
+    "logoAlt": "Логотип AlexStuntCrew",
+    "pauseMotion": "Приостановить анимацию",
+    "resumeMotion": "Включить анимацию",
+    "moreProductMedia": "Больше фото и видео товара",
+    "moreCrashPhotos": "Больше фото после падений",
+    "earlierTshibo": "Прежний логотип Tshibo"
+  },
+  "el": {
+    "introTitle": "Οδήγα δυνατά. Σεβάσου τους πάντες.",
+    "enterWebsite": "Είσοδος στην ιστοσελίδα",
+    "skipIntro": "Παράλειψη εισαγωγής",
+    "navHome": "Αρχική",
+    "navAbout": "Σχετικά",
+    "navProduct": "Αντίβαρα",
+    "navCrash": "Δοκιμές πτώσης",
+    "navCleanup": "Καθαρισμός",
+    "navGallery": "Συλλογή",
+    "navSponsors": "Συνεργάτες",
+    "navContact": "Επικοινωνία",
+    "heroTitle": "AlexStuntCrew",
+    "heroText": "Stunt riding, πραγματικές δοκιμές προϊόντων, κοινωνικές δράσεις και σεβασμός προς κάθε αναβάτη.",
+    "heroProductButton": "Δείτε τα αντίβαρα",
+    "heroCleanupButton": "Δράση καθαρισμού",
+    "aboutTitle": "Σχετικά με το AlexStuntCrew",
+    "aboutIntro": "Το AlexStuntCrew βασίζεται στο stunt riding, στην πρόοδο, στην κοινότητα και στη δημιουργία μιας πιο φιλικής και σεβαστής κουλτούρας οδήγησης.",
+    "aboutHeading": "Περισσότερο από σούζες",
+    "aboutParagraphOne": "Ο στόχος δεν είναι μόνο η εξέλιξη ως αναβάτης. Είναι επίσης η δημιουργία περιεχομένου, η ειλικρινής δοκιμή προϊόντων και η αξιοποίηση της πλατφόρμας για θετικές δράσεις.",
+    "aboutParagraphTwo": "Κάθε πτώση, επισκευή, καθαρισμός και προπόνηση γίνεται μέρος της ιστορίας.",
+    "aboutButton": "Δείτε την οδήγηση",
+    "productTitle": "Αντίβαρα stunt",
+    "productIntro": "Σχεδιασμένα για την προστασία του τιμονιού κατά τις πτώσεις, τις ολισθήσεις και την πραγματική χρήση στο stunt riding.",
+    "productName": "Αντίβαρα AlexStuntCrew",
+    "productDescription": "Δοκιμασμένα στο πραγματικό stunt bike του EbikeStr, στην οδήγηση και στις πτώσεις.",
+    "productFeatureOne": "Κατασκευασμένα για πτώσεις stunt",
+    "productFeatureTwo": "Βοηθούν στην προστασία των χειρολαβών και του τιμονιού",
+    "productFeatureThree": "Διαστάσεις: 32 × 28 × 28 mm",
+    "productFeatureFour": "Καθολική εφαρμογή με λεία επίπεδη βάση για στερέωση με κόλλα",
+    "productFeatureFive": "Δοκιμασμένα σε πραγματικές πτώσεις",
+    "productFeatureSix": "Έκδοση με βίδα — σύντομα διαθέσιμη",
+    "productPrice": "20€",
+    "productButton": "Επικοινωνία για παραγγελία",
+    "previewTitle": "Παρουσίαση προϊόντος",
+    "crashTitle": "Πραγματικές δοκιμές πτώσης",
+    "crashIntro": "Αυτά τα αντίβαρα δοκιμάστηκαν σε πραγματική οδήγηση, πτώσεις και ατυχήματα στη stunt μοτοσυκλέτα του EbikeStr.",
+    "crashOneTitle": "Μετά την πρώτη πτώση",
+    "crashOneText": "Το αντίβαρο απορρόφησε την πρόσκρουση και βοήθησε στην προστασία της χειρολαβής και του τιμονιού κατά την πρώτη πραγματική πτώση.",
+    "crashTwoTitle": "Μετά από δύο πτώσεις",
+    "crashTwoText": "Μετά από ακόμη μία πρόσκρουση, το αντίβαρο παρέμεινε στη θέση του και συνέχισε να προστατεύει τη μοτοσυκλέτα.",
+    "crashThreeTitle": "Μετά την τρίτη πτώση",
+    "crashThreeText": "Πτώση στα 60kmh. Τα αντίβαρα άντεξαν και παρέμειναν στη θέση τους.",
+    "crashMessage": "Οι γρατζουνιές δείχνουν ότι τα αντίβαρα απορρόφησαν ζημιά που διαφορετικά θα μπορούσε να φτάσει σε ακριβότερα εξαρτήματα της μοτοσυκλέτας.",
+    "cleanupTitle": "Καθαρισμός χώρου stunt",
+    "cleanupIntro": "Οι χώροι οδήγησης αξίζουν σεβασμό. Το AlexStuntCrew βοηθά στην απομάκρυνση σκουπιδιών και αφήνει τους χώρους καθαρότερους από πριν.",
+    "cleanupsCompleted": "Καθαρισμοί",
+    "kilogramsCollected": "Συνολικά συλλεγμένα",
+    "ridersReached": "Αναβάτες που προσεγγίστηκαν",
+    "beforeTitle": "Πριν τον καθαρισμό",
+    "afterTitle": "Μετά τον καθαρισμό",
+    "beforeBadge": "Πριν",
+    "afterBadge": "Μετά",
+    "cleanupMessage": "Σεβαστείτε τον χώρο, τους κατοίκους της περιοχής και πάρτε τα σκουπίδια σας μαζί σας. Οι αναβάτες πρέπει να αφήνουν θετικό αποτύπωμα και όχι έναν σωρό σκουπιδιών.",
+    "galleryTitle": "Συλλογή οδήγησης",
+    "galleryIntro": "Stunt riding, οδήγηση με γόνατο στην άσφαλτο και στιγμές από την πορεία του EbikeStr και του AlexStuntCrew.",
+    "galleryGroup": "Η ομάδα AlexStuntCrew",
+    "galleryOne": "Στιγμές της ομάδας",
+    "galleryTwo": "Γόνατο στην άσφαλτο",
+    "galleryThree": "Συνέχισε να εξελίσσεσαι",
+    "partnersTitle": "Χορηγοί και συνεργασίες",
+    "partnersIntro": "Εταιρείες και επιχειρήσεις που έγιναν μέρος της πορείας του EbikeStr καθώς η σελίδα συνέχισε να αναπτύσσεται.",
+    "sponsorBadge": "Χορηγός",
+    "collaborationBadge": "Συνεργασία",
+    "tshiboTitle": "Tshibo",
+    "tshiboText": "Η Tshibo έγινε χορηγός του EbikeStr στις αρχές του 2026, όταν η σελίδα έφτασε τους 523 ακολούθους.",
+    "doenerTitle": "My German Döner",
+    "doenerText": "Το My German Döner συνεργάστηκε με το EbikeStr όταν η σελίδα έφτασε τους 583 ακολούθους.",
+    "redBullTitle": "Ευχαριστούμε, Red Bull SPECT Eyewear",
+    "redBullText": "Στους 607 ακολούθους, η Red Bull SPECT Eyewear χάρισε στο EbikeStr ένα ζευγάρι γυαλιά motocross Evan MX. Ευχαριστούμε για το δώρο και την υποστήριξη. Ήταν δώρο και όχι χορηγία.",
+    "timelineTitle": "Χρονολόγιο EbikeStr",
+    "timelineIntro": "Σημαντικές στιγμές που συνέβησαν καθώς η σελίδα του EbikeStr συνέχισε να αναπτύσσεται.",
+    "timelineTshibo": "Χορηγία Tshibo",
+    "timelineDoener": "Συνεργασία με My German Döner",
+    "timelineRedBull": "Δώρο γυαλιών Evan MX",
+    "contactTitle": "Επικοινωνία με το EbikeStr",
+    "contactIntro": "Επικοινωνήστε με το EbikeStr για παραγγελίες αντίβαρων, συνεργασίες, χορηγίες, εκδηλώσεις και projects οδήγησης.",
+    "emailTitle": "Email",
+    "disclaimerTitle": "Προειδοποίηση ασφαλείας",
+    "warningTitle": "Οδηγείτε υπεύθυνα",
+    "disclaimerText": "Το stunt riding είναι επικίνδυνο και μπορεί να προκαλέσει σοβαρό τραυματισμό, υλικές ζημιές ή θάνατο. Το περιεχόμενο αυτής της ιστοσελίδας δεν αποτελεί οδηγία για την αντιγραφή οποιουδήποτε κόλπου. Χρησιμοποιείτε πάντα κατάλληλο προστατευτικό εξοπλισμό, ακολουθείτε τους τοπικούς νόμους και οδηγείτε μόνο σε ασφαλείς και επιτρεπόμενους χώρους. Τα αποτελέσματα των προϊόντων μπορεί να διαφέρουν ανάλογα με τη μοτοσυκλέτα, την εγκατάσταση, την πρόσκρουση και τις συνθήκες οδήγησης.",
+    "footerText": "AlexStuntCrew — οδήγηση, σεβασμός και εξέλιξη.",
+    "rightsText": "Με επιφύλαξη παντός δικαιώματος.",
+    "bestSeller": "Δημοφιλέστερο",
+    "searchButton": "Αναζήτηση ιστοσελίδας",
+    "searchTitle": "Αναζήτηση στην ιστοσελίδα",
+    "searchPlaceholder": "Αντίβαρα, καθαρισμός, χορηγοί...",
+    "searchNoResults": "Δεν βρέθηκαν αποτελέσματα.",
+    "searchIntro": "Εισαγωγή",
+    "searchProduct": "Αντίβαρα",
+    "searchCleanup": "Καθαρισμός",
+    "searchSponsors": "Χορηγοί",
+    "searchTimeline": "Χρονολόγιο",
+    "searchGallery": "Συλλογή",
+    "wishlistAdd": "Προσθήκη αντίβαρων στα αγαπημένα",
+    "wishlistRemove": "Αφαίρεση αντίβαρων από τα αγαπημένα",
+    "lightMode": "Μετάβαση σε φωτεινό θέμα",
+    "darkMode": "Μετάβαση σε σκοτεινό θέμα",
+    "skipContent": "Μετάβαση στο περιεχόμενο",
+    "menu": "Μενού",
+    "close": "Κλείσιμο",
+    "language": "Γλώσσα",
+    "watchIntro": "Δες το βίντεο",
+    "playVideo": "Αναπαραγωγή βίντεο",
+    "videoFallback": "Ανοίξτε το αρχείο βίντεο.",
+    "backTop": "Στην κορυφή",
+    "openImage": "Άνοιγμα εικόνας",
+    "nextImage": "Επόμενη εικόνα",
+    "previousImage": "Προηγούμενη εικόνα",
+    "imagePreview": "Προεπισκόπηση εικόνας",
+    "imageUnavailable": "Η εικόνα δεν είναι διαθέσιμη",
+    "browsePhotos": "Όλες οι φωτογραφίες καθαρισμού",
+    "communityLabel": "Η κοινότητα",
+    "productLabel": "Για την οδήγηση",
+    "journalLabel": "Από τις βόλτες μας",
+    "impactLabel": "Θετικό αποτύπωμα",
+    "peopleLabel": "Οι άνθρωποι της πορείας",
+    "followers": "ακόλουθοι",
+    "viewSafety": "Ασφάλεια και πληροφορίες προϊόντος",
+    "legalTitle": "Υπεύθυνη οδήγηση. Σαφείς πληροφορίες.",
+    "legalNav": "Ασφάλεια και απόρρητο",
+    "productSafetyTitle": "Συμβατότητα, τοποθέτηση και περιορισμοί",
+    "productSafety": "Επιβεβαιώστε τη συμβατότητα πριν από την παραγγελία. Το προϊόν έχει βάση για συγκολλητική στερέωση· η περιγραφή «γενικής εφαρμογής» δεν εγγυάται συμβατότητα με κάθε τιμόνι. Ζητήστε κατάλληλες οδηγίες τοποθέτησης και ελέγξτε ότι γκάζι, χειρολαβές και χειριστήρια κινούνται ελεύθερα. Ελέγχετε τη στερέωση πριν από κάθε διαδρομή και μετά από πρόσκρουση. Μη χρησιμοποιείτε χαλαρό ή κατεστραμμένο εξάρτημα. Τα αντίβαρα δεν αποτρέπουν κάθε τραυματισμό ή ζημιά.",
+    "crashContext": "Πρόκειται για αναφορές του EbikeStr για μεμονωμένα περιστατικά οδήγησης, όχι για ελεγχόμενες εργαστηριακές δοκιμές, ανεξάρτητη πιστοποίηση ή εγγύηση μελλοντικής απόδοσης. Μην αναπαράγετε τις πτώσεις.",
+    "ordersTitle": "Παραγγελίες και δικαιώματα καταναλωτή",
+    "ordersText": "Οι παραγγελίες γίνονται μέσω των αναγραφόμενων στοιχείων επικοινωνίας· δεν υπάρχει πληρωμή στον ιστότοπο. Πριν συμφωνήσετε σε αγορά, ζητήστε την ταυτότητα του πωλητή, στοιχεία προϊόντος και κατασκευαστή, συμβατότητα, συνολική τιμή μαζί με τυχόν μεταφορικά, όρους πληρωμής και παράδοσης και τις ισχύουσες πληροφορίες υπαναχώρησης, επιστροφής και νόμιμης εγγύησης. Τίποτα στον ιστότοπο δεν αποκλείει υποχρεωτικά δικαιώματα καταναλωτή ή ευθύνη που δεν μπορεί νόμιμα να αποκλειστεί.",
+    "communitySafetyTitle": "Κοινότητα, χώροι και υλικό",
+    "communitySafety": "Η εμφάνιση ενός χώρου σε φωτογραφία δεν αποτελεί άδεια οδήγησης ή πρόσκληση σε οργανωμένη εκδήλωση. Εξασφαλίστε άδεια του ιδιοκτήτη και τηρείτε τους τοπικούς κανόνες. Σεβαστείτε γείτονες και άλλους αναβάτες. Μην αγγίζετε βελόνες, χημικά ή άλλα επικίνδυνα απορρίμματα στους καθαρισμούς· επικοινωνήστε με την αρμόδια τοπική υπηρεσία. Επωνυμίες και λογότυπα ανήκουν στους ιδιοκτήτες τους. Οι χορηγίες, συνεργασίες και δωρεές επισημαίνονται ξεχωριστά. Για θέματα εικόνων, αναφοράς δημιουργού ή απορρήτου, στείλτε email στο EbikeStr.",
+    "privacyTitle": "Απόρρητο και αποθηκευμένες προτιμήσεις",
+    "privacyText": "Η σελίδα δεν χρησιμοποιεί αναλυτικά εργαλεία, διαφημιστικούς ιχνηλάτες ή ενσωματωμένες ροές κοινωνικών δικτύων. Η επιλεγμένη γλώσσα, το θέμα και το αγαπημένο προϊόν αποθηκεύονται τοπικά στο πρόγραμμα περιήγησης. Πατήστε «Επαναφορά αποθηκευμένων προτιμήσεων» για διαγραφή τους. Η φιλοξενία GitHub Pages ενδέχεται να επεξεργάζεται στοιχεία σύνδεσης, όπως διευθύνσεις IP, σύμφωνα με την πολιτική απορρήτου της GitHub. Εξωτερικοί ιστότοποι και πάροχοι email εφαρμόζουν δικές τους πολιτικές. Για θέματα απορρήτου ή περιεχομένου: ebikest@mail.ru.",
+    "resetPreferences": "Επαναφορά αποθηκευμένων προτιμήσεων",
+    "resetDone": "Οι αποθηκευμένες προτιμήσεις διαγράφηκαν.",
+    "githubPrivacy": "Πολιτική απορρήτου GitHub",
+    "fitNote": "Ελέγξτε συμβατότητα και τοποθέτηση πριν παραγγείλετε.",
+    "faqTitle": "Πριν επικοινωνήσετε",
+    "faqOrder": "Πώς παραγγέλνω αντίβαρα;",
+    "faqOrderAnswer": "Επικοινωνήστε με το EbikeStr μέσω email ή των κοινωνικών δικτύων παρακάτω. Επιβεβαιώστε διαθεσιμότητα, συμβατότητα, τελικό κόστος και παράδοση ή παραλαβή πριν αγοράσετε.",
+    "faqJoin": "Μπορώ να βοηθήσω σε καθαρισμό ή project;",
+    "faqJoinAnswer": "Επικοινωνήστε με το EbikeStr για κοινοτικό project, συνεργασία ή εκδήλωση. Οι φωτογραφίες καταγράφουν προηγούμενες δράσεις, όχι τρέχον πρόγραμμα εκδηλώσεων.",
+    "heroAlt": "Ο EbikeStr κάνει σούζα με το stunt bike",
+    "productAlt": "Αντίβαρο AlexStuntCrew με λογότυπο AS και Κύπρο",
+    "cleanupBeforeAlt": "Απορρίμματα στον χώρο πριν τον καθαρισμό",
+    "cleanupAfterAlt": "Ο χώρος και τα απορρίμματα που συλλέχθηκαν στον καθαρισμό",
+    "cleanupCrewAlt": "Μέλη AlexStuntCrew με τα συλλεγμένα απορρίμματα",
+    "logoAlt": "Λογότυπο AlexStuntCrew",
+    "pauseMotion": "Παύση κινήσεων",
+    "resumeMotion": "Συνέχιση κινήσεων",
+    "moreProductMedia": "Περισσότερες φωτογραφίες και βίντεο προϊόντος",
+    "moreCrashPhotos": "Περισσότερες φωτογραφίες πτώσεων",
+    "earlierTshibo": "Παλαιότερο λογότυπο Tshibo"
+  },
+  "ja": {
+    "introTitle": "全力で走る。すべてのライダーを尊重する。",
+    "enterWebsite": "サイトに入る",
+    "skipIntro": "イントロをスキップ",
+    "navHome": "ホーム",
+    "navAbout": "紹介",
+    "navProduct": "バーエンド",
+    "navCrash": "クラッシュテスト",
+    "navCleanup": "清掃活動",
+    "navGallery": "ギャラリー",
+    "navSponsors": "パートナー",
+    "navContact": "お問い合わせ",
+    "heroTitle": "AlexStuntCrew",
+    "heroText": "スタントライディング、実走テスト、地域活動、そしてすべてのライダーへのリスペクト。",
+    "heroProductButton": "バーエンドを見る",
+    "heroCleanupButton": "清掃プロジェクト",
+    "aboutTitle": "AlexStuntCrewについて",
+    "aboutIntro": "AlexStuntCrewは、スタントライディング、成長、コミュニティ、そしてより尊重し合えるライディング文化を大切にしています。",
+    "aboutHeading": "ウィリーだけではない",
+    "aboutParagraphOne": "目標はライダーとして上達することだけではありません。コンテンツを作り、製品を正直にテストし、活動を通じて前向きなプロジェクトを支えます。",
+    "aboutParagraphTwo": "クラッシュ、修理、清掃、すべての練習がストーリーの一部になります。",
+    "aboutButton": "ライディングを見る",
+    "productTitle": "スタント用バーエンド",
+    "productIntro": "転倒、スライド、実際のスタント走行でハンドルを守るために設計されています。",
+    "productName": "AlexStuntCrew バーエンド",
+    "productDescription": "EbikeStrの実際のスタントバイクで、走行や転倒を通じてテスト。",
+    "productFeatureOne": "スタント走行の転倒を想定",
+    "productFeatureTwo": "グリップとハンドルの保護をサポート",
+    "productFeatureThree": "サイズ：32 × 28 × 28 mm",
+    "productFeatureFour": "接着剤で固定できる滑らかな平面ベースのユニバーサル設計",
+    "productFeatureFive": "実際のクラッシュテスト済み",
+    "productFeatureSix": "ボルト固定式モデル近日登場",
+    "productPrice": "20€",
+    "productButton": "注文について連絡する",
+    "previewTitle": "製品プレビュー",
+    "crashTitle": "実際のクラッシュテスト",
+    "crashIntro": "このバーエンドは、EbikeStrのスタントバイクで実際の走行、転倒、クラッシュを通してテストされました。",
+    "crashOneTitle": "1回目のクラッシュ後",
+    "crashOneText": "バーエンドが衝撃を受け止め、グリップとハンドルの保護に役立ちました。",
+    "crashTwoTitle": "2回のクラッシュ後",
+    "crashTwoText": "次の衝撃後もバーエンドは外れず、バイクを守り続けました。",
+    "crashThreeTitle": "3回目のクラッシュ後",
+    "crashThreeText": "時速60kmのクラッシュでも、バーエンドは耐えて外れませんでした。",
+    "crashMessage": "傷は、より高価なパーツに届くはずだったダメージをバーエンドが受け止めた証拠です。",
+    "cleanupTitle": "スタントスポット清掃",
+    "cleanupIntro": "ライディングスポットには敬意が必要です。AlexStuntCrewはゴミを回収し、来た時よりきれいな状態にする活動を行っています。",
+    "cleanupsCompleted": "清掃回数",
+    "kilogramsCollected": "回収量合計",
+    "ridersReached": "参加・到達ライダー",
+    "beforeTitle": "清掃前",
+    "afterTitle": "清掃後",
+    "beforeBadge": "清掃前",
+    "afterBadge": "清掃後",
+    "cleanupMessage": "スポットと地域住民を尊重し、ゴミは必ず持ち帰りましょう。ライダーが残すべきものは良い印象であり、ゴミの山ではありません。",
+    "galleryTitle": "ライディングギャラリー",
+    "galleryIntro": "スタント、膝擦り、EbikeStrとAlexStuntCrewの歩みを切り取った瞬間。",
+    "galleryGroup": "AlexStuntCrew グループ",
+    "galleryOne": "クルーの瞬間",
+    "galleryTwo": "膝擦り",
+    "galleryThree": "進化を続ける",
+    "partnersTitle": "スポンサーとコラボレーション",
+    "partnersIntro": "EbikeStrのページが成長する中で、その歩みの一部となったブランドと企業。",
+    "sponsorBadge": "スポンサー",
+    "collaborationBadge": "コラボレーション",
+    "tshiboTitle": "Tshibo",
+    "tshiboText": "ページが523フォロワーに到達した2026年初頭、TshiboはEbikeStrをスポンサーしました。",
+    "doenerTitle": "My German Döner",
+    "doenerText": "ページが583フォロワーに到達した時、My German DönerはEbikeStrとコラボレーションしました。",
+    "redBullTitle": "Red Bull SPECT Eyewearに感謝",
+    "redBullText": "607フォロワー到達時、Red Bull SPECT EyewearからEbikeStrへEvan MXゴーグルが贈られました。ギフトとサポートに感謝します。これはスポンサー契約ではなくギフトです。",
+    "timelineTitle": "EbikeStr タイムライン",
+    "timelineIntro": "EbikeStrのページが成長する中で起きた重要な出来事。",
+    "timelineTshibo": "Tshibo スポンサー",
+    "timelineDoener": "My German Döner コラボ",
+    "timelineRedBull": "Evan MX ゴーグルのギフト",
+    "contactTitle": "EbikeStrへのお問い合わせ",
+    "contactIntro": "バーエンドの注文、コラボ、スポンサー、イベント、ライディング企画についてEbikeStrへご連絡ください。",
+    "emailTitle": "メール",
+    "disclaimerTitle": "安全に関する注意",
+    "warningTitle": "責任を持って走行してください",
+    "disclaimerText": "スタントライディングは危険であり、重大なけが、物的損害、死亡につながる可能性があります。このサイトの内容はスタントを真似するための指示ではありません。適切な保護装備を着用し、現地の法律を守り、安全かつ許可された場所だけで走行してください。製品の結果はバイク、取り付け、衝撃、走行条件によって異なります。",
+    "footerText": "AlexStuntCrew — ライディング、リスペクト、成長。",
+    "rightsText": "無断転載を禁じます。",
+    "bestSeller": "ベストセラー",
+    "searchButton": "サイトを検索",
+    "searchTitle": "サイト内検索",
+    "searchPlaceholder": "バーエンド、清掃、スポンサー…",
+    "searchNoResults": "結果が見つかりません。",
+    "searchIntro": "イントロ",
+    "searchProduct": "バーエンド",
+    "searchCleanup": "清掃活動",
+    "searchSponsors": "スポンサー",
+    "searchTimeline": "タイムライン",
+    "searchGallery": "ギャラリー",
+    "wishlistAdd": "バーエンドをお気に入りに追加",
+    "wishlistRemove": "バーエンドをお気に入りから削除",
+    "lightMode": "ライトモードに切り替える",
+    "darkMode": "ダークモードに切り替える",
+    "skipContent": "本文へ移動",
+    "menu": "メニュー",
+    "close": "閉じる",
+    "language": "言語",
+    "watchIntro": "動画を見る",
+    "playVideo": "動画を再生",
+    "videoFallback": "動画ファイルを開く。",
+    "backTop": "ページ上部へ",
+    "openImage": "画像を開く",
+    "nextImage": "次の画像",
+    "previousImage": "前の画像",
+    "imagePreview": "画像プレビュー",
+    "imageUnavailable": "画像を表示できません",
+    "browsePhotos": "清掃写真をすべて見る",
+    "communityLabel": "コミュニティ",
+    "productLabel": "ライディングのために",
+    "journalLabel": "ライディングの記録",
+    "impactLabel": "ポジティブな足跡",
+    "peopleLabel": "歩みを支える人々",
+    "followers": "フォロワー",
+    "viewSafety": "安全・製品情報",
+    "legalTitle": "責任ある走行。明確な情報。",
+    "legalNav": "安全とプライバシー",
+    "productSafetyTitle": "適合・取り付け・製品の限界",
+    "productSafety": "注文前に適合をご確認ください。掲載製品は接着固定式です。「汎用」はすべてのハンドルへの適合を保証するものではありません。適切な取り付け方法を確認し、スロットル、グリップ、操作部が自由に動くことを確認してください。走行前と衝撃後には固定状態を点検し、緩みや損傷がある場合は使用を中止してください。バーエンドですべてのけがや車両損傷を防ぐことはできません。",
+    "crashContext": "これは個々の走行中の出来事についてのEbikeStrの報告であり、管理された実験室試験、第三者認証、将来の性能保証ではありません。衝突を再現しないでください。",
+    "ordersTitle": "注文と消費者の権利",
+    "ordersText": "注文は掲載の連絡先でご相談ください。このサイトに決済機能はありません。購入合意の前に、販売者の身元、製品・製造者情報、適合性、送料を含む総額、支払い・配送条件、適用されるキャンセル・返品・法定保証の情報をご確認ください。このサイトの記載は、法律上認められる消費者の権利や免除できない責任を排除するものではありません。",
+    "communitySafetyTitle": "コミュニティ・場所・メディア",
+    "communitySafety": "写真に写る場所は、走行許可や主催イベントへの招待を意味しません。土地所有者の許可を得て地域の規則を守り、近隣住民や他のライダーを尊重してください。清掃中は注射針、薬品などの危険物に触れず、地域の担当窓口へ連絡してください。ブランド名とロゴは各権利者に帰属します。スポンサー、コラボレーション、贈り物は区別して表示しています。画像、クレジット、プライバシーについてはEbikeStrへメールでご連絡ください。",
+    "privacyTitle": "プライバシーと保存設定",
+    "privacyText": "このページはアクセス解析、広告トラッカー、SNSの埋め込みフィードを使用しません。選択した言語、テーマ、お気に入り製品はブラウザー内に保存されます。「保存設定をリセット」で削除できます。GitHub PagesはGitHubのプライバシー声明に基づきIPアドレス等の接続情報を処理する場合があります。外部サイトやメールサービスにはそれぞれのポリシーが適用されます。プライバシーやコンテンツのご相談は ebikest@mail.ru へお寄せください。",
+    "resetPreferences": "保存設定をリセット",
+    "resetDone": "保存設定を削除しました。",
+    "githubPrivacy": "GitHubのプライバシー声明",
+    "fitNote": "注文前に適合と取り付け方法をご確認ください。",
+    "faqTitle": "お問い合わせの前に",
+    "faqOrder": "バーエンドの注文方法は？",
+    "faqOrderAnswer": "下記のメールまたはSNSからEbikeStrへご連絡ください。購入前に在庫、適合、総額、配送または受け取り方法をご確認ください。",
+    "faqJoin": "清掃やプロジェクトに協力できますか？",
+    "faqJoinAnswer": "コミュニティ企画、コラボレーション、イベントについてEbikeStrへご相談ください。写真は過去の活動の記録であり、現在のイベント予定ではありません。",
+    "heroAlt": "スタントバイクでウィリーするEbikeStr",
+    "productAlt": "ASとキプロスのロゴ入りAlexStuntCrewバーエンド",
+    "cleanupBeforeAlt": "清掃前のライディングスポットのごみ",
+    "cleanupAfterAlt": "清掃した場所と回収したごみ",
+    "cleanupCrewAlt": "回収したごみとAlexStuntCrewメンバー",
+    "logoAlt": "AlexStuntCrewロゴ",
+    "pauseMotion": "アニメーションを停止",
+    "resumeMotion": "アニメーションを再開",
+    "moreProductMedia": "その他の製品写真と動画",
+    "moreCrashPhotos": "その他の転倒後の写真",
+    "earlierTshibo": "以前のTshiboロゴ"
+  },
+  "zh": {
+    "introTitle": "尽情骑行，尊重每一位骑手。",
+    "enterWebsite": "进入网站",
+    "skipIntro": "跳过片头",
+    "navHome": "首页",
+    "navAbout": "关于",
+    "navProduct": "车把端塞",
+    "navCrash": "碰撞测试",
+    "navCleanup": "清洁行动",
+    "navGallery": "图库",
+    "navSponsors": "合作伙伴",
+    "navContact": "联系",
+    "heroTitle": "AlexStuntCrew",
+    "heroText": "特技骑行、真实产品测试、社区项目，以及对每一位骑手的尊重。",
+    "heroProductButton": "查看车把端塞",
+    "heroCleanupButton": "清洁项目",
+    "aboutTitle": "关于 AlexStuntCrew",
+    "aboutIntro": "AlexStuntCrew 专注于特技骑行、持续进步、社区建设，以及让骑行文化更加友善和互相尊重。",
+    "aboutHeading": "不只是翘头",
+    "aboutParagraphOne": "目标不只是提升骑行技术，也包括创作内容、诚实测试产品，并利用平台支持积极的社区项目。",
+    "aboutParagraphTwo": "每次摔车、维修、清洁行动和训练，都会成为故事的一部分。",
+    "aboutButton": "查看骑行内容",
+    "productTitle": "特技车把端塞",
+    "productIntro": "专为摔车、滑行以及真实特技骑行中的车把保护而设计。",
+    "productName": "AlexStuntCrew 车把端塞",
+    "productDescription": "在 EbikeStr 的实际特技车上，经骑行与摔车检验。",
+    "productFeatureOne": "为特技摔车而打造",
+    "productFeatureTwo": "帮助保护握把和车把",
+    "productFeatureThree": "尺寸：32 × 28 × 28 mm",
+    "productFeatureFour": "通用安装设计，配有用于胶粘固定的光滑平面底座",
+    "productFeatureFive": "经过真实摔车测试",
+    "productFeatureSix": "螺栓固定版本即将推出",
+    "productPrice": "20€",
+    "productButton": "联系订购",
+    "previewTitle": "产品预览",
+    "crashTitle": "真实碰撞测试",
+    "crashIntro": "这些车把端塞在 EbikeStr 的特技车上经历了真实骑行、摔车和碰撞测试。",
+    "crashOneTitle": "第一次摔车后",
+    "crashOneText": "端塞吸收了冲击，并帮助保护握把和车把。",
+    "crashTwoTitle": "两次摔车后",
+    "crashTwoText": "再次受到冲击后，端塞仍牢固安装并继续保护车辆。",
+    "crashThreeTitle": "第三次摔车后",
+    "crashThreeText": "时速60公里摔车后，端塞依然承受住冲击并保持固定。",
+    "crashMessage": "这些划痕说明端塞吸收了原本可能损伤更昂贵零件的冲击。",
+    "cleanupTitle": "特技场地清洁",
+    "cleanupIntro": "骑行场地值得被尊重。AlexStuntCrew 会清理垃圾，让场地比到达时更加干净。",
+    "cleanupsCompleted": "清洁次数",
+    "kilogramsCollected": "累计清理",
+    "ridersReached": "影响骑手人数",
+    "beforeTitle": "清洁前",
+    "afterTitle": "清洁后",
+    "beforeBadge": "之前",
+    "afterBadge": "之后",
+    "cleanupMessage": "尊重场地、尊重附近居民，并把自己的垃圾带走。骑手应留下积极的印象，而不是一堆垃圾。",
+    "galleryTitle": "骑行图库",
+    "galleryIntro": "特技骑行、压弯磨膝，以及 EbikeStr 和 AlexStuntCrew 旅程中的精彩瞬间。",
+    "galleryGroup": "AlexStuntCrew 团队",
+    "galleryOne": "团队时刻",
+    "galleryTwo": "磨膝过弯",
+    "galleryThree": "持续进步",
+    "partnersTitle": "赞助与合作",
+    "partnersIntro": "随着 EbikeStr 页面不断成长，这些品牌和商家成为旅程的一部分。",
+    "sponsorBadge": "赞助商",
+    "collaborationBadge": "合作",
+    "tshiboTitle": "Tshibo",
+    "tshiboText": "2026年初，当页面达到523名粉丝时，Tshibo 开始赞助 EbikeStr。",
+    "doenerTitle": "My German Döner",
+    "doenerText": "当页面达到583名粉丝时，My German Döner 与 EbikeStr 展开合作。",
+    "redBullTitle": "感谢 Red Bull SPECT Eyewear",
+    "redBullText": "当页面达到607名粉丝时，Red Bull SPECT Eyewear 向 EbikeStr 赠送了一副 Evan MX 护目镜。感谢这份礼物与支持。这是赠礼，并非赞助合作。",
+    "timelineTitle": "EbikeStr 时间线",
+    "timelineIntro": "EbikeStr 页面持续成长过程中发生的重要时刻。",
+    "timelineTshibo": "Tshibo 赞助",
+    "timelineDoener": "My German Döner 合作",
+    "timelineRedBull": "Evan MX 护目镜赠礼",
+    "contactTitle": "联系 EbikeStr",
+    "contactIntro": "如需订购车把端塞、合作、赞助、活动或骑行项目，请联系 EbikeStr。",
+    "emailTitle": "电子邮件",
+    "disclaimerTitle": "安全免责声明",
+    "warningTitle": "请负责任地骑行",
+    "disclaimerText": "特技骑行具有危险性，可能导致严重受伤、财产损失或死亡。本网站展示的内容并不是模仿任何特技动作的教学。请始终佩戴合适的防护装备，遵守当地法律，并只在安全且允许的场地骑行。产品效果可能因车辆、安装方式、冲击和骑行条件而不同。",
+    "footerText": "AlexStuntCrew — 骑行、尊重与进步。",
+    "rightsText": "保留所有权利。",
+    "bestSeller": "畅销产品",
+    "searchButton": "搜索网站",
+    "searchTitle": "站内搜索",
+    "searchPlaceholder": "搜索车把端塞、清洁、赞助商…",
+    "searchNoResults": "未找到结果。",
+    "searchIntro": "片头",
+    "searchProduct": "车把端塞",
+    "searchCleanup": "清洁行动",
+    "searchSponsors": "赞助商",
+    "searchTimeline": "时间线",
+    "searchGallery": "图库",
+    "wishlistAdd": "将车把端塞加入收藏",
+    "wishlistRemove": "从收藏中移除车把端塞",
+    "lightMode": "切换到浅色模式",
+    "darkMode": "切换到深色模式",
+    "skipContent": "跳转到正文",
+    "menu": "菜单",
+    "close": "关闭",
+    "language": "语言",
+    "watchIntro": "观看影片",
+    "playVideo": "播放视频",
+    "videoFallback": "打开视频文件。",
+    "backTop": "返回顶部",
+    "openImage": "打开图片",
+    "nextImage": "下一张",
+    "previousImage": "上一张",
+    "imagePreview": "图片预览",
+    "imageUnavailable": "图片暂不可用",
+    "browsePhotos": "查看全部清洁照片",
+    "communityLabel": "骑手社区",
+    "productLabel": "为骑行而生",
+    "journalLabel": "骑行记录",
+    "impactLabel": "留下积极影响",
+    "peopleLabel": "一路相伴的人们",
+    "followers": "位粉丝",
+    "viewSafety": "安全与产品信息",
+    "legalTitle": "负责任地骑行，清楚地说明。",
+    "legalNav": "安全与隐私",
+    "productSafetyTitle": "适配、安装与产品局限",
+    "productSafety": "订购前请确认适配性。本产品采用胶粘安装底座；“通用”不代表适合所有车把。请获取适当的安装指导，确保油门、握把和操控部件活动自如。每次骑行前及受到撞击后都应检查固定情况，松动或损坏时停止使用。车把端塞无法防止所有人身伤害或车辆损坏。",
+    "crashContext": "这些是 EbikeStr 对个别骑行事故的记录，并非受控实验室测试、独立认证或未来性能保证。请勿模仿碰撞。",
+    "ordersTitle": "订单与消费者权利",
+    "ordersText": "订单通过所列联系方式协商，本网站没有结账功能。购买前请确认卖方身份、产品及制造商信息、适配性、含运费的总价、付款和交付安排，以及适用的取消、退货和法定保修信息。本网站的任何内容均不排除法定消费者权利或依法不得免除的责任。",
+    "communitySafetyTitle": "社区、场地与媒体",
+    "communitySafety": "照片中出现的场地不代表骑行许可，也不构成有组织活动的邀请。请取得场地所有者许可并遵守当地规定，尊重邻居及其他骑手。清洁时不要处理针头、化学品或其他危险废物，请联系当地相关部门。品牌名称和标志归各自权利人所有。赞助、合作和赠礼均分别注明。如有图片、署名或隐私问题，请通过邮件联系 EbikeStr。",
+    "privacyTitle": "隐私与已保存偏好",
+    "privacyText": "本页面不使用访问分析、广告追踪或嵌入式社交动态。您选择的语言、主题和产品收藏保存在浏览器本地，可点击“重置已保存偏好”清除。GitHub Pages 托管服务可能依据 GitHub 隐私声明处理 IP 地址等连接信息。外部网站和邮件服务商适用各自的隐私政策。如有隐私或内容问题，请联系 ebikest@mail.ru。",
+    "resetPreferences": "重置已保存偏好",
+    "resetDone": "已清除保存的偏好。",
+    "githubPrivacy": "GitHub 隐私声明",
+    "fitNote": "订购前请确认适配与安装方式。",
+    "faqTitle": "联系前须知",
+    "faqOrder": "如何订购车把端塞？",
+    "faqOrderAnswer": "请通过下方邮件或社交链接联系 EbikeStr。购买前确认库存、适配、最终总价及配送或自取安排。",
+    "faqJoin": "可以参与清洁或社区项目吗？",
+    "faqJoinAnswer": "请联系 EbikeStr 商讨社区项目、合作或活动。照片记录的是过往活动，并非当前活动日程。",
+    "heroAlt": "EbikeStr 骑特技车翘头",
+    "productAlt": "带 AS 与塞浦路斯标志的 AlexStuntCrew 车把端塞",
+    "cleanupBeforeAlt": "清洁前骑行场地的垃圾",
+    "cleanupAfterAlt": "清洁后的场地及收集的垃圾",
+    "cleanupCrewAlt": "AlexStuntCrew 成员与收集的垃圾",
+    "logoAlt": "AlexStuntCrew 标志",
+    "pauseMotion": "暂停动画",
+    "resumeMotion": "继续动画",
+    "moreProductMedia": "更多产品照片与视频",
+    "moreCrashPhotos": "更多碰撞照片",
+    "earlierTshibo": "早期 Tshibo 标志"
+  }
+};
+          </script>
+          <script>
+            'use strict';
+            const $ = id => document.getElementById(id);
+            const read = (key, fallback) => { try {
+                return localStorage.getItem(key) ?? fallback;
+            }
+            catch {
+                return fallback;
+            } };
+            const save = (key, value) => { try {
+                localStorage.setItem(key, value);
+            }
+            catch { } };
+            let lang = read('lang', 'en');
+            if (!translations[lang])
+                lang = 'en';
+            let light = read('ascTheme', 'dark') === 'light', saved = read('ascWishlistBarEnds', 'false') === 'true';
+            const t = key => translations[lang][key] || translations.en[key] || key;
+            function preferences() { document.documentElement.dataset.theme = light ? 'light' : 'dark'; $('themeToggle').setAttribute('aria-label', t(light ? 'darkMode' : 'lightMode')); $('themeToggle').setAttribute('aria-pressed', String(light)); $('themeIcon').textContent = light ? '☾' : '☀'; $('wishlistButton').setAttribute('aria-label', t(saved ? 'wishlistRemove' : 'wishlistAdd')); $('wishlistButton').setAttribute('aria-pressed', String(saved)); $('wishlistHeart').textContent = saved ? '♥' : '♡'; }
+            function translate() { document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang; $('languageSelect').value = lang; for (const el of document.querySelectorAll('[data-i18n]'))
+                el.textContent = t(el.dataset.i18n); for (const [attr, data] of [['aria-label', 'i18nAria'], ['alt', 'i18nAlt'], ['placeholder', 'i18nPlaceholder']])
+                for (const el of document.querySelectorAll('[data-' + data.replace(/[A-Z]/g, m => '-' + m.toLowerCase()) + ']'))
+                    el.setAttribute(attr, t(el.dataset[data])); preferences(); renderSearch(); if ($('lightbox').open)
+                showImage(photoIndex); }
+            function menu(open) { $('mainNavigation').hidden = !open; $('menuToggle').setAttribute('aria-expanded', String(open)); }
+            $('menuToggle').addEventListener('click', () => menu($('mainNavigation').hidden));
+            $('mainNavigation').addEventListener('click', e => { if (e.target.closest('a'))
+                menu(false); });
+            document.addEventListener('click', e => { if (!e.target.closest('.site-header'))
+                menu(false); });
+            document.addEventListener('keydown', e => { if (e.key === 'Escape')
+                menu(false); });
+            $('languageSelect').addEventListener('change', e => { lang = e.target.value; save('lang', lang); translate(); });
+            $('themeToggle').addEventListener('click', () => { light = !light; save('ascTheme', light ? 'light' : 'dark'); preferences(); });
+            $('wishlistButton').addEventListener('click', () => { saved = !saved; save('ascWishlistBarEnds', String(saved)); preferences(); });
+            $('resetPreferences').addEventListener('click', () => { for (const key of ['lang', 'ascTheme', 'ascWishlistBarEnds'])
+                try {
+                    localStorage.removeItem(key);
+                }
+                catch { } lang = 'en'; light = false; saved = false; translate(); $('preferencesStatus').textContent = t('resetDone'); });
+            for (const dialog of document.querySelectorAll('dialog')) {
+                dialog.querySelectorAll('[data-close-dialog]').forEach(b => b.addEventListener('click', () => dialog.close()));
+                dialog.addEventListener('click', e => { if (e.target === dialog) {
+                    const r = dialog.getBoundingClientRect();
+                    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
+                        dialog.close();
+                } });
+                dialog.addEventListener('close', () => { document.body.classList.remove('dialog-open'); if (dialog.id === 'introScreen')
+                    $('introVideo').pause(); });
+            }
+            function openDialog(id) { menu(false); $(id).showModal(); document.body.classList.add('dialog-open'); }
+            $('watchIntro').addEventListener('click', () => { openDialog('introScreen'); $('introVideo').play().catch(() => { }); });
+            $('introVideo').addEventListener('ended', () => $('introScreen').close());
+            $('searchButton').addEventListener('click', () => { openDialog('searchDialog'); $('siteSearch').focus(); renderSearch(); });
+            const destinations = [['searchIntro', 'introScreen'], ['navAbout', 'about'], ['searchProduct', 'product'], ['navCrash', 'crash-tests'], ['searchCleanup', 'cleanup'], ['searchGallery', 'gallery'], ['searchSponsors', 'sponsors'], ['searchTimeline', 'timeline'], ['navContact', 'contact'], ['legalNav', 'safety']];
+            const normalize = s => s.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            function renderSearch() { const root = $('searchResults'); root.replaceChildren(); const query = normalize($('siteSearch').value.trim()); let count = 0; for (const [key, id] of destinations) {
+                if (query && !normalize(t(key) + ' ' + $(id).textContent).includes(query))
+                    continue;
+                const a = document.createElement('a');
+                a.href = '#' + id;
+                a.textContent = t(key) + ' ↗';
+                a.addEventListener('click', e => { $('searchDialog').close(); if (id === 'introScreen') {
+                    e.preventDefault();
+                    openDialog(id);
+                    $('introVideo').play().catch(() => { });
+                } });
+                root.append(a);
+                count++;
+            } if (!count) {
+                const p = document.createElement('p');
+                p.textContent = t('searchNoResults');
+                root.append(p);
+            } }
+            $('siteSearch').addEventListener('input', renderSearch);
+            const photos = [...document.querySelectorAll('[data-photo]')];
+            let photoIndex = 0;
+            function showImage(index) { photoIndex = (index + photos.length) % photos.length; const p = photos[photoIndex]; $('imageStatus').textContent = ''; $('lightboxImage').src = p.dataset.photo; $('lightboxImage').alt = t(p.querySelector('img').dataset.i18nAlt); $('lightboxCaption').textContent = t(p.dataset.caption) + ' · ' + (photoIndex + 1) + ' / ' + photos.length; }
+            photos.forEach((p, i) => p.addEventListener('click', () => { showImage(i); openDialog('lightbox'); }));
+            $('lightboxImage').addEventListener('error', () => { $('imageStatus').textContent = t('imageUnavailable'); });
+            $('previousImage').addEventListener('click', () => showImage(photoIndex - 1));
+            $('nextImage').addEventListener('click', () => showImage(photoIndex + 1));
+            $('lightbox').addEventListener('keydown', e => { if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                showImage(photoIndex + 1);
+            } if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                showImage(photoIndex - 1);
+            } });
+            let ticking = false;
+            function onScroll() { if (!ticking) {
+                requestAnimationFrame(() => { $('backToTop').hidden = scrollY < 700; $('scrollProgress').style.width = (100 * scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)) + '%'; ticking = false; });
+                ticking = true;
+            } }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+            $('backToTop').addEventListener('click', () => { window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }); document.querySelector('.brand').focus({ preventScroll: true }); });
+            $('currentYear').textContent = new Date().getFullYear();
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver(entries => { for (const e of entries)
+                    if (e.isIntersecting) {
+                        document.querySelectorAll('.desktop-nav a,.full-nav a').forEach(a => { if (a.hash === '#' + e.target.id)
+                            a.setAttribute('aria-current', 'location');
+                        else
+                            a.removeAttribute('aria-current'); });
+                    } }, { rootMargin: '-15% 0px -65% 0px' });
+                document.querySelectorAll('main section[id]').forEach(s => observer.observe(s));
+            }
+            translate();
+          </script>
+        <script>
+/* Acidwave motion: progressive enhancement, touch-aware and reduced-motion safe. */
+(() => {
+  'use strict';
+  const root = document.documentElement;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const control = document.getElementById('motionToggle');
+  const headline = document.querySelector('.hero h1');
+  let paused = reduced.matches;
+  let userChoseMotion = false;
+
+  function decorateHeadline() {
+    if (root.lang !== 'en' || headline.querySelector('.headline-row')) return;
+    const rows = ['Ride', 'hard.', 'Respect', 'everyone.'];
+    // Preserve the original complete wording for screen readers and translations.
+    const accessible = document.createElement('span');
+    accessible.className = 'sr-only';
+    accessible.textContent = translations.en.introTitle;
+    const visual = document.createElement('span');
+    visual.setAttribute('aria-hidden', 'true');
+    rows.forEach(text => {
+      const row = document.createElement('span');
+      row.className = 'headline-row';
+      row.textContent = text;
+      visual.append(row);
+    });
+    headline.replaceChildren(accessible, visual);
+  }
+
+  function applyMotion() {
+    root.dataset.motion = paused ? 'paused' : 'running';
+    control.setAttribute('aria-pressed', String(paused));
+    control.setAttribute('aria-label', t(paused ? 'resumeMotion' : 'pauseMotion'));
+    control.firstElementChild.textContent = paused ? '▶' : 'Ⅱ';
+    if (paused) document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+  }
+  control.addEventListener('click', () => {
+    userChoseMotion = true;
+    paused = !paused;
+    applyMotion();
+  });
+  reduced.addEventListener('change', () => {
+    if (!userChoseMotion) paused = reduced.matches;
+    applyMotion();
+  });
+  document.getElementById('languageSelect').addEventListener('change', () => {
+    decorateHeadline();
+    applyMotion();
+  });
+  document.getElementById('resetPreferences').addEventListener('click', () => {
+    userChoseMotion = false;
+    paused = reduced.matches;
+    decorateHeadline();
+    applyMotion();
+  });
+  decorateHeadline();
+  applyMotion();
+
+  if ('IntersectionObserver' in window && !paused) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.06, rootMargin: '0px 0px -24px 0px' });
+    const elements = document.querySelectorAll(
+      '.section-head, .about-copy, .about-photo, .product-visual, .product-copy, ' +
+      '.crash-entry, .stats-row, .comparison, .gallery-grid .photo, ' +
+      '.partner-row, .gift-note, .milestones li, .contact-links a'
+    );
+    elements.forEach(el => {
+      el.classList.add('reveal');
+      if (el.getBoundingClientRect().top < innerHeight - 24) el.classList.add('is-visible');
+      else observer.observe(el);
+    });
+    root.classList.add('motion-ready');
+  }
+
+  // Prevent decorative loops consuming resources in background tabs.
+  document.addEventListener('visibilitychange', () => {
+    root.dataset.motion = document.hidden || paused ? 'paused' : 'running';
+  });
+
+  // Swipe the existing full-size image viewer; vertical gestures keep their normal behavior.
+  const stage = document.querySelector('.lightbox-stage');
+  let start = null;
+  stage.addEventListener('touchstart', event => {
+    if (event.touches.length !== 1) { start = null; return; }
+    start = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+  }, { passive: true });
+  stage.addEventListener('touchend', event => {
+    if (!start || !event.changedTouches.length) return;
+    const dx = event.changedTouches[0].clientX - start.x;
+    const dy = event.changedTouches[0].clientY - start.y;
+    if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      document.getElementById(dx < 0 ? 'nextImage' : 'previousImage').click();
+    }
+    start = null;
+  }, { passive: true });
+  stage.addEventListener('touchcancel', () => { start = null; }, { passive: true });
+
+  // Keep the original back-to-top control consistent with the motion preference.
+  document.getElementById('backToTop').addEventListener('click', () => {
+    if (paused) window.scrollTo({ top: 0, behavior: 'instant' });
+  });
+})();
+
+</script>
+</body>
+      </html>
